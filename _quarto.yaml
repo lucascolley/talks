@@ -1,0 +1,37 @@
+---
+project:
+  type: website
+
+format:
+  html:
+    theme: cyborg
+  revealjs:
+    auto-stretch: false
+    callout-appearance: simple
+    code-copy: true
+    filters:
+      - _filters/slugify.lua
+    footer: "{{< meta title >}} - <https://lucascolley.github.io/talks>"
+    hash-type: number
+    history: false
+    link-external-icon: true
+    mermaid:
+      theme: dark
+    menu:
+      hideMissingTitles: true
+      useTextContentForMissingTitles: false
+    preview-links: true
+    slide-number: true
+    theme: dark
+    transition: none
+
+# website:
+#   favicon: /assets/images/favicon.ico
+#   navbar:
+#     tools:
+#       - icon: house
+#         href: https://lucascolley.github.io
+#       - icon: github
+#         href: https://github.com/lucascolley/talks
+#   site-url: https://lucascolley.github.io/talks
+#   title: ""

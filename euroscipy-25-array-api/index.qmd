@@ -1,0 +1,24 @@
+---
+author: "[Lucas Colley](https://lucascolley.github.io)"
+date: 2025-08-20
+format: revealjs
+subtitle: "[EuroSciPy 2025](https://euroscipy.org)"
+title: "A Hitchhiker's Guide to the Array API Standard Ecosystem"
+---
+
+# About Me
+
+::: {layout="[70,30]"}
+
+::: {#first-column}
+
+- SciPy Maintainer
+- Consortium for Python Data API Standards Member
+- Computer Science & Philosophy Undergraduate, University of Oxford
+- Mentee @ prefix.dev (European Summer of Code)
+
+:::
+
+![](figures/headshot.png){fig-align="right"}
+
+:::

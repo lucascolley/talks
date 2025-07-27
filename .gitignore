@@ -1,3 +1,10 @@
 # pixi environments
 .pixi/*
 !.pixi/config.toml
+# quarto
+*.quarto_ipynb
+.quarto/
+_site
+index-listing.json
+site_libs
+.luarc.json
