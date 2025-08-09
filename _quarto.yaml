@@ -25,13 +25,13 @@ format:
     theme: dark
     transition: none
 
-# website:
-#   favicon: /assets/images/favicon.ico
-#   navbar:
-#     tools:
-#       - icon: house
-#         href: https://lucascolley.github.io
-#       - icon: github
-#         href: https://github.com/lucascolley/talks
-#   site-url: https://lucascolley.github.io/talks
-#   title: ""
+website:
+  favicon: /assets/images/favicon.ico
+  navbar:
+    tools:
+      - icon: house
+        href: https://lucascolley.github.io
+      - icon: github
+        href: https://github.com/lucascolley/talks
+  site-url: https://lucascolley.github.io/talks
+  title: ""
