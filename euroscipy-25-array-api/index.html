@@ -142,6 +142,11 @@
 
   <p class="date">2025-08-20</p>
 </section>
+<section class="title-slide slide level1 center">
+<h1>WARNING — DRAFT</h1>
+
+</section>
+
 <section>
 <section class="title-slide slide level1 center" data-menu-title="QR Code">
 <h1></h1>
@@ -191,7 +196,8 @@
 <section class="slide level2">
 <h2>Arrays</h2>
 <ul>
-<li>…</li>
+<li>what is an array?</li>
+<li>used everywhere</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -200,30 +206,40 @@
 <li>Diagrams from SciPy talk</li>
 <li>fractured to unified</li>
 </ul>
-<p>#&nbsp;Motivation</p>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Motivation</h1>
+
 </section>
 <section class="slide level2">
 <h2>Why? — End Users</h2>
 <ul>
-<li>…</li>
+<li>want to be able to switch array libraries without reinventing their entire stack</li>
+<li>try out new hardware</li>
+<li>try out functionality specific to an array library</li>
 </ul>
 </section>
 <section class="slide level2">
 <h2>Why? — Array <em>consuming</em> libraries</h2>
 <ul>
-<li>…</li>
+<li>provide users with hardware acceleration and interoperability</li>
+<li><em>without</em> maintenance burden increasing massively</li>
 </ul>
 </section>
 <section class="slide level2">
 <h2>Why? — Array <em>providing</em> libraries</h2>
 <ul>
-<li>…</li>
+<li>given a concrete API to aim to implement</li>
+<li>rewarded with automatic compatibility with consuming libraries</li>
 </ul>
 </section>
 <section class="slide level2">
 <h2>Why? — Ecosystem</h2>
 <ul>
-<li>…</li>
+<li>reduce duplication</li>
+<li>functionality maintained in one place</li>
+<li>diagrams from last year</li>
 </ul>
 </section></section>
 <section>
@@ -235,20 +251,22 @@
 <h2>How?</h2>
 <ul>
 <li>array-agnostic code</li>
-<li>expanding circle diagram</li>
+<li>the implementation approach: expanding circle diagram</li>
 </ul>
 </section></section>
 <section>
 <section class="title-slide slide level1 center">
 <h1>Tour of the ecosystem</h1>
 <ul>
-<li>diagram</li>
+<li>diagram — the libraries making this implementation possible</li>
 </ul>
 </section>
 <section class="slide level2">
 <h2>Tour — <code>array-api</code></h2>
 <ul>
 <li>developed by a cross-ecosystem consortium</li>
+<li>what is it?</li>
+<li>who is it for? providers/consumers/end-users?</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -261,31 +279,39 @@
 <section class="slide level2">
 <h2>Tour — <code>array-api-tests</code></h2>
 <ul>
-<li>…</li>
+<li>what is it?</li>
+<li>who is it for? providers/consumers/end-users?</li>
 </ul>
 </section>
 <section class="slide level2">
 <h2>Tour — <code>array-api-compat</code></h2>
 <ul>
-<li>…</li>
+<li>what is it?</li>
+<li>who is it for? providers/consumers/end-users?</li>
+<li>what does real usage look like?</li>
 </ul>
 </section>
 <section class="slide level2">
 <h2>Tour — <code>array-api-strict</code></h2>
 <ul>
-<li>…</li>
+<li>what is it?</li>
+<li>who is it for? providers/consumers/end-users?</li>
+<li>what does real usage look like?</li>
 </ul>
 </section>
 <section class="slide level2">
 <h2>Tour — <code>array-api-extra</code></h2>
 <ul>
-<li>…</li>
+<li>what is it?</li>
+<li>who is it for? providers/consumers/end-users?</li>
+<li>what does real usage look like?</li>
 </ul>
 </section>
 <section class="slide level2">
 <h2>Tour — <code>array-api-typing</code></h2>
 <ul>
-<li>…</li>
+<li>what is it?</li>
+<li>who is it for? providers/consumers/end-users?</li>
 </ul>
 </section></section>
 <section>
@@ -296,7 +322,7 @@
 <section class="slide level2">
 <h2>Status — Ecosystem Overview</h2>
 <ul>
-<li>…</li>
+<li>summarise support across providers and consumers</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -321,19 +347,24 @@
 <section class="slide level2">
 <h2>Bonus Projects</h2>
 <ul>
+<li>marray</li>
+<li>quantity-array (prototype)</li>
 <li>…</li>
 </ul>
 </section>
 <section class="slide level2">
 <h2>What’s next?</h2>
 <ul>
+<li>wider ecosystem adoption</li>
 <li>…</li>
+<li>upstream testing utilities from <code>scipy</code>/<code>scikit-learn</code> to <code>array-api-extra</code></li>
 </ul>
 </section>
 <section class="slide level2">
 <h2>What else?</h2>
 <ul>
-<li>dispatching</li>
+<li>SciPy compiled code: delegation, translation, dispatching</li>
+<li>…</li>
 </ul>
 </section>
 <section class="slide level2">
