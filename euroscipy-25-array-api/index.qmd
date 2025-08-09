@@ -149,6 +149,11 @@ slug: euroscipy-25-array-api
 - SciPy compiled code: delegation, translation, dispatching
 - ...
 
+## Honourable mentions
+
+- Pixi for thorough testing and developer experience
+- Quarto for making these slides
+
 ## Thanks!
 
 - ...
