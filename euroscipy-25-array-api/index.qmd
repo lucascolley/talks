@@ -7,6 +7,8 @@ title: "A Hitchhiker's Guide to the Array API Standard Ecosystem"
 slug: euroscipy-25-array-api
 ---
 
+# WARNING — DRAFT
+
 {{< include /_includes/qr-code.qmd >}}
 
 ## About Me
@@ -29,7 +31,8 @@ slug: euroscipy-25-array-api
 
 ## Arrays
 
-- ...
+- what is an array?
+- used everywhere
 
 ## Ecosystem
 
@@ -40,7 +43,7 @@ slug: euroscipy-25-array-api
 
 ## Why? — End Users
 
-- ...
+- want to be able to switch array libraries without reinventing their entire stack
 
 ## Why? — Array *consuming* libraries
 
@@ -48,11 +51,13 @@ slug: euroscipy-25-array-api
 
 ## Why? — Array *providing* libraries
 
-- ...
+- a concrete API to implement
+- rewarded with automatic compatibility with consuming libraries
 
 ## Why? — Ecosystem
 
-- ...
+- reduce duplication
+- 
 
 # Solution
 
