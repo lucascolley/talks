@@ -3,7 +3,7 @@
 !.pixi/config.toml
 # quarto
 *.quarto_ipynb
-.quarto/
+/.quarto/
 _site
 index-listing.json
 site_libs

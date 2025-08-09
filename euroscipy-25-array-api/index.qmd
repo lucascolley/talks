@@ -6,19 +6,116 @@ subtitle: "[EuroSciPy 2025](https://euroscipy.org)"
 title: "A Hitchhiker's Guide to the Array API Standard Ecosystem"
 ---
 
-# About Me
+## About Me
 
 ::: {layout="[70,30]"}
 
 ::: {#first-column}
 
-- SciPy Maintainer
+- Maintainer: SciPy, Pixi, array-api-extra
 - Consortium for Python Data API Standards Member
 - Computer Science & Philosophy Undergraduate, University of Oxford
-- Mentee @ prefix.dev (European Summer of Code)
+- Mentee @ prefix.dev\
+(European Summer of Code)
 
 :::
 
 ![](figures/headshot.png){fig-align="right"}
 
 :::
+
+## Arrays
+
+- ...
+
+## Ecosystem
+
+- Diagrams from SciPy talk
+- fractured to unified
+
+## Why? — End Users
+
+- ...
+
+## Why? — Array *consuming* libraries
+
+- ...
+
+## Why? — Array *providing* libraries
+
+- ...
+
+## Why? — Ecosystem
+
+- ...
+
+## How?
+
+- array-agnostic code
+- expanding circle diagram
+
+## Tour of the ecosystem
+
+- diagram
+
+## Tour — `array-api`
+
+- developed by a cross-ecosystem consortium
+
+## The Array API Standard
+
+- link to Aaron's SciPy talk
+- past work, design principles, methodology
+
+## Tour — `array-api-tests`
+
+- ...
+
+## Tour — `array-api-compat`
+
+- ...
+
+## Tour — `array-api-strict`
+
+- ...
+
+## Tour — `array-api-extra`
+
+- ...
+
+## Tour — `array-api-typing`
+
+- ...
+
+## Status — Ecosystem Overview
+
+- ...
+
+## Status — Array Libraries
+
+- ...
+
+## Status — `scipy`
+
+- enable with experimental env var
+- coverage docs
+
+## Status — `scikit-learn`
+
+- ...
+
+## Bonus Projects
+
+- ...
+
+## What's next?
+
+- ...
+
+## What else?
+
+- dispatching
+
+## Thanks!
+
+- ...
