@@ -7,4 +7,4 @@
 _site
 index-listing.json
 site_libs
-.luarc.json
+/.luarc.json

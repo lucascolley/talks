@@ -6,6 +6,8 @@ subtitle: "[EuroSciPy 2025](https://euroscipy.org)"
 title: "A Hitchhiker's Guide to the Array API Standard Ecosystem"
 ---
 
+{{< include /_includes/qr-code.qmd >}}
+
 ## About Me
 
 ::: {layout="[70,30]"}
@@ -33,6 +35,8 @@ title: "A Hitchhiker's Guide to the Array API Standard Ecosystem"
 - Diagrams from SciPy talk
 - fractured to unified
 
+# Motivation
+
 ## Why? — End Users
 
 - ...
@@ -49,12 +53,14 @@ title: "A Hitchhiker's Guide to the Array API Standard Ecosystem"
 
 - ...
 
+# Solution
+
 ## How?
 
 - array-agnostic code
 - expanding circle diagram
 
-## Tour of the ecosystem
+# Tour of the ecosystem
 
 - diagram
 
@@ -86,6 +92,8 @@ title: "A Hitchhiker's Guide to the Array API Standard Ecosystem"
 ## Tour — `array-api-typing`
 
 - ...
+
+# Status
 
 ## Status — Ecosystem Overview
 
