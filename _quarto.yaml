@@ -26,7 +26,6 @@ format:
     transition: none
 
 website:
-  favicon: /assets/images/favicon.ico
   navbar:
     tools:
       - icon: house
@@ -34,4 +33,4 @@ website:
       - icon: github
         href: https://github.com/lucascolley/talks
   site-url: https://lucascolley.github.io/talks
-  title: ""
+  title: "Talks (by Lucas Colley)"
