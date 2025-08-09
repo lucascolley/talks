@@ -146,7 +146,8 @@ slug: euroscipy-25-array-api
 
 ## What else?
 
-- dispatching
+- SciPy compiled code: delegation, translation, dispatching
+- ...
 
 ## Thanks!
 
