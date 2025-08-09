@@ -24,11 +24,13 @@ ul.task-list li input[type="checkbox"] {
 
 
 <script src="/talks/site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="/talks/site_libs/quarto-nav/headroom.min.js"></script>
 <script src="/talks/site_libs/clipboard/clipboard.min.js"></script>
 <script src="/talks/site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="/talks/site_libs/quarto-search/fuse.min.js"></script>
 <script src="/talks/site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="/talks/">
+<link href="/talks/.//assets/images/favicon.ico" rel="icon">
 <script src="/talks/site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="/talks/site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="/talks/site_libs/quarto-html/popper.min.js"></script>
@@ -40,11 +42,11 @@ ul.task-list li input[type="checkbox"] {
 <link href="/talks/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="/talks/site_libs/bootstrap/bootstrap-3724f5e479fe1cfed0b54a109b26987a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
+  "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
+  "panel-placement": "end",
+  "type": "overlay",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -70,11 +72,22 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="fullcontent quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+        <div class="quarto-navbar-tools tools-end">
+    <a href="https://lucascolley.github.io" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-house"></i></a>
+    <a href="https://github.com/lucascolley/talks" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
@@ -178,7 +191,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/lucascolley\.github\.io\/talks\/");
+        var filterRegex = new RegExp("https:\/\/lucascolley\.github\.io\/talks");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
