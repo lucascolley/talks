@@ -4,6 +4,7 @@ date: 2025-08-20
 format: revealjs
 subtitle: "[EuroSciPy 2025](https://euroscipy.org)"
 title: "A Hitchhiker's Guide to the Array API Standard Ecosystem"
+slug: euroscipy-25-array-api
 ---
 
 {{< include /_includes/qr-code.qmd >}}

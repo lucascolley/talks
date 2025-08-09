@@ -9,8 +9,6 @@ format:
     auto-stretch: false
     callout-appearance: simple
     code-copy: true
-    filters:
-      - _filters/slugify.lua
     footer: "{{< meta title >}} - <https://lucascolley.github.io/talks>"
     hash-type: number
     history: false
