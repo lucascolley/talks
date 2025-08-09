@@ -44,35 +44,41 @@ slug: euroscipy-25-array-api
 ## Why? — End Users
 
 - want to be able to switch array libraries without reinventing their entire stack
+- try out new hardware
+- try out functionality specific to an array library
 
 ## Why? — Array *consuming* libraries
 
-- ...
+- provide users with hardware acceleration and interoperability
+- *without* maintenance burden increasing massively
 
 ## Why? — Array *providing* libraries
 
-- a concrete API to implement
+- given a concrete API to aim to implement
 - rewarded with automatic compatibility with consuming libraries
 
 ## Why? — Ecosystem
 
 - reduce duplication
-- 
+- functionality maintained in one place
+- diagrams from last year
 
 # Solution
 
 ## How?
 
 - array-agnostic code
-- expanding circle diagram
+- the implementation approach: expanding circle diagram
 
 # Tour of the ecosystem
 
-- diagram
+- diagram — the libraries making this implementation possible
 
 ## Tour — `array-api`
 
 - developed by a cross-ecosystem consortium
+- what is it?
+- who is it for? providers/consumers/end-users?
 
 ## The Array API Standard
 
@@ -81,29 +87,37 @@ slug: euroscipy-25-array-api
 
 ## Tour — `array-api-tests`
 
-- ...
+- what is it?
+- who is it for? providers/consumers/end-users?
 
 ## Tour — `array-api-compat`
 
-- ...
+- what is it?
+- who is it for? providers/consumers/end-users?
+- what does real usage look like?
 
 ## Tour — `array-api-strict`
 
-- ...
+- what is it?
+- who is it for? providers/consumers/end-users?
+- what does real usage look like?
 
 ## Tour — `array-api-extra`
 
-- ...
+- what is it?
+- who is it for? providers/consumers/end-users?
+- what does real usage look like?
 
 ## Tour — `array-api-typing`
 
-- ...
+- what is it?
+- who is it for? providers/consumers/end-users?
 
 # Status
 
 ## Status — Ecosystem Overview
 
-- ...
+- summarise support across providers and consumers
 
 ## Status — Array Libraries
 
@@ -120,11 +134,15 @@ slug: euroscipy-25-array-api
 
 ## Bonus Projects
 
+- marray
+- quantity-array (prototype)
 - ...
 
 ## What's next?
 
+- wider ecosystem adoption
 - ...
+- upstream testing utilities from `scipy`/`scikit-learn` to `array-api-extra`
 
 ## What else?
 
