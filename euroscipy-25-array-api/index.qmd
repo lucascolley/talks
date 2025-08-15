@@ -31,7 +31,9 @@ slug: euroscipy-25-array-api
 
 ## Arrays
 
-- what is an array?
+- N-dimensional data structure
+- shape, data type
+- fast
 - used everywhere
 
 ## Ecosystem
@@ -70,13 +72,19 @@ slug: euroscipy-25-array-api
 - array-agnostic code
 - the implementation approach: expanding circle diagram
 
+## The Consortium
+
+- 'The Consortium for Python Data API Standards'
+- [https://data-apis.org]()
+- cross-ecosystem consortium
+- has been working on this for 5 years now
+
 # Tour of the ecosystem
 
 - diagram — the libraries making this implementation possible
 
 ## Tour — `array-api`
 
-- developed by a cross-ecosystem consortium
 - what is it?
 - who is it for? providers/consumers/end-users?
 
@@ -149,11 +157,9 @@ slug: euroscipy-25-array-api
 - SciPy compiled code: delegation, translation, dispatching
 - ...
 
-## Honourable mentions
+## With thanks to:
 
-- Pixi for thorough testing and developer experience
-- Quarto for making these slides
-
-## Thanks!
-
-- ...
+- all contributors to the projects discussed in this talk
+- Ralf Gommers for leadership of the Consortium
+- Patrick J. Roddy for this talk template
+- the EuroSciPy organisers and volunteers!
