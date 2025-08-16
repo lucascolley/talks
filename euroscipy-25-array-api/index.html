@@ -176,10 +176,10 @@
 <div class="quarto-layout-row">
 <div id="first-column" class="quarto-layout-cell" style="flex-basis: 70.0%;justify-content: flex-start;">
 <ul>
-<li>Maintainer: SciPy, Pixi, array-api-extra</li>
+<li>Maintainer: SciPy, <a href="https://pixi.sh/latest/">Pixi</a>, array-api-extra</li>
 <li>Consortium for Python Data API Standards Member</li>
 <li>Computer Science &amp; Philosophy Undergraduate, University of Oxford</li>
-<li>Mentee @ prefix.dev<br>
+<li>Working @ <a href="https://prefix.dev">prefix.dev</a><br>
 (European Summer of Code)</li>
 </ul>
 </div>
@@ -194,18 +194,58 @@
 </div>
 </section>
 <section class="slide level2">
+<h2>Agenda</h2>
+<ol type="1">
+<li>The Idea, Motivation, and Solution</li>
+<li>Tour of the Ecosystem</li>
+<li>Status and Looking Forwards</li>
+</ol>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>The Idea</h1>
+
+</section>
+<section class="slide level2">
 <h2>Arrays</h2>
 <ul>
-<li>what is an array?</li>
+<li>N-dimensional, grid-like data structure</li>
+<li>Most famously, <code>numpy.ndarray</code></li>
+<li>“rectangular” shape, data type</li>
+<li>fast, easy to manipulate</li>
 <li>used everywhere</li>
 </ul>
 </section>
 <section class="slide level2">
-<h2>Ecosystem</h2>
+<h2>Ecosystem (now)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/array-ecosystem.png"></p>
+<figcaption>Credit: <a href="https://youtu.be/16rB-fosAWw">Aaron Meurer, ‘Python Array API Standard’, SciPy 2023</a></figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level2">
+<h2>Ecosystem (the idea)</h2>
 <ul>
-<li>Diagrams from SciPy talk</li>
-<li>fractured to unified</li>
+<li>TODO: diagram with lines removed (divided to unified)</li>
+<li>we want to remove these barriers between array ecosystems</li>
+<li>make each sub-ecosystem as interoperable as is helpful</li>
+<li>+ interoperability with future tools</li>
 </ul>
+<aside class="notes">
+<p>The idea of the talk: while some array consumer libs are very specific to one array type, lots of them are not really tied to one array type, or are only so tied by happenstance. The functionality they implement just consumes “arrays” of some sort.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section></section>
 <section>
 <section class="title-slide slide level1 center">
@@ -213,11 +253,25 @@
 
 </section>
 <section class="slide level2">
-<h2>Why? — End Users</h2>
+<h2>Why? — End Users (1)</h2>
 <ul>
-<li>want to be able to switch array libraries without reinventing their entire stack</li>
+<li>want to be able to switch array libraries without reinventing their entire stack
+<ul>
+<li>real-world example: a reinforcement learning lab shifts their core pipelines from PyTorch to JAX<sup>1</sup></li>
+<li>they probably had a lot of extra tools/scripts that are not specific to their Reinforcement Learning application (e.g.&nbsp;I/O, functionality found in SciPy)</li>
+<li>it shouldn’t be difficult to keep these tools/scripts working</li>
+</ul></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn1"><p><a href="https://chrislu.page/blog/meta-disco/">https://chrislu.page/blog/meta-disco/</a></p></li></ol></aside></section>
+<section class="slide level2">
+<h2>Why? — End Users (2)</h2>
+<ul>
+<li>avoid repeated transfers between array libraries or devices in their pipelines</li>
+<li>enable experimentation:
+<ul>
 <li>try out new hardware</li>
 <li>try out functionality specific to an array library</li>
+</ul></li>
 </ul>
 </section>
 <section class="slide level2">
@@ -253,6 +307,15 @@
 <li>array-agnostic code</li>
 <li>the implementation approach: expanding circle diagram</li>
 </ul>
+</section>
+<section class="slide level2">
+<h2>The Consortium</h2>
+<ul>
+<li>‘The Consortium for Python Data API Standards’</li>
+<li><a href="">https://data-apis.org</a></li>
+<li>cross-ecosystem consortium</li>
+<li>has been working on this for 5 years now</li>
+</ul>
 </section></section>
 <section>
 <section class="title-slide slide level1 center">
@@ -262,9 +325,8 @@
 </ul>
 </section>
 <section class="slide level2">
-<h2>Tour — <code>array-api</code></h2>
+<h2>Tour — <a href="https://data-apis.org/array-api/"><code>array-api</code></a></h2>
 <ul>
-<li>developed by a cross-ecosystem consortium</li>
 <li>what is it?</li>
 <li>who is it for? providers/consumers/end-users?</li>
 </ul>
@@ -277,22 +339,14 @@
 </ul>
 </section>
 <section class="slide level2">
-<h2>Tour — <code>array-api-tests</code></h2>
+<h2>Tour — <a href="https://data-apis.org/array-api-tests/"><code>array-api-tests</code></a></h2>
 <ul>
 <li>what is it?</li>
 <li>who is it for? providers/consumers/end-users?</li>
 </ul>
 </section>
 <section class="slide level2">
-<h2>Tour — <code>array-api-compat</code></h2>
-<ul>
-<li>what is it?</li>
-<li>who is it for? providers/consumers/end-users?</li>
-<li>what does real usage look like?</li>
-</ul>
-</section>
-<section class="slide level2">
-<h2>Tour — <code>array-api-strict</code></h2>
+<h2>Tour — <a href="https://data-apis.org/array-api-compat/"><code>array-api-compat</code></a></h2>
 <ul>
 <li>what is it?</li>
 <li>who is it for? providers/consumers/end-users?</li>
@@ -300,7 +354,7 @@
 </ul>
 </section>
 <section class="slide level2">
-<h2>Tour — <code>array-api-extra</code></h2>
+<h2>Tour — <a href="https://data-apis.org/array-api-strict/"><code>array-api-strict</code></a></h2>
 <ul>
 <li>what is it?</li>
 <li>who is it for? providers/consumers/end-users?</li>
@@ -308,7 +362,15 @@
 </ul>
 </section>
 <section class="slide level2">
-<h2>Tour — <code>array-api-typing</code></h2>
+<h2>Tour — <a href="https://data-apis.org/array-api-extra/"><code>array-api-extra</code></a></h2>
+<ul>
+<li>what is it?</li>
+<li>who is it for? providers/consumers/end-users?</li>
+<li>what does real usage look like?</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://github.com/data-apis/array-api-typing"><code>array-api-typing</code></a></h2>
 <ul>
 <li>what is it?</li>
 <li>who is it for? providers/consumers/end-users?</li>
@@ -334,8 +396,11 @@
 <section class="slide level2">
 <h2>Status — <code>scipy</code></h2>
 <ul>
+<li>what is it using that I’ve talked about so far</li>
+<li>what else is it using?</li>
 <li>enable with experimental env var</li>
 <li>coverage docs</li>
+<li>checkout out Evgeni’s talk tomorrow for more info on recent and future SciPy work: https://euroscipy.org/talks/VAPDZX/</li>
 </ul>
 </section>
 <section class="slide level2">
@@ -368,13 +433,17 @@
 </ul>
 </section>
 <section class="slide level2">
-<h2>Thanks!</h2>
+<h2>With thanks to:</h2>
 <ul>
-<li>…</li>
+<li>all contributors to the projects discussed in this talk</li>
+<li>Ralf Gommers for leadership of the Consortium</li>
+<li>Patrick J. Roddy for this Quarto talk template</li>
+<li>the EuroSciPy organisers and volunteers!</li>
 </ul>
 
 
 </section></section>
+
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
