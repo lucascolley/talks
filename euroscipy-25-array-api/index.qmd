@@ -17,10 +17,10 @@ slug: euroscipy-25-array-api
 
 ::: {#first-column}
 
-- Maintainer: SciPy, Pixi, array-api-extra
+- Maintainer: SciPy, [Pixi](https://pixi.sh/latest/), array-api-extra
 - Consortium for Python Data API Standards Member
 - Computer Science & Philosophy Undergraduate, University of Oxford
-- Mentee @ prefix.dev\
+- Working @ [prefix.dev](https://prefix.dev)\
 (European Summer of Code)
 
 :::
@@ -35,14 +35,14 @@ slug: euroscipy-25-array-api
 2. Tour of the Ecosystem
 3. Status and Looking Forwards
 
-# Idea
+# The Idea
 
 ## Arrays
 
-- N-dimensional data structure
+- N-dimensional, grid-like data structure
 - Most famously, `numpy.ndarray`
-- shape, data type
-- fast
+- "rectangular" shape, data type
+- fast, easy to manipulate
 - used everywhere
 
 ## Ecosystem
@@ -57,6 +57,7 @@ slug: euroscipy-25-array-api
 
 - want to be able to switch array libraries without reinventing their entire stack
     - real-world example: Reinforcement Learning, shifting their pipelines to JAX (ref: https://github.com/luchris429/purejaxrl,)
+- avoid repeated transfers between array libraries or devices in their pipelines
 - try out new hardware
 - try out functionality specific to an array library
 
@@ -94,7 +95,7 @@ slug: euroscipy-25-array-api
 
 - diagram — the libraries making this implementation possible
 
-## Tour — `array-api`
+## Tour — [`array-api`](https://data-apis.org/array-api/)
 
 - what is it?
 - who is it for? providers/consumers/end-users?
@@ -104,30 +105,30 @@ slug: euroscipy-25-array-api
 - link to Aaron's SciPy talk
 - past work, design principles, methodology
 
-## Tour — `array-api-tests`
+## Tour — [`array-api-tests`](https://data-apis.org/array-api-tests/)
 
 - what is it?
 - who is it for? providers/consumers/end-users?
 
-## Tour — `array-api-compat`
-
-- what is it?
-- who is it for? providers/consumers/end-users?
-- what does real usage look like?
-
-## Tour — `array-api-strict`
+## Tour — [`array-api-compat`](https://data-apis.org/array-api-compat/)
 
 - what is it?
 - who is it for? providers/consumers/end-users?
 - what does real usage look like?
 
-## Tour — `array-api-extra`
+## Tour — [`array-api-strict`](https://data-apis.org/array-api-strict/)
 
 - what is it?
 - who is it for? providers/consumers/end-users?
 - what does real usage look like?
 
-## Tour — `array-api-typing`
+## Tour — [`array-api-extra`](https://data-apis.org/array-api-extra/)
+
+- what is it?
+- who is it for? providers/consumers/end-users?
+- what does real usage look like?
+
+## Tour — [`array-api-typing`](https://github.com/data-apis/array-api-typing)
 
 - what is it?
 - who is it for? providers/consumers/end-users?
@@ -175,5 +176,5 @@ slug: euroscipy-25-array-api
 
 - all contributors to the projects discussed in this talk
 - Ralf Gommers for leadership of the Consortium
-- Patrick J. Roddy for this talk template
+- Patrick J. Roddy for this Quarto talk template
 - the EuroSciPy organisers and volunteers!
