@@ -45,21 +45,38 @@ slug: euroscipy-25-array-api
 - fast, easy to manipulate
 - used everywhere
 
-## Ecosystem
+## Ecosystem (now)
 
-- Diagram from SciPy talk (credit it)
-- diagram with lines removed (divided to unified)
-- idea of the talk: some consuming libs very specifically consume one type of array, integrated into that ecosystem. But some other consuming libs are not really tied to one array type, or are only so tied by happenstance. The functionality itself in theory just consumes "arrays" of some sort
+![Credit: [Aaron Meurer, ‘Python Array API Standard’, SciPy 2023](https://youtu.be/16rB-fosAWw)](figures/array-ecosystem.png)
+
+## Ecosystem (the idea)
+
+- TODO: diagram with lines removed (divided to unified)
+- we want to remove these barriers between array ecosystems
+- make each sub-ecosystem as interoperable as is helpful
+- \+ interoperability with future tools
+
+::: {.notes}
+The idea of the talk: while some array consumer libs are very specific to one array type, lots of them are not really tied to one array type, or are only so tied by happenstance. The functionality they implement just consumes "arrays" of some sort.
+:::
 
 # Motivation
 
-## Why? — End Users
+## Why? — End Users (1)
 
 - want to be able to switch array libraries without reinventing their entire stack
-    - real-world example: Reinforcement Learning, shifting their pipelines to JAX (ref: https://github.com/luchris429/purejaxrl,)
+    - real-world example: a reinforcement learning lab shifts their core pipelines from PyTorch to JAX[^1]
+    - they probably had a lot of extra tools/scripts that are not specific to their Reinforcement Learning application (e.g. I/O, functionality found in SciPy)
+    - it shouldn't be difficult to keep these tools/scripts working
+
+[^1]: [https://chrislu.page/blog/meta-disco/](https://chrislu.page/blog/meta-disco/)
+
+## Why? — End Users (2)
+
 - avoid repeated transfers between array libraries or devices in their pipelines
-- try out new hardware
-- try out functionality specific to an array library
+- enable experimentation:
+    - try out new hardware
+    - try out functionality specific to an array library
 
 ## Why? — Array *consuming* libraries
 
