@@ -29,23 +29,34 @@ slug: euroscipy-25-array-api
 
 :::
 
+## Agenda
+
+1. The Idea, Motivation, and Solution
+2. Tour of the Ecosystem
+3. Status and Looking Forwards
+
+# Idea
+
 ## Arrays
 
 - N-dimensional data structure
+- Most famously, `numpy.ndarray`
 - shape, data type
 - fast
 - used everywhere
 
 ## Ecosystem
 
-- Diagrams from SciPy talk
-- fractured to unified
+- Diagram from SciPy talk (credit it)
+- diagram with lines removed (divided to unified)
+- idea of the talk: some consuming libs very specifically consume one type of array, integrated into that ecosystem. But some other consuming libs are not really tied to one array type, or are only so tied by happenstance. The functionality itself in theory just consumes "arrays" of some sort
 
 # Motivation
 
 ## Why? — End Users
 
 - want to be able to switch array libraries without reinventing their entire stack
+    - real-world example: Reinforcement Learning, shifting their pipelines to JAX (ref: https://github.com/luchris429/purejaxrl,)
 - try out new hardware
 - try out functionality specific to an array library
 
@@ -133,8 +144,11 @@ slug: euroscipy-25-array-api
 
 ## Status — `scipy`
 
+- what is it using that I've talked about so far
+- what else is it using?
 - enable with experimental env var
 - coverage docs
+- checkout out Evgeni's talk tomorrow for more info on recent and future SciPy work: https://euroscipy.org/talks/VAPDZX/
 
 ## Status — `scikit-learn`
 
