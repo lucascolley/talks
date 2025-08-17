@@ -217,6 +217,10 @@
 </ul>
 </section>
 <section class="slide level2">
+<h2>Arrays</h2>
+<p><img data-src="figures/numpy-usage.png"></p>
+</section>
+<section class="slide level2">
 <h2>Ecosystem (now)</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -253,20 +257,24 @@
 
 </section>
 <section class="slide level2">
-<h2>Why? — End Users (1)</h2>
+<h2>Why? — End Users (1/2)</h2>
 <ul>
 <li>want to be able to switch array libraries without reinventing their entire stack
 <ul>
 <li>real-world example: a reinforcement learning lab shifts their core pipelines from PyTorch to JAX<sup>1</sup></li>
-<li>they probably had a lot of extra tools/scripts that are not specific to their Reinforcement Learning application (e.g.&nbsp;I/O, functionality found in SciPy)</li>
+<li>they probably had a lot of extra tools/scripts that are not specific to their domain of application<br>
+(e.g.&nbsp;I/O, functionality found in SciPy)</li>
 <li>it shouldn’t be difficult to keep these tools/scripts working</li>
 </ul></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn1"><p><a href="https://chrislu.page/blog/meta-disco/">https://chrislu.page/blog/meta-disco/</a></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>thanks to <a href="https://github.com/ogrisel">Olivier Grisel</a> for this update!</p></li></ol></aside></section>
 <section class="slide level2">
-<h2>Why? — End Users (2)</h2>
+<h2>Why? — End Users (2/2)</h2>
 <ul>
-<li>avoid repeated transfers between array libraries or devices in their pipelines</li>
+<li>avoid repeated transfers between array libraries or devices in their pipelines
+<ul>
+<li>can be slow, and adds undesirable complexity</li>
+</ul></li>
 <li>enable experimentation:
 <ul>
 <li>try out new hardware</li>
@@ -278,14 +286,26 @@
 <h2>Why? — Array <em>consuming</em> libraries</h2>
 <ul>
 <li>provide users with hardware acceleration and interoperability</li>
-<li><em>without</em> maintenance burden increasing massively</li>
+<li><em>without</em> maintenance burden increasing massively
+<ul>
+<li>supporting 3 libraries shouldn’t be 3x the effort!</li>
+</ul></li>
+<li>libraries with useful functionality shouldn’t ‘die’ just because the ecosystem moves on to a new array library</li>
 </ul>
 </section>
 <section class="slide level2">
 <h2>Why? — Array <em>providing</em> libraries</h2>
 <ul>
-<li>given a concrete API to aim to implement</li>
+<li>existing libraries:
+<ul>
+<li>interoperability with shiny new consuming libraries</li>
+<li>API decisions can be made collaboratively with other array libraries</li>
+</ul></li>
+<li>new libraries:
+<ul>
+<li>given a concrete API to implement</li>
 <li>rewarded with automatic compatibility with consuming libraries</li>
+</ul></li>
 </ul>
 </section>
 <section class="slide level2">
@@ -310,12 +330,25 @@
 </section>
 <section class="slide level2">
 <h2>The Consortium</h2>
+<div class="quarto-layout-panel" data-layout="[85,15]">
+<div class="quarto-layout-row">
+<div id="first-column" class="quarto-layout-cell" style="flex-basis: 85.0%;justify-content: flex-start;">
 <ul>
 <li>‘The Consortium for Python Data API Standards’</li>
 <li><a href="">https://data-apis.org</a></li>
 <li>cross-ecosystem consortium</li>
 <li>has been working on this for 5 years now</li>
 </ul>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 15.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<p><img data-src="figures/data-apis.png" class="quarto-figure quarto-figure-right"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section class="title-slide slide level1 center">
@@ -333,8 +366,13 @@
 </section>
 <section class="slide level2">
 <h2>The Array API Standard</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/array-api-talk.png"></p>
+<figcaption><a href="https://youtu.be/16rB-fosAWw">Aaron’s SciPy 2023 Talk</a></figcaption>
+</figure>
+</div>
 <ul>
-<li>link to Aaron’s SciPy talk</li>
 <li>past work, design principles, methodology</li>
 </ul>
 </section>
@@ -394,7 +432,7 @@
 </ul>
 </section>
 <section class="slide level2">
-<h2>Status — <code>scipy</code></h2>
+<h2>Status — <code>scipy</code> (1/x)</h2>
 <ul>
 <li>what is it using that I’ve talked about so far</li>
 <li>what else is it using?</li>
@@ -404,11 +442,48 @@
 </ul>
 </section>
 <section class="slide level2">
-<h2>Status — <code>scikit-learn</code></h2>
+<h2>Status — <code>scipy</code> (2/x)</h2>
+<p><img data-src="figures/scipy-languages.png" style="width:100.0%"></p>
+</section>
+<section class="slide level2">
+<h2>Status — <code>scipy</code> (2/x)</h2>
 <ul>
-<li>…</li>
+<li>TODO: compiled code: delegation, translation, dispatching</li>
 </ul>
 </section>
+<section class="slide level2">
+<h2>Status — <code>scikit-learn</code><sup>1</sup> (1/3)</h2>
+<ul>
+<li>experimental support (also uses <code>SCIPY_ARRAY_API</code> env var)</li>
+<li>vendoring <code>array-api-compat</code> and <code>array-api-extra</code></li>
+<li>3800+ tests:
+<ul>
+<li>libraries: <code>array-api-strict</code>, <code>cupy</code>, and <code>torch</code></li>
+<li>devices: CPU, MPS, CUDA (with GPU CI)</li>
+<li><code>float32</code> and <code>float64</code> dtypes</li>
+</ul></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>thanks to <a href="https://github.com/ogrisel">Olivier Grisel</a> for this update!</p></li></ol></aside></section>
+<section class="slide level2">
+<h2>Status — <code>scikit-learn</code><sup>1</sup> (2/3)</h2>
+<ul>
+<li>11 estimators (1 classifier, 1 regressor, 1 density estimator, 8 transformers)</li>
+<li>42 public functions (scoring functions and distances computation)</li>
+<li>Up to 30x speed-up observed when using a GPU on Google Colab for estimators such as Gaussian Mixture Models or PCA</li>
+<li><a href="https://scikit-learn.org/dev/modules/array_api.html">https://scikit-learn.org/dev/modules/array_api.html</a></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn3"><p>thanks to <a href="https://github.com/ogrisel">Olivier Grisel</a> for this update!</p></li></ol></aside></section>
+<section class="slide level2">
+<h2>Status — <code>scikit-learn</code><sup>1</sup> (3/3)</h2>
+<ul>
+<li><div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/sklearn-docs.png"></p>
+<figcaption>https://scikit-learn.org/dev/modules/array_api.html</figcaption>
+</figure>
+</div></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn4"><p>thanks to <a href="https://github.com/ogrisel">Olivier Grisel</a> for this update!</p></li></ol></aside></section>
 <section class="slide level2">
 <h2>Bonus Projects</h2>
 <ul>
@@ -426,19 +501,13 @@
 </ul>
 </section>
 <section class="slide level2">
-<h2>What else?</h2>
-<ul>
-<li>SciPy compiled code: delegation, translation, dispatching</li>
-<li>…</li>
-</ul>
-</section>
-<section class="slide level2">
 <h2>With thanks to:</h2>
 <ul>
 <li>all contributors to the projects discussed in this talk</li>
 <li>Ralf Gommers for leadership of the Consortium</li>
 <li>Patrick J. Roddy for this Quarto talk template</li>
-<li>the EuroSciPy organisers and volunteers!</li>
+<li>the EuroSciPy organisers and volunteers</li>
+<li>everyone for your attention!</li>
 </ul>
 
 
