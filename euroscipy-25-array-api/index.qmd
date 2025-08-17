@@ -45,6 +45,10 @@ slug: euroscipy-25-array-api
 - fast, easy to manipulate
 - used everywhere
 
+## Arrays
+
+![](figures/numpy-usage.png)
+
 ## Ecosystem (now)
 
 ![Credit: [Aaron Meurer, ‘Python Array API Standard’, SciPy 2023](https://youtu.be/16rB-fosAWw)](figures/array-ecosystem.png)
@@ -62,18 +66,20 @@ The idea of the talk: while some array consumer libs are very specific to one ar
 
 # Motivation
 
-## Why? — End Users (1)
+## Why? — End Users (1/2)
 
 - want to be able to switch array libraries without reinventing their entire stack
     - real-world example: a reinforcement learning lab shifts their core pipelines from PyTorch to JAX[^1]
-    - they probably had a lot of extra tools/scripts that are not specific to their Reinforcement Learning application (e.g. I/O, functionality found in SciPy)
+    - they probably had a lot of extra tools/scripts that are not specific to their domain of application\
+    (e.g. I/O, functionality found in SciPy)
     - it shouldn't be difficult to keep these tools/scripts working
 
 [^1]: [https://chrislu.page/blog/meta-disco/](https://chrislu.page/blog/meta-disco/)
 
-## Why? — End Users (2)
+## Why? — End Users (2/2)
 
 - avoid repeated transfers between array libraries or devices in their pipelines
+    - can be slow, and adds undesirable complexity
 - enable experimentation:
     - try out new hardware
     - try out functionality specific to an array library
@@ -82,11 +88,17 @@ The idea of the talk: while some array consumer libs are very specific to one ar
 
 - provide users with hardware acceleration and interoperability
 - *without* maintenance burden increasing massively
+    - supporting 3 libraries shouldn't be 3x the effort!
+- libraries with useful functionality shouldn't 'die' just because the ecosystem moves on to a new array library
 
 ## Why? — Array *providing* libraries
 
-- given a concrete API to aim to implement
-- rewarded with automatic compatibility with consuming libraries
+- existing libraries:
+    - interoperability with shiny new consuming libraries
+    - API decisions can be made collaboratively with other array libraries
+- new libraries:
+    - given a concrete API to implement
+    - rewarded with automatic compatibility with consuming libraries
 
 ## Why? — Ecosystem
 
@@ -168,9 +180,24 @@ The idea of the talk: while some array consumer libs are very specific to one ar
 - coverage docs
 - checkout out Evgeni's talk tomorrow for more info on recent and future SciPy work: https://euroscipy.org/talks/VAPDZX/
 
-## Status — `scikit-learn`
+## Status — `scikit-learn`[^1] (1/2)
 
-- ...
+- experimental support (also uses `SCIPY_ARRAY_API` env var)
+- vendoring `array-api-compat` and `array-api-extra`
+- 3800+ tests:
+    - libraries: `array-api-strict`, `cupy`, and `torch`
+    - devices: CPU, MPS, CUDA (with GPU CI)
+    - `float32` and `float64` dtypes
+
+[^1]: thanks to Olivier Grisel for this update!
+
+## Status — `scikit-learn`[^1] (2/2)
+
+- 11 estimators (1 classifier, 1 regressor, 1 density estimator, 8 transformers)
+- 42 public functions (scoring functions and distances computation)
+- Up to 30x speed-up observed when using a GPU on Google Colab for estimators such as Gaussian Mixture Models or PCA
+
+[^1]: thanks to [Olivier Grisel](https://github.com/ogrisel) for this update!
 
 ## Bonus Projects
 
@@ -194,4 +221,5 @@ The idea of the talk: while some array consumer libs are very specific to one ar
 - all contributors to the projects discussed in this talk
 - Ralf Gommers for leadership of the Consortium
 - Patrick J. Roddy for this Quarto talk template
-- the EuroSciPy organisers and volunteers!
+- the EuroSciPy organisers and volunteers
+- everyone for your attention!
