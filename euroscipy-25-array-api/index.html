@@ -218,7 +218,11 @@
 </section>
 <section class="slide level2">
 <h2>Arrays</h2>
-<p><img data-src="figures/numpy-usage.png"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/numpy-usage.png" class="quarto-figure quarto-figure-center" height="550"></p>
+</figure>
+</div>
 </section>
 <section class="slide level2">
 <h2>Ecosystem (now)</h2>
@@ -238,7 +242,11 @@
 <li>+ interoperability with future tools</li>
 </ul>
 <aside class="notes">
-<p>The idea of the talk: while some array consumer libs are very specific to one array type, lots of them are not really tied to one array type, or are only so tied by happenstance. The functionality they implement just consumes “arrays” of some sort.</p>
+<ul>
+<li>some array consumer libs are doing things very specific to one array type</li>
+<li>but lots are only circumstantially tied to an array type</li>
+<li>the functionality they implement just consumes “arrays” of some sort</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -267,7 +275,7 @@
 <li>it shouldn’t be difficult to keep these tools/scripts working</li>
 </ul></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>thanks to <a href="https://github.com/ogrisel">Olivier Grisel</a> for this update!</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn1"><p><a href="https://chrislu.page/blog/meta-disco/">https://chrislu.page/blog/meta-disco/</a></p></li></ol></aside></section>
 <section class="slide level2">
 <h2>Why? — End Users (2/2)</h2>
 <ul>
@@ -310,6 +318,7 @@
 </section>
 <section class="slide level2">
 <h2>Why? — Ecosystem</h2>
+<p>TODO:</p>
 <ul>
 <li>reduce duplication</li>
 <li>functionality maintained in one place</li>
@@ -323,6 +332,7 @@
 </section>
 <section class="slide level2">
 <h2>How?</h2>
+<p>TODO:</p>
 <ul>
 <li>array-agnostic code</li>
 <li>the implementation approach: expanding circle diagram</li>
@@ -353,12 +363,15 @@
 <section>
 <section class="title-slide slide level1 center">
 <h1>Tour of the ecosystem</h1>
-<ul>
-<li>diagram — the libraries making this implementation possible</li>
-</ul>
+
+</section>
+<section class="slide level2">
+<h2>Tour</h2>
+<p>TODO: diagram — the libraries making this implementation possible</p>
 </section>
 <section class="slide level2">
 <h2>Tour — <a href="https://data-apis.org/array-api/"><code>array-api</code></a></h2>
+<p>TODO:</p>
 <ul>
 <li>what is it?</li>
 <li>who is it for? providers/consumers/end-users?</li>
@@ -368,7 +381,7 @@
 <h2>The Array API Standard</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="figures/array-api-talk.png"></p>
+<p><img data-src="figures/array-api-talk.png" height="400"></p>
 <figcaption><a href="https://youtu.be/16rB-fosAWw">Aaron’s SciPy 2023 Talk</a></figcaption>
 </figure>
 </div>
@@ -378,6 +391,7 @@
 </section>
 <section class="slide level2">
 <h2>Tour — <a href="https://data-apis.org/array-api-tests/"><code>array-api-tests</code></a></h2>
+<p>TODO:</p>
 <ul>
 <li>what is it?</li>
 <li>who is it for? providers/consumers/end-users?</li>
@@ -385,14 +399,16 @@
 </section>
 <section class="slide level2">
 <h2>Tour — <a href="https://data-apis.org/array-api-compat/"><code>array-api-compat</code></a></h2>
+<p>TODO:</p>
 <ul>
 <li>what is it?</li>
 <li>who is it for? providers/consumers/end-users?</li>
-<li>what does real usage look like?</li>
+<li>what does real usage look like (code)?</li>
 </ul>
 </section>
 <section class="slide level2">
 <h2>Tour — <a href="https://data-apis.org/array-api-strict/"><code>array-api-strict</code></a></h2>
+<p>TODO:</p>
 <ul>
 <li>what is it?</li>
 <li>who is it for? providers/consumers/end-users?</li>
@@ -401,6 +417,7 @@
 </section>
 <section class="slide level2">
 <h2>Tour — <a href="https://data-apis.org/array-api-extra/"><code>array-api-extra</code></a></h2>
+<p>TODO:</p>
 <ul>
 <li>what is it?</li>
 <li>who is it for? providers/consumers/end-users?</li>
@@ -409,6 +426,7 @@
 </section>
 <section class="slide level2">
 <h2>Tour — <a href="https://github.com/data-apis/array-api-typing"><code>array-api-typing</code></a></h2>
+<p>TODO:</p>
 <ul>
 <li>what is it?</li>
 <li>who is it for? providers/consumers/end-users?</li>
@@ -421,6 +439,7 @@
 </section>
 <section class="slide level2">
 <h2>Status — Ecosystem Overview</h2>
+<p>TODO:</p>
 <ul>
 <li>summarise support across providers and consumers</li>
 </ul>
@@ -433,22 +452,32 @@
 </section>
 <section class="slide level2">
 <h2>Status — <code>scipy</code> (1/x)</h2>
+<p>TODO:</p>
 <ul>
 <li>what is it using that I’ve talked about so far</li>
 <li>what else is it using?</li>
-<li>enable with experimental env var</li>
-<li>coverage docs</li>
-<li>checkout out Evgeni’s talk tomorrow for more info on recent and future SciPy work: https://euroscipy.org/talks/VAPDZX/</li>
 </ul>
 </section>
 <section class="slide level2">
 <h2>Status — <code>scipy</code> (2/x)</h2>
+<p>TODO:</p>
+<ul>
+<li>enable with experimental env var</li>
+<li>coverage docs</li>
+<li>checkout out Evgeni’s talk tomorrow for more info on future SciPy work: <a href="https://euroscipy.org/talks/VAPDZX/">https://euroscipy.org/talks/VAPDZX/</a></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Status — <code>scipy</code> (3/x)</h2>
 <p><img data-src="figures/scipy-languages.png" style="width:100.0%"></p>
 </section>
 <section class="slide level2">
-<h2>Status — <code>scipy</code> (2/x)</h2>
+<h2>Status — <code>scipy</code> (3/x)</h2>
 <ul>
-<li>TODO: compiled code: delegation, translation, dispatching</li>
+<li>TODO: compiled code: delegation, translation, dispatching
+<ul>
+<li><code>spatial.transform</code> example</li>
+</ul></li>
 </ul>
 </section>
 <section class="slide level2">
@@ -463,37 +492,38 @@
 <li><code>float32</code> and <code>float64</code> dtypes</li>
 </ul></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>thanks to <a href="https://github.com/ogrisel">Olivier Grisel</a> for this update!</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>thanks to Olivier Grisel for this update!</p></li></ol></aside></section>
 <section class="slide level2">
 <h2>Status — <code>scikit-learn</code><sup>1</sup> (2/3)</h2>
 <ul>
 <li>11 estimators (1 classifier, 1 regressor, 1 density estimator, 8 transformers)</li>
 <li>42 public functions (scoring functions and distances computation)</li>
 <li>Up to 30x speed-up observed when using a GPU on Google Colab for estimators such as Gaussian Mixture Models or PCA</li>
-<li><a href="https://scikit-learn.org/dev/modules/array_api.html">https://scikit-learn.org/dev/modules/array_api.html</a></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn3"><p>thanks to <a href="https://github.com/ogrisel">Olivier Grisel</a> for this update!</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn3"><p>thanks to Olivier Grisel for this update!</p></li></ol></aside></section>
 <section class="slide level2">
-<h2>Status — <code>scikit-learn</code><sup>1</sup> (3/3)</h2>
-<ul>
-<li><div class="quarto-figure quarto-figure-center">
+<h2>Status — <code>scikit-learn</code> (3/3)</h2>
+<div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="figures/sklearn-docs.png"></p>
-<figcaption>https://scikit-learn.org/dev/modules/array_api.html</figcaption>
+<p><img data-src="figures/sklearn-docs.png" height="500"></p>
+<figcaption><a href="https://scikit-learn.org/dev/modules/array_api.html">https://scikit-learn.org/dev/modules/array_api.html</a></figcaption>
 </figure>
-</div></li>
-</ul>
-<aside><ol class="aside-footnotes"><li id="fn4"><p>thanks to <a href="https://github.com/ogrisel">Olivier Grisel</a> for this update!</p></li></ol></aside></section>
+</div>
+</section>
+<section class="slide level2">
+<h2>Status — other projects</h2>
+<p>Adopting the standard: - glass-dev/GLASS - magpylib - icaros-usc/pyribs - you? Let us know!</p>
+</section>
 <section class="slide level2">
 <h2>Bonus Projects</h2>
 <ul>
 <li>marray</li>
 <li>quantity-array (prototype)</li>
-<li>…</li>
 </ul>
 </section>
 <section class="slide level2">
 <h2>What’s next?</h2>
+<p>TODO:</p>
 <ul>
 <li>wider ecosystem adoption</li>
 <li>…</li>
