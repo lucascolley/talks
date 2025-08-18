@@ -228,18 +228,20 @@
 <h2>Ecosystem (now)</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="figures/array-ecosystem.png"></p>
+<p><img data-src="figures/array-ecosystem.png" style="width:100.0%"></p>
 <figcaption>Credit: <a href="https://youtu.be/16rB-fosAWw">Aaron Meurer, ‘Python Array API Standard’, SciPy 2023</a></figcaption>
 </figure>
 </div>
 </section>
 <section class="slide level2">
 <h2>Ecosystem (the idea)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/ecosystem-modified.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
 <ul>
-<li>TODO: diagram with lines removed (divided to unified)</li>
 <li>we want to remove these barriers between array ecosystems</li>
-<li>make each sub-ecosystem as interoperable as is helpful</li>
-<li>+ interoperability with future tools</li>
 </ul>
 <aside class="notes">
 <ul>
@@ -318,11 +320,13 @@
 </section>
 <section class="slide level2">
 <h2>Why? — Ecosystem</h2>
-<p>TODO:</p>
+<p><img data-src="figures/ecosystem-duplication.png"></p>
+</section>
+<section class="slide level2">
+<h2>Why? — Ecosystem</h2>
+<p><img data-src="figures/ecosystem-unified.png"></p>
 <ul>
-<li>reduce duplication</li>
-<li>functionality maintained in one place</li>
-<li>diagrams from last year</li>
+<li>reduce duplicate work and maintainer burden</li>
 </ul>
 </section></section>
 <section>
@@ -438,16 +442,14 @@
 
 </section>
 <section class="slide level2">
-<h2>Status — Ecosystem Overview</h2>
-<p>TODO:</p>
-<ul>
-<li>summarise support across providers and consumers</li>
-</ul>
-</section>
-<section class="slide level2">
 <h2>Status — Array Libraries</h2>
 <ul>
-<li>…</li>
+<li><code>numpy</code>, <code>cupy</code>, <code>jax.numpy</code>:<br>
+~full compatibility in main namespaces</li>
+<li><code>torch</code>: ~full compatibility via <code>array-api-compat</code></li>
+<li><code>dask.array</code>: decent support via <code>array-api-compat</code></li>
+<li>pretty good support in <code>ndonnx</code>, <code>cubed-dev/cubed</code></li>
+<li>interest from <code>paddle</code>, <code>mlx</code></li>
 </ul>
 </section>
 <section class="slide level2">
@@ -464,7 +466,6 @@
 <ul>
 <li>enable with experimental env var</li>
 <li>coverage docs</li>
-<li>checkout out Evgeni’s talk tomorrow for more info on future SciPy work: <a href="https://euroscipy.org/talks/VAPDZX/">https://euroscipy.org/talks/VAPDZX/</a></li>
 </ul>
 </section>
 <section class="slide level2">
@@ -492,7 +493,7 @@
 <li><code>float32</code> and <code>float64</code> dtypes</li>
 </ul></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>thanks to Olivier Grisel for this update!</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>thanks to <a href="https://github.com/ogrisel">Olivier Grisel</a> for this update!</p></li></ol></aside></section>
 <section class="slide level2">
 <h2>Status — <code>scikit-learn</code><sup>1</sup> (2/3)</h2>
 <ul>
@@ -500,7 +501,7 @@
 <li>42 public functions (scoring functions and distances computation)</li>
 <li>Up to 30x speed-up observed when using a GPU on Google Colab for estimators such as Gaussian Mixture Models or PCA</li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn3"><p>thanks to Olivier Grisel for this update!</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn3"><p>thanks to <a href="https://github.com/ogrisel">Olivier Grisel</a> for this update!</p></li></ol></aside></section>
 <section class="slide level2">
 <h2>Status — <code>scikit-learn</code> (3/3)</h2>
 <div class="quarto-figure quarto-figure-center">
@@ -512,22 +513,34 @@
 </section>
 <section class="slide level2">
 <h2>Status — other projects</h2>
-<p>Adopting the standard: - glass-dev/GLASS - magpylib - icaros-usc/pyribs - you? Let us know!</p>
+<ul>
+<li><code>glass-dev/GLASS</code></li>
+<li><code>magpylib</code></li>
+<li><code>icaros-usc/pyribs</code></li>
+<li><code>EleutherAI/polyapprox</code></li>
+<li><code>NeilGirdhar/efax</code></li>
+</ul>
 </section>
 <section class="slide level2">
 <h2>Bonus Projects</h2>
 <ul>
-<li>marray</li>
-<li>quantity-array (prototype)</li>
+<li><code>marray</code> — come and see my poster!</li>
+<li><code>quantity-array</code> (prototype)</li>
 </ul>
 </section>
 <section class="slide level2">
 <h2>What’s next?</h2>
-<p>TODO:</p>
 <ul>
-<li>wider ecosystem adoption</li>
-<li>…</li>
-<li>upstream testing utilities from <code>scipy</code>/<code>scikit-learn</code> to <code>array-api-extra</code></li>
+<li>mainly: more adoption in consuming libraries!</li>
+<li>upstreaming testing utilities from <code>scipy</code>/<code>scikit-learn</code><br>
+to <code>array-api-extra</code></li>
+<li><code>array-api-typing</code> development</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Sprint</h2>
+<ul>
+<li>Come and chat about the standard, and/or contribute to <code>array-api-extra</code> (or <code>scipy</code>)!</li>
 </ul>
 </section>
 <section class="slide level2">
