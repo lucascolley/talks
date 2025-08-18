@@ -51,14 +51,13 @@ slug: euroscipy-25-array-api
 
 ## Ecosystem (now)
 
-![Credit: [Aaron Meurer, ‘Python Array API Standard’, SciPy 2023](https://youtu.be/16rB-fosAWw)](figures/array-ecosystem.png)
+![Credit: [Aaron Meurer, ‘Python Array API Standard’, SciPy 2023](https://youtu.be/16rB-fosAWw)](figures/array-ecosystem.png){width=100% fig-align="center"}
 
 ## Ecosystem (the idea)
 
-- TODO: diagram with lines removed (divided to unified)
+![](figures/ecosystem-modified.png){width=100% fig-align="center"}
+
 - we want to remove these barriers between array ecosystems
-- make each sub-ecosystem as interoperable as is helpful
-- \+ interoperability with future tools
 
 ::: {.notes}
 - some array consumer libs are doing things very specific to one array type
@@ -104,11 +103,13 @@ slug: euroscipy-25-array-api
 
 ## Why? — Ecosystem
 
-TODO:
+![](figures/ecosystem-duplication.png)
 
-- reduce duplication
-- functionality maintained in one place
-- diagrams from last year
+## Why? — Ecosystem
+
+![](figures/ecosystem-unified.png)
+
+- reduce duplicate work and maintainer burden
 
 # Solution
 
@@ -196,15 +197,14 @@ TODO:
 
 # Status
 
-## Status — Ecosystem Overview
-
-TODO:
-
-- summarise support across providers and consumers
-
 ## Status — Array Libraries
 
-- ...
+- `numpy`, `cupy`, `jax.numpy`:\
+~full compatibility in main namespaces
+- `torch`: ~full compatibility via `array-api-compat`
+- `dask.array`: decent support via `array-api-compat`
+- pretty good support in `ndonnx`, `cubed-dev/cubed`
+- interest from `paddle`, `mlx`
 
 ## Status — `scipy` (1/x)
 
@@ -219,7 +219,6 @@ TODO:
 
 - enable with experimental env var
 - coverage docs
-- checkout out Evgeni's talk tomorrow for more info on future SciPy work: [https://euroscipy.org/talks/VAPDZX/](https://euroscipy.org/talks/VAPDZX/)
 
 ## Status — `scipy` (3/x)
 
@@ -239,7 +238,7 @@ TODO:
     - devices: CPU, MPS, CUDA (with GPU CI)
     - `float32` and `float64` dtypes
 
-[^2]: thanks to Olivier Grisel for this update!
+[^2]: thanks to [Olivier Grisel](https://github.com/ogrisel) for this update!
 
 ## Status — `scikit-learn`[^2] (2/3)
 
@@ -253,24 +252,27 @@ TODO:
 
 ## Status — other projects
 
-Adopting the standard:
-- glass-dev/GLASS
-- magpylib
-- icaros-usc/pyribs
-- you? Let us know!
+- `glass-dev/GLASS`
+- `magpylib`
+- `icaros-usc/pyribs`
+- `EleutherAI/polyapprox`
+- `NeilGirdhar/efax`
 
 ## Bonus Projects
 
-- marray
-- quantity-array (prototype)
+- `marray` — come and see my poster!
+- `quantity-array` (prototype)
 
 ## What's next?
 
-TODO:
+- mainly: more adoption in consuming libraries!
+- upstreaming testing utilities from `scipy`/`scikit-learn`\
+to `array-api-extra`
+- `array-api-typing` development
 
-- wider ecosystem adoption
-- ...
-- upstream testing utilities from `scipy`/`scikit-learn` to `array-api-extra`
+## Sprint
+
+- Come and chat about the standard, and/or contribute to `array-api-extra` (or `scipy`)!
 
 ## With thanks to:
 
