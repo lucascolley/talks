@@ -7,8 +7,6 @@ title: "A Hitchhiker's Guide to the Array API Standard Ecosystem"
 slug: euroscipy-25-array-api
 ---
 
-# WARNING — DRAFT
-
 {{< include /_includes/qr-code.qmd >}}
 
 ## About Me
@@ -135,7 +133,7 @@ Python Data API Standards'
 
 :::
 
-# Tour of the ecosystem
+# Tour of the array API standard ecosystem
 
 ## Tour
 
@@ -156,41 +154,116 @@ TODO:
 
 ## Tour — [`array-api-tests`](https://data-apis.org/array-api-tests/)
 
-TODO:
+- tests for compliance with the standard API specification
+- for array (providing) library developers
+- uses `hypothesis` (hear more in the SciPy 2023 talk)
 
-- what is it?
-- who is it for? providers/consumers/end-users?
+## Tour — [`array-api-compat`](https://data-apis.org/array-api-compat/) (1/2)
 
-## Tour — [`array-api-compat`](https://data-apis.org/array-api-compat/)
+- compatibility layer with existing array (providing) libraries
+- for use in array consuming libraries
+1. wrappers for compliant behaviour
+    - some very thin (e.g. NumPy), some quite large (e.g. PyTorch)
+    - exposes namespaces, e.g. `array_api_compat.numpy`
 
-TODO:
+## Tour — [`array-api-compat`](https://data-apis.org/array-api-compat/) (2/2)
 
-- what is it?
-- who is it for? providers/consumers/end-users?
-- what does real usage look like (code)?
+2. helper functions
+    - most interesting one: `array_namespace`
+    - get a compatible namespace for the input array
 
-## Tour — [`array-api-strict`](https://data-apis.org/array-api-strict/)
+```{.python code-line-numbers="3|6,7,10"}
+# scipy.cluster.vq.whiten
+def whiten(obs, check_finite=None):
+    xp = array_namespace(obs)
+    if check_finite is None:
+        check_finite = not is_lazy_array(obs)
+    obs = _asarray(obs, check_finite=check_finite, xp=xp)
+    std_dev = xp.std(obs, axis=0)
+    zero_std_mask = std_dev == 0
+    std_dev = xpx.at(std_dev, zero_std_mask).set(1.0)
+    if check_finite and xp.any(zero_std_mask):
+        {snip}
+    return obs / std_dev
+```
 
-TODO:
+## Tour — [`array-api-strict`](https://data-apis.org/array-api-strict/) (1/2)
 
-- what is it?
-- who is it for? providers/consumers/end-users?
-- what does real usage look like?
+- strict, minimal implementation of the standard
+- for consuming library developers to test their libraries
+- ensure you are not relying on unspecified behaviour
 
-## Tour — [`array-api-extra`](https://data-apis.org/array-api-extra/)
+## Tour — [`array-api-strict`](https://data-apis.org/array-api-strict/) (2/2)
 
-TODO:
+```{.python code-line-numbers="2,6|8"}
+# scipy/cluster/tests/test_hierarchy.py
+def test_linkage_cophenet_tdist_Z(self, xp):
+    # Tests cophenet(Z) on tdist data set.
+    expectedM = xp.asarray([268, 295, 255, 255, 295, 295, 268, 268, 295, 295,
+                            295, 138, 219, 295, 295])
+    Z = xp.asarray(hierarchy_test_data.linkage_ytdist_single)
+    M = cophenet(Z)
+    xp_assert_close(M, xp.asarray(expectedM, dtype=xp.float64), atol=1e-10)
+```
 
-- what is it?
-- who is it for? providers/consumers/end-users?
-- what does real usage look like?
+- can parametrise existing tests with `xp`
+    - configure `pytest` to include `array_api_strict`\
+    in `xp` when it is installed
+
+## Tour — [`array-api-extra`](https://data-apis.org/array-api-extra/) (1/3)
+
+- for consuming library developers
+- abbreviated to `xpx` in code
+
+1. extra functions built on top of the standard
+    - sharing functions that may be widely useful
+    - implementations in terms of the standard
+    - also, delegation to existing implementations
+
+## Tour — [`array-api-extra`](https://data-apis.org/array-api-extra/) (1/3)
+
+![](figures/xpx-reference.png){width=65% fig-align="center"}
+
+## Tour — [`array-api-extra`](https://data-apis.org/array-api-extra/) (2/3)
+
+2. tools for lazy backends (JAX, Dask) and read-only arrays
+    - `xpx.at` — index update functionality for libraries lacking in-place modifications
+
+```{.python code-line-numbers="3"}
+# scipy.spatial.transform.Rotation.inv
+def inv(quat: Array) -> Array:
+    return xpx.at(quat)[..., :3].multiply(-1, copy=True)
+```
+```{.python code-line-numbers="3,4,5,6,7"}
+# Cython implementation for NumPy
+def inv(double[:, :] quat) -> double[:, :]:
+    cdef np.ndarray[double, ndim=2] q_inv = np.array(quat, copy=True)
+    q_inv[:, 0] *= -1
+    q_inv[:, 1] *= -1
+    q_inv[:, 2] *= -1
+    return q_inv
+```
+
+## Tour — [`array-api-extra`](https://data-apis.org/array-api-extra/) (2/3)
+
+2. tools for lazy backends (JAX, Dask) and read-only arrays
+    - `xpx.at` — index update functionality for libraries lacking in-place modifications
+    - ![](figures/lazy-apply.png)
+
+## Tour — [`array-api-extra`](https://data-apis.org/array-api-extra/) (3/3)
+
+3. testing utilities for consuming libraries (more coming!)
+    - `xpx.testing`
+    - enable jitted JAX and allow Dask materialisation
+    - for use in an `xp` pytest fixture
+
+![](figures/xpx-testing.png)
 
 ## Tour — [`array-api-typing`](https://github.com/data-apis/array-api-typing)
 
-TODO:
-
-- what is it?
-- who is it for? providers/consumers/end-users?
+- experimental static typing support
+- still very early in development
+- for consuming library authors with typed libraries
 
 # Status
 
@@ -200,7 +273,7 @@ TODO:
 ~full compatibility in main namespaces
 - `torch`: ~full compatibility via `array-api-compat`
 - `dask.array`: decent support via `array-api-compat`
-- pretty good support in `ndonnx`, `cubed-dev/cubed`
+- pretty good support in `ndonnx`, `cubed-dev/cubed`, `pydata/sparse`
 - interest from `paddle`, `mlx`
 
 ## Status — `scipy` (1/3)
@@ -210,6 +283,7 @@ TODO:
 - vendoring `array-api-compat` and `array-api-extra`
 - testing against `array-api-strict`, `cupy`, `torch`, `jax.numpy`, `dask.array`
 - CI: GPU job, `float32` PyTorch job
+    - using Pixi for reproducibility
 
 ## Status — `scipy` (2/3)
 
@@ -235,9 +309,18 @@ TODO:
 
 Approaches for compiled code:
 
-- delegation
-- translation (`scipy.spatial.transform`)
-- dispatching (discussion right after this!)
+- delegation (`if`-`else` to existing implementations)
+- dispatching (~automatic delegation)
+    - [discussion right after this!](https://euroscipy.org/talks/DN7SMP/)
+- translation to Python (`scipy.spatial.transform`)
+    - Existing Cython kernel for NumPy
+    - Python translation for other backends
+
+## Status — `scipy`[^3] (3/3)
+
+![](figures/rotation-benchmark.png){width=60% fig-align="center"}
+
+[^3]: thanks to [Martin Schuck](https://amacati.github.io) for this work and [benchmarks](https://github.com/scipy/scipy/pull/23249#issuecomment-3071232726) !
 
 ## Status — `scikit-learn`[^2] (1/3)
 
@@ -271,12 +354,15 @@ Approaches for compiled code:
 ## Bonus Projects
 
 - `marray` — come and see my poster!
-- `quantity-array` (prototype)
+- `quantity-array`
+    - prototype for units with any array backend
+
+# Looking Forwards
 
 ## What's next?
 
 - mainly: more adoption in consuming libraries!
-- upstreaming testing utilities from `scipy`/`scikit-learn`\
+- upstreaming testing utilities from `scipy` & `scikit-learn`\
 to `array-api-extra`
 - `array-api-typing` development
 
