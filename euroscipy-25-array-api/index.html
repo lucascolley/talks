@@ -30,6 +30,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #f8f8f2;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #f8f8f2; } /* Normal */
+    code span.al { color: #f07178; } /* Alert */
+    code span.an { color: #d4d0ab; } /* Annotation */
+    code span.at { color: #00e0e0; } /* Attribute */
+    code span.bn { color: #d4d0ab; } /* BaseN */
+    code span.bu { color: #abe338; } /* BuiltIn */
+    code span.cf { color: #ffa07a; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #abe338; } /* Char */
+    code span.cn { color: #ffd700; } /* Constant */
+    code span.co { color: #f8f8f2; font-style: italic; } /* Comment */
+    code span.cv { color: #ffd700; } /* CommentVar */
+    code span.do { color: #f8f8f2; } /* Documentation */
+    code span.dt { color: #ffa07a; } /* DataType */
+    code span.dv { color: #d4d0ab; } /* DecVal */
+    code span.er { color: #f07178; text-decoration: underline; } /* Error */
+    code span.ex { color: #00e0e0; font-weight: bold; } /* Extension */
+    code span.fl { color: #d4d0ab; } /* Float */
+    code span.fu { color: #ffa07a; } /* Function */
+    code span.im { color: #abe338; } /* Import */
+    code span.in { color: #d4d0ab; } /* Information */
+    code span.kw { color: #ffa07a; font-weight: bold; } /* Keyword */
+    code span.op { color: #ffa07a; } /* Operator */
+    code span.ot { color: #00e0e0; } /* Other */
+    code span.pp { color: #dcc6e0; } /* Preprocessor */
+    code span.re { color: #00e0e0; background-color: #f8f8f2; } /* RegionMarker */
+    code span.sc { color: #abe338; } /* SpecialChar */
+    code span.ss { color: #abe338; } /* SpecialString */
+    code span.st { color: #abe338; } /* String */
+    code span.va { color: #00e0e0; } /* Variable */
+    code span.vs { color: #abe338; } /* VerbatimString */
+    code span.wa { color: #dcc6e0; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-41b395beb884c6e1f0c6c06c54ad320a.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -142,11 +208,6 @@
 
   <p class="date">2025-08-20</p>
 </section>
-<section class="title-slide slide level1 center">
-<h1>WARNING — DRAFT</h1>
-
-</section>
-
 <section>
 <section class="title-slide slide level1 center" data-menu-title="QR Code">
 <h1></h1>
@@ -366,7 +427,7 @@
 </section></section>
 <section>
 <section class="title-slide slide level1 center">
-<h1>Tour of the ecosystem</h1>
+<h1>Tour of the array API standard ecosystem</h1>
 
 </section>
 <section class="slide level2">
@@ -395,45 +456,144 @@
 </section>
 <section class="slide level2">
 <h2>Tour — <a href="https://data-apis.org/array-api-tests/"><code>array-api-tests</code></a></h2>
-<p>TODO:</p>
 <ul>
-<li>what is it?</li>
-<li>who is it for? providers/consumers/end-users?</li>
+<li>tests for compliance with the standard API specification</li>
+<li>for array (providing) library developers</li>
+<li>uses <code>hypothesis</code> (hear more in the SciPy 2023 talk)</li>
 </ul>
 </section>
 <section class="slide level2">
-<h2>Tour — <a href="https://data-apis.org/array-api-compat/"><code>array-api-compat</code></a></h2>
-<p>TODO:</p>
+<h2>Tour — <a href="https://data-apis.org/array-api-compat/"><code>array-api-compat</code></a> (1/2)</h2>
 <ul>
-<li>what is it?</li>
-<li>who is it for? providers/consumers/end-users?</li>
-<li>what does real usage look like (code)?</li>
+<li>compatibility layer with existing array (providing) libraries</li>
+<li>for use in array consuming libraries</li>
+</ul>
+<ol type="1">
+<li>wrappers for compliant behaviour
+<ul>
+<li>some very thin (e.g.&nbsp;NumPy), some quite large (e.g.&nbsp;PyTorch)</li>
+<li>exposes namespaces, e.g.&nbsp;<code>array_api_compat.numpy</code></li>
+</ul></li>
+</ol>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://data-apis.org/array-api-compat/"><code>array-api-compat</code></a> (2/2)</h2>
+<ol start="2" type="1">
+<li>helper functions
+<ul>
+<li>most interesting one: <code>array_namespace</code></li>
+<li>get a compatible namespace for the input array</li>
+</ul></li>
+</ol>
+<div class="sourceCode" id="cb1" data-code-line-numbers="3|6,7,10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="co"># scipy.cluster.vq.whiten</span></span>
+<span id="cb1-2"><a></a><span class="kw">def</span> whiten(obs, check_finite<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb1-3"><a></a>    xp <span class="op">=</span> array_namespace(obs)</span>
+<span id="cb1-4"><a></a>    <span class="cf">if</span> check_finite <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb1-5"><a></a>        check_finite <span class="op">=</span> <span class="kw">not</span> is_lazy_array(obs)</span>
+<span id="cb1-6"><a></a>    obs <span class="op">=</span> _asarray(obs, check_finite<span class="op">=</span>check_finite, xp<span class="op">=</span>xp)</span>
+<span id="cb1-7"><a></a>    std_dev <span class="op">=</span> xp.std(obs, axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb1-8"><a></a>    zero_std_mask <span class="op">=</span> std_dev <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb1-9"><a></a>    std_dev <span class="op">=</span> xpx.at(std_dev, zero_std_mask).<span class="bu">set</span>(<span class="fl">1.0</span>)</span>
+<span id="cb1-10"><a></a>    <span class="cf">if</span> check_finite <span class="kw">and</span> xp.<span class="bu">any</span>(zero_std_mask):</span>
+<span id="cb1-11"><a></a>        {snip}</span>
+<span id="cb1-12"><a></a>    <span class="cf">return</span> obs <span class="op">/</span> std_dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://data-apis.org/array-api-strict/"><code>array-api-strict</code></a> (1/2)</h2>
+<ul>
+<li>strict, minimal implementation of the standard</li>
+<li>for consuming library developers to test their libraries</li>
+<li>ensure you are not relying on unspecified behaviour</li>
 </ul>
 </section>
 <section class="slide level2">
-<h2>Tour — <a href="https://data-apis.org/array-api-strict/"><code>array-api-strict</code></a></h2>
-<p>TODO:</p>
+<h2>Tour — <a href="https://data-apis.org/array-api-strict/"><code>array-api-strict</code></a> (2/2)</h2>
+<div class="sourceCode" id="cb2" data-code-line-numbers="2,6|8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="co"># scipy/cluster/tests/test_hierarchy.py</span></span>
+<span id="cb2-2"><a></a><span class="kw">def</span> test_linkage_cophenet_tdist_Z(<span class="va">self</span>, xp):</span>
+<span id="cb2-3"><a></a>    <span class="co"># Tests cophenet(Z) on tdist data set.</span></span>
+<span id="cb2-4"><a></a>    expectedM <span class="op">=</span> xp.asarray([<span class="dv">268</span>, <span class="dv">295</span>, <span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">295</span>, <span class="dv">295</span>, <span class="dv">268</span>, <span class="dv">268</span>, <span class="dv">295</span>, <span class="dv">295</span>,</span>
+<span id="cb2-5"><a></a>                            <span class="dv">295</span>, <span class="dv">138</span>, <span class="dv">219</span>, <span class="dv">295</span>, <span class="dv">295</span>])</span>
+<span id="cb2-6"><a></a>    Z <span class="op">=</span> xp.asarray(hierarchy_test_data.linkage_ytdist_single)</span>
+<span id="cb2-7"><a></a>    M <span class="op">=</span> cophenet(Z)</span>
+<span id="cb2-8"><a></a>    xp_assert_close(M, xp.asarray(expectedM, dtype<span class="op">=</span>xp.float64), atol<span class="op">=</span><span class="fl">1e-10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
-<li>what is it?</li>
-<li>who is it for? providers/consumers/end-users?</li>
-<li>what does real usage look like?</li>
+<li>can parametrise existing tests with <code>xp</code>
+<ul>
+<li>configure <code>pytest</code> to include <code>array_api_strict</code><br>
+in <code>xp</code> when it is installed</li>
+</ul></li>
 </ul>
 </section>
 <section class="slide level2">
-<h2>Tour — <a href="https://data-apis.org/array-api-extra/"><code>array-api-extra</code></a></h2>
-<p>TODO:</p>
+<h2>Tour — <a href="https://data-apis.org/array-api-extra/"><code>array-api-extra</code></a> (1/3)</h2>
 <ul>
-<li>what is it?</li>
-<li>who is it for? providers/consumers/end-users?</li>
-<li>what does real usage look like?</li>
+<li>for consuming library developers</li>
+<li>abbreviated to <code>xpx</code> in code</li>
 </ul>
+<ol type="1">
+<li>extra functions built on top of the standard
+<ul>
+<li>sharing functions that may be widely useful</li>
+<li>implementations in terms of the standard</li>
+<li>also, delegation to existing implementations</li>
+</ul></li>
+</ol>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://data-apis.org/array-api-extra/"><code>array-api-extra</code></a> (1/3)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/xpx-reference.png" class="quarto-figure quarto-figure-center" style="width:65.0%"></p>
+</figure>
+</div>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://data-apis.org/array-api-extra/"><code>array-api-extra</code></a> (2/3)</h2>
+<ol start="2" type="1">
+<li>tools for lazy backends (JAX, Dask) and read-only arrays
+<ul>
+<li><code>xpx.at</code> — index update functionality for libraries lacking in-place modifications</li>
+</ul></li>
+</ol>
+<div class="sourceCode" id="cb3" data-code-line-numbers="3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="co"># scipy.spatial.transform.Rotation.inv</span></span>
+<span id="cb3-2"><a></a><span class="kw">def</span> inv(quat: Array) <span class="op">-&gt;</span> Array:</span>
+<span id="cb3-3"><a></a>    <span class="cf">return</span> xpx.at(quat)[..., :<span class="dv">3</span>].multiply(<span class="op">-</span><span class="dv">1</span>, copy<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4" data-code-line-numbers="3,4,5,6,7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="co"># Cython implementation for NumPy</span></span>
+<span id="cb4-2"><a></a><span class="kw">def</span> inv(double[:, :] quat) <span class="op">-&gt;</span> double[:, :]:</span>
+<span id="cb4-3"><a></a>    cdef np.ndarray[double, ndim<span class="op">=</span><span class="dv">2</span>] q_inv <span class="op">=</span> np.array(quat, copy<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-4"><a></a>    q_inv[:, <span class="dv">0</span>] <span class="op">*=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb4-5"><a></a>    q_inv[:, <span class="dv">1</span>] <span class="op">*=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb4-6"><a></a>    q_inv[:, <span class="dv">2</span>] <span class="op">*=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb4-7"><a></a>    <span class="cf">return</span> q_inv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://data-apis.org/array-api-extra/"><code>array-api-extra</code></a> (2/3)</h2>
+<ol start="2" type="1">
+<li>tools for lazy backends (JAX, Dask) and read-only arrays
+<ul>
+<li><code>xpx.at</code> — index update functionality for libraries lacking in-place modifications</li>
+<li><img data-src="figures/lazy-apply.png"></li>
+</ul></li>
+</ol>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://data-apis.org/array-api-extra/"><code>array-api-extra</code></a> (3/3)</h2>
+<ol start="3" type="1">
+<li>testing utilities for consuming libraries (more coming!)
+<ul>
+<li><code>xpx.testing</code></li>
+<li>enable jitted JAX and allow Dask materialisation</li>
+<li>for use in an <code>xp</code> pytest fixture</li>
+</ul></li>
+</ol>
+<p><img data-src="figures/xpx-testing.png"></p>
 </section>
 <section class="slide level2">
 <h2>Tour — <a href="https://github.com/data-apis/array-api-typing"><code>array-api-typing</code></a></h2>
-<p>TODO:</p>
 <ul>
-<li>what is it?</li>
-<li>who is it for? providers/consumers/end-users?</li>
+<li>experimental static typing support</li>
+<li>still very early in development</li>
+<li>for consuming library authors with typed libraries</li>
 </ul>
 </section></section>
 <section>
@@ -448,7 +608,7 @@
 ~full compatibility in main namespaces</li>
 <li><code>torch</code>: ~full compatibility via <code>array-api-compat</code></li>
 <li><code>dask.array</code>: decent support via <code>array-api-compat</code></li>
-<li>pretty good support in <code>ndonnx</code>, <code>cubed-dev/cubed</code></li>
+<li>pretty good support in <code>ndonnx</code>, <code>cubed-dev/cubed</code>, <code>pydata/sparse</code></li>
 <li>interest from <code>paddle</code>, <code>mlx</code></li>
 </ul>
 </section>
@@ -459,7 +619,10 @@
 <code>SCIPY_ARRAY_API=1</code></li>
 <li>vendoring <code>array-api-compat</code> and <code>array-api-extra</code></li>
 <li>testing against <code>array-api-strict</code>, <code>cupy</code>, <code>torch</code>, <code>jax.numpy</code>, <code>dask.array</code></li>
-<li>CI: GPU job, <code>float32</code> PyTorch job</li>
+<li>CI: GPU job, <code>float32</code> PyTorch job
+<ul>
+<li>using Pixi for reproducibility</li>
+</ul></li>
 </ul>
 </section>
 <section class="slide level2">
@@ -482,11 +645,26 @@
 <h2>Status — <code>scipy</code> (3/3)</h2>
 <p>Approaches for compiled code:</p>
 <ul>
-<li>delegation</li>
-<li>translation (<code>scipy.spatial.transform</code>)</li>
-<li>dispatching (discussion right after this!)</li>
+<li>delegation (<code>if</code>-<code>else</code> to existing implementations)</li>
+<li>dispatching (~automatic delegation)
+<ul>
+<li><a href="https://euroscipy.org/talks/DN7SMP/">discussion right after this!</a></li>
+</ul></li>
+<li>translation to Python (<code>scipy.spatial.transform</code>)
+<ul>
+<li>Existing Cython kernel for NumPy</li>
+<li>Python translation for other backends</li>
+</ul></li>
 </ul>
 </section>
+<section class="slide level2">
+<h2>Status — <code>scipy</code><sup>1</sup> (3/3)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/rotation-benchmark.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>thanks to <a href="https://amacati.github.io">Martin Schuck</a> for this work and <a href="https://github.com/scipy/scipy/pull/23249#issuecomment-3071232726">benchmarks</a> !</p></li></ol></aside></section>
 <section class="slide level2">
 <h2>Status — <code>scikit-learn</code><sup>1</sup> (1/3)</h2>
 <ul>
@@ -499,7 +677,7 @@
 <li><code>float32</code> and <code>float64</code> dtypes</li>
 </ul></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>thanks to <a href="https://github.com/ogrisel">Olivier Grisel</a> for this update!</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn3"><p>thanks to <a href="https://github.com/ogrisel">Olivier Grisel</a> for this update!</p></li></ol></aside></section>
 <section class="slide level2">
 <h2>Status — <code>scikit-learn</code><sup>1</sup> (2/3)</h2>
 <ul>
@@ -507,7 +685,7 @@
 <li>42 public functions (scoring functions and distances computation)</li>
 <li>Up to 30x speed-up observed when using a GPU on Google Colab for estimators such as Gaussian Mixture Models or PCA</li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn3"><p>thanks to <a href="https://github.com/ogrisel">Olivier Grisel</a> for this update!</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn4"><p>thanks to <a href="https://github.com/ogrisel">Olivier Grisel</a> for this update!</p></li></ol></aside></section>
 <section class="slide level2">
 <h2>Status — <code>scikit-learn</code> (3/3)</h2>
 <div class="quarto-figure quarto-figure-center">
@@ -531,14 +709,22 @@
 <h2>Bonus Projects</h2>
 <ul>
 <li><code>marray</code> — come and see my poster!</li>
-<li><code>quantity-array</code> (prototype)</li>
+<li><code>quantity-array</code>
+<ul>
+<li>prototype for units with any array backend</li>
+</ul></li>
 </ul>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Looking Forwards</h1>
+
 </section>
 <section class="slide level2">
 <h2>What’s next?</h2>
 <ul>
 <li>mainly: more adoption in consuming libraries!</li>
-<li>upstreaming testing utilities from <code>scipy</code>/<code>scikit-learn</code><br>
+<li>upstreaming testing utilities from <code>scipy</code> &amp; <code>scikit-learn</code><br>
 to <code>array-api-extra</code></li>
 <li><code>array-api-typing</code> development</li>
 </ul>
