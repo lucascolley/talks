@@ -336,11 +336,11 @@
 </section>
 <section class="slide level2">
 <h2>How?</h2>
-<p>TODO:</p>
-<ul>
-<li>array-agnostic code</li>
-<li>the implementation approach: expanding circle diagram</li>
-</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/strategy.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
 </section>
 <section class="slide level2">
 <h2>The Consortium</h2>
@@ -385,7 +385,7 @@
 <h2>The Array API Standard</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="figures/array-api-talk.png" height="400"></p>
+<p><img data-src="figures/array-api-talk.png" height="350"></p>
 <figcaption><a href="https://youtu.be/16rB-fosAWw">Aaron’s SciPy 2023 Talk</a></figcaption>
 </figure>
 </div>
@@ -453,32 +453,38 @@
 </ul>
 </section>
 <section class="slide level2">
-<h2>Status — <code>scipy</code> (1/x)</h2>
-<p>TODO:</p>
+<h2>Status — <code>scipy</code> (1/3)</h2>
 <ul>
-<li>what is it using that I’ve talked about so far</li>
-<li>what else is it using?</li>
+<li>experimental support via setting the environment variable<br>
+<code>SCIPY_ARRAY_API=1</code></li>
+<li>vendoring <code>array-api-compat</code> and <code>array-api-extra</code></li>
+<li>testing against <code>array-api-strict</code>, <code>cupy</code>, <code>torch</code>, <code>jax.numpy</code>, <code>dask.array</code></li>
+<li>CI: GPU job, <code>float32</code> PyTorch job</li>
 </ul>
 </section>
 <section class="slide level2">
-<h2>Status — <code>scipy</code> (2/x)</h2>
-<p>TODO:</p>
+<h2>Status — <code>scipy</code> (2/3)</h2>
+<p><a href="https://scipy.github.io/devdocs/dev/api-dev/array_api.html">SciPy array API standard support documentation</a></p>
 <ul>
-<li>enable with experimental env var</li>
-<li>coverage docs</li>
+<li>Now with API coverage tables!</li>
 </ul>
+<div class="r-stack">
+<p><img data-src="figures/support-cpu.png" class="fragment" height="350"></p>
+<p><img data-src="figures/support-gpu.png" class="fragment" height="350"></p>
+<p><img data-src="figures/support-jit.png" class="fragment" height="350"></p>
+</div>
 </section>
 <section class="slide level2">
-<h2>Status — <code>scipy</code> (3/x)</h2>
+<h2>Status — <code>scipy</code> (3/3)</h2>
 <p><img data-src="figures/scipy-languages.png" style="width:100.0%"></p>
 </section>
 <section class="slide level2">
-<h2>Status — <code>scipy</code> (3/x)</h2>
+<h2>Status — <code>scipy</code> (3/3)</h2>
+<p>Approaches for compiled code:</p>
 <ul>
-<li>TODO: compiled code: delegation, translation, dispatching
-<ul>
-<li><code>spatial.transform</code> example</li>
-</ul></li>
+<li>delegation</li>
+<li>translation (<code>scipy.spatial.transform</code>)</li>
+<li>dispatching (discussion right after this!)</li>
 </ul>
 </section>
 <section class="slide level2">
