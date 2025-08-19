@@ -137,14 +137,33 @@ Python Data API Standards'
 
 ## Tour
 
-TODO: diagram — the libraries making this implementation possible
+Libraries under the consortium umbrella:
+
+- `array-api`
+- `array-api-tests`
+- `array-api-compat`
+- `array-api-strict`
+- `array-api-extra`
+- `array-api-typing`
 
 ## Tour — [`array-api`](https://data-apis.org/array-api/)
 
-TODO:
+![](figures/array-api-contents.png){height=500 fig-align="center"}
 
-- what is it?
-- who is it for? providers/consumers/end-users?
+## Tour — [`array-api`](https://data-apis.org/array-api/)
+
+::: {.r-stack}
+
+![](figures/array-api-toc.png){height=500}
+
+![](figures/spec-example.png){.fragment height=500}
+
+:::
+
+## Tour — [`array-api`](https://data-apis.org/array-api/)
+
+- tells array (providing) libraries what to implement
+- tells array consuming libraries the API which they can use
 
 ## The Array API Standard
 
