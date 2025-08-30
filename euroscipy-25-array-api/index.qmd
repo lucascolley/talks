@@ -123,7 +123,7 @@ slug: euroscipy-25-array-api
 
 - 'The Consortium for
 Python Data API Standards'
-- [https://data-apis.org]()
+- [https://data-apis.org](https://data-apis.org)
 - cross-ecosystem consortium
 - has been working on this for 5 years now
 
