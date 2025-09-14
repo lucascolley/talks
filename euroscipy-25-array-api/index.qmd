@@ -7,6 +7,8 @@ title: "A Hitchhiker's Guide to the Array API Standard Ecosystem"
 slug: euroscipy-25-array-api
 ---
 
+# [Live recording of this talk!](https://www.youtube.com/live/-QbOsZPVmJM?si=n_UTnjbEpftcUZkZ&t=160)
+
 {{< include /_includes/qr-code.qmd >}}
 
 ## About Me
