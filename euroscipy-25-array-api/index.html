@@ -6,9 +6,9 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/quarto-contrib/qrcodejs-v1.0.0/qrcode.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+  <meta name="generator" content="quarto-1.8.24">
 
   <meta name="author" content="Lucas Colley">
   <meta name="dcterms.date" content="2025-08-20">
@@ -97,7 +97,7 @@
     code span.vs { color: #abe338; } /* VerbatimString */
     code span.wa { color: #dcc6e0; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-41b395beb884c6e1f0c6c06c54ad320a.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-a7db5b97a638fa93c8e2858bea1b771a.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -507,7 +507,7 @@
 <li>get a compatible namespace for the input array</li>
 </ul></li>
 </ol>
-<div class="sourceCode" id="cb1" data-code-line-numbers="3|6,7,10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="co"># scipy.cluster.vq.whiten</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-code-line-numbers="3|6,7,10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="co"># scipy.cluster.vq.whiten</span></span>
 <span id="cb1-2"><a></a><span class="kw">def</span> whiten(obs, check_finite<span class="op">=</span><span class="va">None</span>):</span>
 <span id="cb1-3"><a></a>    xp <span class="op">=</span> array_namespace(obs)</span>
 <span id="cb1-4"><a></a>    <span class="cf">if</span> check_finite <span class="kw">is</span> <span class="va">None</span>:</span>
@@ -518,7 +518,7 @@
 <span id="cb1-9"><a></a>    std_dev <span class="op">=</span> xpx.at(std_dev, zero_std_mask).<span class="bu">set</span>(<span class="fl">1.0</span>)</span>
 <span id="cb1-10"><a></a>    <span class="cf">if</span> check_finite <span class="kw">and</span> xp.<span class="bu">any</span>(zero_std_mask):</span>
 <span id="cb1-11"><a></a>        {snip}</span>
-<span id="cb1-12"><a></a>    <span class="cf">return</span> obs <span class="op">/</span> std_dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-12"><a></a>    <span class="cf">return</span> obs <span class="op">/</span> std_dev</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section class="slide level2">
 <h2>Tour — <a href="https://data-apis.org/array-api-strict/"><code>array-api-strict</code></a> (1/2)</h2>
@@ -530,14 +530,14 @@
 </section>
 <section class="slide level2">
 <h2>Tour — <a href="https://data-apis.org/array-api-strict/"><code>array-api-strict</code></a> (2/2)</h2>
-<div class="sourceCode" id="cb2" data-code-line-numbers="2,6|8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="co"># scipy/cluster/tests/test_hierarchy.py</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-code-line-numbers="2,6|8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="co"># scipy/cluster/tests/test_hierarchy.py</span></span>
 <span id="cb2-2"><a></a><span class="kw">def</span> test_linkage_cophenet_tdist_Z(<span class="va">self</span>, xp):</span>
 <span id="cb2-3"><a></a>    <span class="co"># Tests cophenet(Z) on tdist data set.</span></span>
 <span id="cb2-4"><a></a>    expectedM <span class="op">=</span> xp.asarray([<span class="dv">268</span>, <span class="dv">295</span>, <span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">295</span>, <span class="dv">295</span>, <span class="dv">268</span>, <span class="dv">268</span>, <span class="dv">295</span>, <span class="dv">295</span>,</span>
 <span id="cb2-5"><a></a>                            <span class="dv">295</span>, <span class="dv">138</span>, <span class="dv">219</span>, <span class="dv">295</span>, <span class="dv">295</span>])</span>
 <span id="cb2-6"><a></a>    Z <span class="op">=</span> xp.asarray(hierarchy_test_data.linkage_ytdist_single)</span>
 <span id="cb2-7"><a></a>    M <span class="op">=</span> cophenet(Z)</span>
-<span id="cb2-8"><a></a>    xp_assert_close(M, xp.asarray(expectedM, dtype<span class="op">=</span>xp.float64), atol<span class="op">=</span><span class="fl">1e-10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-8"><a></a>    xp_assert_close(M, xp.asarray(expectedM, dtype<span class="op">=</span>xp.float64), atol<span class="op">=</span><span class="fl">1e-10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>can parametrise existing tests with <code>xp</code>
 <ul>
@@ -577,16 +577,16 @@ in <code>xp</code> when it is installed</li>
 <li><code>xpx.at</code> — index update functionality for libraries lacking in-place modifications</li>
 </ul></li>
 </ol>
-<div class="sourceCode" id="cb3" data-code-line-numbers="3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="co"># scipy.spatial.transform.Rotation.inv</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-code-line-numbers="3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="co"># scipy.spatial.transform.Rotation.inv</span></span>
 <span id="cb3-2"><a></a><span class="kw">def</span> inv(quat: Array) <span class="op">-&gt;</span> Array:</span>
-<span id="cb3-3"><a></a>    <span class="cf">return</span> xpx.at(quat)[..., :<span class="dv">3</span>].multiply(<span class="op">-</span><span class="dv">1</span>, copy<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb4" data-code-line-numbers="3,4,5,6,7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="co"># Cython implementation for NumPy</span></span>
+<span id="cb3-3"><a></a>    <span class="cf">return</span> xpx.at(quat)[..., :<span class="dv">3</span>].multiply(<span class="op">-</span><span class="dv">1</span>, copy<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-code-line-numbers="3,4,5,6,7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="co"># Cython implementation for NumPy</span></span>
 <span id="cb4-2"><a></a><span class="kw">def</span> inv(double[:, :] quat) <span class="op">-&gt;</span> double[:, :]:</span>
 <span id="cb4-3"><a></a>    cdef np.ndarray[double, ndim<span class="op">=</span><span class="dv">2</span>] q_inv <span class="op">=</span> np.array(quat, copy<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb4-4"><a></a>    q_inv[:, <span class="dv">0</span>] <span class="op">*=</span> <span class="op">-</span><span class="dv">1</span></span>
 <span id="cb4-5"><a></a>    q_inv[:, <span class="dv">1</span>] <span class="op">*=</span> <span class="op">-</span><span class="dv">1</span></span>
 <span id="cb4-6"><a></a>    q_inv[:, <span class="dv">2</span>] <span class="op">*=</span> <span class="op">-</span><span class="dv">1</span></span>
-<span id="cb4-7"><a></a>    <span class="cf">return</span> q_inv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-7"><a></a>    <span class="cf">return</span> q_inv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section class="slide level2">
 <h2>Tour — <a href="https://data-apis.org/array-api-extra/"><code>array-api-extra</code></a> (2/3)</h2>
@@ -959,7 +959,7 @@ to <code>array-api-extra</code></li>
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -1033,13 +1033,14 @@ to <code>array-api-extra</code></li>
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
