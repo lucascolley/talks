@@ -25,9 +25,8 @@ format:
 
 website:
   navbar:
+    title: <a href="https://lucascolley.github.io" class="navbar-brand">Lucas Colley</a>
     tools:
-      - icon: house
-        href: https://lucascolley.github.io
       - icon: github
         href: https://github.com/lucascolley/talks
   site-url: https://lucascolley.github.io/talks
