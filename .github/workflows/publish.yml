@@ -1,0 +1,34 @@
+name: Quarto Publish
+
+on:
+  push:
+    branches:
+      - main
+      - renovate/**
+  pull_request:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Set up Quarto
+        # yamllint disable-line rule:line-length
+        uses: quarto-dev/quarto-actions/setup@9e48da27e184aa238fcb49f5db75469626d43adb # v2
+
+      - name: Render ${{ github.ref_name }} branch
+        if: github.ref != 'refs/heads/main'
+        # yamllint disable-line rule:line-length
+        uses: quarto-dev/quarto-actions/render@9e48da27e184aa238fcb49f5db75469626d43adb # v2
+
+      - name: Publish main branch
+        if: github.ref == 'refs/heads/main'
+        # yamllint disable-line rule:line-length
+        uses: quarto-dev/quarto-actions/publish@9e48da27e184aa238fcb49f5db75469626d43adb # v2
+        with:
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
