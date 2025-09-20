@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/quarto-contrib/qrcodejs-v1.0.0/qrcode.js"></script><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.24">
+
+  <meta name="author" content="Lucas Colley">
+  <meta name="dcterms.date" content="2025-09-30">
+  <title>Lucas Colley – A Hitchhiker’s Guide to the Array API Standard Ecosystem</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #f8f8f2;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #f8f8f2; } /* Normal */
+    code span.al { color: #f07178; } /* Alert */
+    code span.an { color: #d4d0ab; } /* Annotation */
+    code span.at { color: #00e0e0; } /* Attribute */
+    code span.bn { color: #d4d0ab; } /* BaseN */
+    code span.bu { color: #abe338; } /* BuiltIn */
+    code span.cf { color: #ffa07a; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #abe338; } /* Char */
+    code span.cn { color: #ffd700; } /* Constant */
+    code span.co { color: #f8f8f2; font-style: italic; } /* Comment */
+    code span.cv { color: #ffd700; } /* CommentVar */
+    code span.do { color: #f8f8f2; } /* Documentation */
+    code span.dt { color: #ffa07a; } /* DataType */
+    code span.dv { color: #d4d0ab; } /* DecVal */
+    code span.er { color: #f07178; text-decoration: underline; } /* Error */
+    code span.ex { color: #00e0e0; font-weight: bold; } /* Extension */
+    code span.fl { color: #d4d0ab; } /* Float */
+    code span.fu { color: #ffa07a; } /* Function */
+    code span.im { color: #abe338; } /* Import */
+    code span.in { color: #d4d0ab; } /* Information */
+    code span.kw { color: #ffa07a; font-weight: bold; } /* Keyword */
+    code span.op { color: #ffa07a; } /* Operator */
+    code span.ot { color: #00e0e0; } /* Other */
+    code span.pp { color: #dcc6e0; } /* Preprocessor */
+    code span.re { color: #00e0e0; background-color: #f8f8f2; } /* RegionMarker */
+    code span.sc { color: #abe338; } /* SpecialChar */
+    code span.ss { color: #abe338; } /* SpecialString */
+    code span.st { color: #abe338; } /* String */
+    code span.va { color: #00e0e0; } /* Variable */
+    code span.vs { color: #abe338; } /* VerbatimString */
+    code span.wa { color: #dcc6e0; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-a7db5b97a638fa93c8e2858bea1b771a.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-dark">
+  <div class="reveal">
+    <div class="slides">
+
+<section class="quarto-title-block center">
+  <h1 class="title">A Hitchhiker’s Guide to the Array API Standard Ecosystem</h1>
+  <p class="subtitle"><a href="https://pydata.org/paris2025/">PyData Paris 2025</a></p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+<a href="https://lucascolley.github.io">Lucas Colley</a> 
+</div>
+</div>
+</div>
+
+  <p class="date">2025-09-30</p>
+</section>
+<section>
+<section class="title-slide slide level1 center" data-menu-title="QR Code">
+<h1></h1>
+<div class="quarto-layout-panel" data-layout="[22,78]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 22.0%;justify-content: flex-start;">
+<p>Scan to view the slides</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 78.0%;justify-content: flex-start;">
+<div id="" class="qrcode"></div>
+<script type="text/javascript">
+(function() {
+  var script = document.currentScript;
+  var qrcode = script.previousElementSibling;
+  qrcode.qrcode = new QRCode(qrcode, {"colorDark":"#ffffff","colorLight":"#000000","height":"550","text":"https://lucascolley.github.io/talks/pydata-paris-25-array-api","width":"550"});
+  script.remove();
+})();
+</script>
+    
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>About Me</h2>
+<div class="quarto-layout-panel" data-layout="[70,30]">
+<div class="quarto-layout-row">
+<div id="first-column" class="quarto-layout-cell" style="flex-basis: 70.0%;justify-content: flex-start;">
+<ul>
+<li>Maintainer: SciPy, <a href="https://pixi.sh/latest/">Pixi</a>, array-api-extra</li>
+<li>Consortium for Python Data API Standards Member</li>
+<li>Computer Science &amp; Philosophy<br>
+Master’s Student, University of Oxford</li>
+<li>Just finished working @ <a href="https://prefix.dev">prefix.dev</a><br>
+(European Summer of Code)</li>
+</ul>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 30.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<p><img data-src="figures/headshot.png" class="quarto-figure quarto-figure-right"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Agenda</h2>
+<ol type="1">
+<li>The Idea, Motivation, and Solution</li>
+<li>Tour of the Ecosystem</li>
+<li>Status and Looking Forwards</li>
+</ol>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>The Idea</h1>
+
+</section>
+<section class="slide level2">
+<h2>Arrays</h2>
+<ul>
+<li>N-dimensional, grid-like data structure</li>
+<li>Most famously, <code>numpy.ndarray</code></li>
+<li>“rectangular” shape, data type</li>
+<li>fast, easy to manipulate</li>
+<li>used everywhere</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Arrays</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/numpy-usage.png" class="quarto-figure quarto-figure-center" height="550"></p>
+</figure>
+</div>
+</section>
+<section class="slide level2">
+<h2>Ecosystem (now)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/array-ecosystem.png" style="width:100.0%"></p>
+<figcaption>Credit: <a href="https://youtu.be/16rB-fosAWw">Aaron Meurer, ‘Python Array API Standard’, SciPy 2023</a></figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level2">
+<h2>Ecosystem (the idea)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/ecosystem-modified.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+<ul>
+<li>we want to remove these barriers between array ecosystems</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>some array consumer libs are doing things very specific to one array type</li>
+<li>but lots are only circumstantially tied to an array type</li>
+<li>the functionality they implement just consumes “arrays” of some sort</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Motivation</h1>
+
+</section>
+<section class="slide level2">
+<h2>Why? — End Users (1/2)</h2>
+<ul>
+<li>want to be able to switch array libraries without reinventing their entire stack
+<ul>
+<li>real-world example: a reinforcement learning lab shifts their core pipelines from PyTorch to JAX<sup>1</sup></li>
+<li>they probably had a lot of extra tools/scripts that are not specific to their domain of application<br>
+(e.g.&nbsp;I/O, functionality found in SciPy)</li>
+<li>it shouldn’t be difficult to keep these tools/scripts working</li>
+</ul></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn1"><p><a href="https://chrislu.page/blog/meta-disco/">https://chrislu.page/blog/meta-disco/</a></p></li></ol></aside></section>
+<section class="slide level2">
+<h2>Why? — End Users (2/2)</h2>
+<ul>
+<li>avoid repeated transfers between array libraries or devices in their pipelines
+<ul>
+<li>can be slow, and adds undesirable complexity</li>
+</ul></li>
+<li>enable experimentation:
+<ul>
+<li>try out new hardware</li>
+<li>try out functionality specific to an array library</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Why? — Array <em>consuming</em> libraries</h2>
+<ul>
+<li>provide users with hardware acceleration and interoperability</li>
+<li><em>without</em> maintenance burden increasing massively
+<ul>
+<li>supporting 3 libraries shouldn’t be 3x the effort!</li>
+</ul></li>
+<li>libraries with useful functionality shouldn’t ‘die’ just because the ecosystem moves on to a new array library</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Why? — Array <em>providing</em> libraries</h2>
+<ul>
+<li>existing libraries:
+<ul>
+<li>interoperability with shiny new consuming libraries</li>
+<li>API decisions can be made collaboratively with other array libraries</li>
+</ul></li>
+<li>new libraries:
+<ul>
+<li>given a concrete API to implement</li>
+<li>rewarded with automatic compatibility with consuming libraries</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Why? — Ecosystem</h2>
+<p><img data-src="figures/ecosystem-duplication.png"></p>
+</section>
+<section class="slide level2">
+<h2>Why? — Ecosystem</h2>
+<p><img data-src="figures/ecosystem-unified.png"></p>
+<ul>
+<li>reduce duplicate work and maintainer burden</li>
+</ul>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Solution</h1>
+
+</section>
+<section class="slide level2">
+<h2>How?</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/strategy.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section class="slide level2">
+<h2>The Consortium</h2>
+<div class="quarto-layout-panel" data-layout="[85,15]">
+<div class="quarto-layout-row">
+<div id="first-column" class="quarto-layout-cell" style="flex-basis: 85.0%;justify-content: flex-start;">
+<ul>
+<li>‘The Consortium for Python Data API Standards’</li>
+<li><a href="https://data-apis.org">https://data-apis.org</a></li>
+<li>cross-ecosystem consortium</li>
+<li>has been working on this for 5 years now</li>
+</ul>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 15.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<p><img data-src="figures/data-apis.png" class="quarto-figure quarto-figure-right"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Tour of the array API standard ecosystem</h1>
+
+</section>
+<section class="slide level2">
+<h2>Tour</h2>
+<p>Libraries under the consortium umbrella:</p>
+<ul>
+<li><code>array-api</code></li>
+<li><code>array-api-tests</code></li>
+<li><code>array-api-compat</code></li>
+<li><code>array-api-strict</code></li>
+<li><code>array-api-extra</code></li>
+<li><code>array-api-typing</code></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://data-apis.org/array-api/"><code>array-api</code></a></h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/array-api-contents.png" class="quarto-figure quarto-figure-center" height="500"></p>
+</figure>
+</div>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://data-apis.org/array-api/"><code>array-api</code></a></h2>
+<div class="r-stack">
+<p><img data-src="figures/array-api-toc.png" height="500"></p>
+<p><img data-src="figures/spec-example.png" class="fragment" height="500"></p>
+</div>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://data-apis.org/array-api/"><code>array-api</code></a></h2>
+<ul>
+<li>tells array (providing) libraries what to implement</li>
+<li>tells array consuming libraries the API which they can use</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>The Array API Standard</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/array-api-talk.png" height="350"></p>
+<figcaption><a href="https://youtu.be/16rB-fosAWw">Aaron’s SciPy 2023 Talk</a></figcaption>
+</figure>
+</div>
+<ul>
+<li>past work, design principles, methodology</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://data-apis.org/array-api-tests/"><code>array-api-tests</code></a></h2>
+<ul>
+<li>tests for compliance with the standard API specification</li>
+<li>for array (providing) library developers</li>
+<li>uses <code>hypothesis</code> (hear more in the SciPy 2023 talk)</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://data-apis.org/array-api-compat/"><code>array-api-compat</code></a> (1/2)</h2>
+<ul>
+<li>compatibility layer with existing array (providing) libraries</li>
+<li>for use in array consuming libraries</li>
+</ul>
+<ol type="1">
+<li>wrappers for compliant behaviour
+<ul>
+<li>some very thin (e.g.&nbsp;NumPy), some quite large (e.g.&nbsp;PyTorch)</li>
+<li>exposes namespaces, e.g.&nbsp;<code>array_api_compat.numpy</code></li>
+</ul></li>
+</ol>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://data-apis.org/array-api-compat/"><code>array-api-compat</code></a> (2/2)</h2>
+<ol start="2" type="1">
+<li>helper functions
+<ul>
+<li>most interesting one: <code>array_namespace</code></li>
+<li>get a compatible namespace for the input array</li>
+</ul></li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-code-line-numbers="3|6,7,10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a></a><span class="co"># scipy.cluster.vq.whiten</span></span>
+<span id="cb1-2"><a></a><span class="kw">def</span> whiten(obs, check_finite<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb1-3"><a></a>    xp <span class="op">=</span> array_namespace(obs)</span>
+<span id="cb1-4"><a></a>    <span class="cf">if</span> check_finite <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb1-5"><a></a>        check_finite <span class="op">=</span> <span class="kw">not</span> is_lazy_array(obs)</span>
+<span id="cb1-6"><a></a>    obs <span class="op">=</span> _asarray(obs, check_finite<span class="op">=</span>check_finite, xp<span class="op">=</span>xp)</span>
+<span id="cb1-7"><a></a>    std_dev <span class="op">=</span> xp.std(obs, axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb1-8"><a></a>    zero_std_mask <span class="op">=</span> std_dev <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb1-9"><a></a>    std_dev <span class="op">=</span> xpx.at(std_dev, zero_std_mask).<span class="bu">set</span>(<span class="fl">1.0</span>)</span>
+<span id="cb1-10"><a></a>    <span class="cf">if</span> check_finite <span class="kw">and</span> xp.<span class="bu">any</span>(zero_std_mask):</span>
+<span id="cb1-11"><a></a>        {snip}</span>
+<span id="cb1-12"><a></a>    <span class="cf">return</span> obs <span class="op">/</span> std_dev</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://data-apis.org/array-api-strict/"><code>array-api-strict</code></a> (1/2)</h2>
+<ul>
+<li>strict, minimal implementation of the standard</li>
+<li>for consuming library developers to test their libraries</li>
+<li>ensure you are not relying on unspecified behaviour</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://data-apis.org/array-api-strict/"><code>array-api-strict</code></a> (2/2)</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-code-line-numbers="2,6|8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a></a><span class="co"># scipy/cluster/tests/test_hierarchy.py</span></span>
+<span id="cb2-2"><a></a><span class="kw">def</span> test_linkage_cophenet_tdist_Z(<span class="va">self</span>, xp):</span>
+<span id="cb2-3"><a></a>    <span class="co"># Tests cophenet(Z) on tdist data set.</span></span>
+<span id="cb2-4"><a></a>    expectedM <span class="op">=</span> xp.asarray([<span class="dv">268</span>, <span class="dv">295</span>, <span class="dv">255</span>, <span class="dv">255</span>, <span class="dv">295</span>, <span class="dv">295</span>, <span class="dv">268</span>, <span class="dv">268</span>, <span class="dv">295</span>, <span class="dv">295</span>,</span>
+<span id="cb2-5"><a></a>                            <span class="dv">295</span>, <span class="dv">138</span>, <span class="dv">219</span>, <span class="dv">295</span>, <span class="dv">295</span>])</span>
+<span id="cb2-6"><a></a>    Z <span class="op">=</span> xp.asarray(hierarchy_test_data.linkage_ytdist_single)</span>
+<span id="cb2-7"><a></a>    M <span class="op">=</span> cophenet(Z)</span>
+<span id="cb2-8"><a></a>    xp_assert_close(M, xp.asarray(expectedM, dtype<span class="op">=</span>xp.float64), atol<span class="op">=</span><span class="fl">1e-10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>can parametrise existing tests with <code>xp</code>
+<ul>
+<li>configure <code>pytest</code> to include <code>array_api_strict</code><br>
+in <code>xp</code> when it is installed</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://data-apis.org/array-api-extra/"><code>array-api-extra</code></a> (1/3)</h2>
+<ul>
+<li>for consuming library developers</li>
+<li>abbreviated to <code>xpx</code> in code</li>
+</ul>
+<ol type="1">
+<li>extra functions built on top of the standard
+<ul>
+<li>sharing functions that may be widely useful</li>
+<li>implementations in terms of the standard</li>
+<li>also, delegation to existing implementations</li>
+</ul></li>
+</ol>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://data-apis.org/array-api-extra/"><code>array-api-extra</code></a> (1/3)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/xpx-reference.png" class="quarto-figure quarto-figure-center" style="width:65.0%"></p>
+</figure>
+</div>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://data-apis.org/array-api-extra/"><code>array-api-extra</code></a> (2/3)</h2>
+<ol start="2" type="1">
+<li>tools for lazy backends (JAX, Dask) and read-only arrays
+<ul>
+<li><code>xpx.at</code> — index update functionality for libraries lacking in-place modifications</li>
+</ul></li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-code-line-numbers="3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a></a><span class="co"># scipy.spatial.transform.Rotation.inv</span></span>
+<span id="cb3-2"><a></a><span class="kw">def</span> inv(quat: Array) <span class="op">-&gt;</span> Array:</span>
+<span id="cb3-3"><a></a>    <span class="cf">return</span> xpx.at(quat)[..., :<span class="dv">3</span>].multiply(<span class="op">-</span><span class="dv">1</span>, copy<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-code-line-numbers="3,4,5,6,7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a></a><span class="co"># Cython implementation for NumPy</span></span>
+<span id="cb4-2"><a></a><span class="kw">def</span> inv(double[:, :] quat) <span class="op">-&gt;</span> double[:, :]:</span>
+<span id="cb4-3"><a></a>    cdef np.ndarray[double, ndim<span class="op">=</span><span class="dv">2</span>] q_inv <span class="op">=</span> np.array(quat, copy<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-4"><a></a>    q_inv[:, <span class="dv">0</span>] <span class="op">*=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb4-5"><a></a>    q_inv[:, <span class="dv">1</span>] <span class="op">*=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb4-6"><a></a>    q_inv[:, <span class="dv">2</span>] <span class="op">*=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb4-7"><a></a>    <span class="cf">return</span> q_inv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://data-apis.org/array-api-extra/"><code>array-api-extra</code></a> (2/3)</h2>
+<ol start="2" type="1">
+<li>tools for lazy backends (JAX, Dask) and read-only arrays
+<ul>
+<li><code>xpx.at</code> — index update functionality for libraries lacking in-place modifications</li>
+<li><img data-src="figures/lazy-apply.png"></li>
+</ul></li>
+</ol>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://data-apis.org/array-api-extra/"><code>array-api-extra</code></a> (3/3)</h2>
+<ol start="3" type="1">
+<li>testing utilities for consuming libraries (more coming!)
+<ul>
+<li><code>xpx.testing</code></li>
+<li>enable jitted JAX and allow Dask materialisation</li>
+<li>for use in an <code>xp</code> pytest fixture</li>
+</ul></li>
+</ol>
+<p><img data-src="figures/xpx-testing.png"></p>
+</section>
+<section class="slide level2">
+<h2>Tour — <a href="https://github.com/data-apis/array-api-typing"><code>array-api-typing</code></a></h2>
+<ul>
+<li>experimental static typing support</li>
+<li>still very early in development</li>
+<li>for consuming library authors with typed libraries</li>
+</ul>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Status</h1>
+
+</section>
+<section class="slide level2">
+<h2>Status — Array Libraries</h2>
+<ul>
+<li><code>numpy</code>, <code>cupy</code>, <code>jax.numpy</code>:<br>
+~full compatibility in main namespaces</li>
+<li><code>torch</code>: ~full compatibility via <code>array-api-compat</code></li>
+<li><code>dask.array</code>: decent support via <code>array-api-compat</code></li>
+<li>pretty good support in <code>ndonnx</code>, <code>cubed-dev/cubed</code>, <code>pydata/sparse</code>, <code>Blosc/python-blosc2</code></li>
+<li>interest from <code>paddle</code>, <code>mlx</code></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Status — <code>scipy</code> (1/3)</h2>
+<ul>
+<li>experimental support via setting the environment variable<br>
+<code>SCIPY_ARRAY_API=1</code></li>
+<li>vendoring <code>array-api-compat</code> and <code>array-api-extra</code></li>
+<li>testing against <code>array-api-strict</code>, <code>cupy</code>, <code>torch</code>, <code>jax.numpy</code>, <code>dask.array</code></li>
+<li>CI: GPU job, <code>float32</code> PyTorch job
+<ul>
+<li>using Pixi for reproducibility</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Status — <code>scipy</code> (2/3)</h2>
+<p><a href="https://scipy.github.io/devdocs/dev/api-dev/array_api.html">SciPy array API standard support documentation</a></p>
+<ul>
+<li>Now with API coverage tables!</li>
+</ul>
+<div class="r-stack">
+<p><img data-src="figures/support-cpu.png" class="fragment" height="350"></p>
+<p><img data-src="figures/support-gpu.png" class="fragment" height="350"></p>
+<p><img data-src="figures/support-jit.png" class="fragment" height="350"></p>
+</div>
+</section>
+<section class="slide level2">
+<h2>Status — <code>scipy</code> (3/3)</h2>
+<p><img data-src="figures/scipy-languages.png" style="width:100.0%"></p>
+</section>
+<section class="slide level2">
+<h2>Status — <code>scipy</code> (3/3)</h2>
+<p>Approaches for compiled code:</p>
+<ul>
+<li>delegation (<code>if</code>-<code>else</code> to existing implementations)</li>
+<li>dispatching (~automatic delegation)
+<ul>
+<li>c.f. <a href="https://scientific-python.github.io/spatch/">scientific-python/spatch</a></li>
+</ul></li>
+<li>translation to Python (<code>scipy.spatial.transform</code>)
+<ul>
+<li>Existing Cython kernel for NumPy</li>
+<li>Python translation for other backends</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Status — <code>scipy</code><sup>1</sup> (3/3)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/rotation-benchmark.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn2"><p>thanks to <a href="https://amacati.github.io">Martin Schuck</a> for this work and <a href="https://github.com/scipy/scipy/pull/23249#issuecomment-3071232726">benchmarks</a> !</p></li></ol></aside></section>
+<section class="slide level2">
+<h2>Status — <code>scikit-learn</code><sup>1</sup> (1/3)</h2>
+<ul>
+<li>experimental support (also uses <code>SCIPY_ARRAY_API</code> env var)</li>
+<li>vendoring <code>array-api-compat</code> and <code>array-api-extra</code></li>
+<li>3800+ tests:
+<ul>
+<li>libraries: <code>array-api-strict</code>, <code>cupy</code>, and <code>torch</code></li>
+<li>devices: CPU, MPS, CUDA (with GPU CI)</li>
+<li><code>float32</code> and <code>float64</code> dtypes</li>
+</ul></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn3"><p>thanks to <a href="https://github.com/ogrisel">Olivier Grisel</a> for this update!</p></li></ol></aside></section>
+<section class="slide level2">
+<h2>Status — <code>scikit-learn</code><sup>1</sup> (2/3)</h2>
+<ul>
+<li>11 estimators (1 classifier, 1 regressor, 1 density estimator, 8 transformers)</li>
+<li>42 public functions (scoring functions and distances computation)</li>
+<li>Up to 30x speed-up observed when using a GPU on Google Colab for estimators such as Gaussian Mixture Models or PCA</li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn4"><p>thanks to <a href="https://github.com/ogrisel">Olivier Grisel</a> for this update!</p></li></ol></aside></section>
+<section class="slide level2">
+<h2>Status — <code>scikit-learn</code> (3/3)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/sklearn-docs.png" height="500"></p>
+<figcaption><a href="https://scikit-learn.org/dev/modules/array_api.html">https://scikit-learn.org/dev/modules/array_api.html</a></figcaption>
+</figure>
+</div>
+</section>
+<section class="slide level2">
+<h2>Status — other projects</h2>
+<ul>
+<li><code>glass-dev/GLASS</code></li>
+<li><code>magpylib</code></li>
+<li><code>icaros-usc/pyribs</code></li>
+<li><code>EleutherAI/polyapprox</code></li>
+<li><code>NeilGirdhar/efax</code></li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Bonus Projects</h2>
+<ul>
+<li><code>mdhaber/marray</code>
+<ul>
+<li>masked arrays with any array backend (like <code>numpy.ma</code>)</li>
+</ul></li>
+<li><code>quantity-dev/quantity-array</code>
+<ul>
+<li>prototype for units with any array backend</li>
+</ul></li>
+</ul>
+</section></section>
+<section>
+<section class="title-slide slide level1 center">
+<h1>Looking Forwards</h1>
+
+</section>
+<section class="slide level2">
+<h2>What’s next?</h2>
+<ul>
+<li>mainly: more adoption in consuming libraries!</li>
+<li>upstreaming testing utilities from <code>scipy</code> &amp; <code>scikit-learn</code><br>
+to <code>array-api-extra</code></li>
+<li><code>array-api-typing</code> development</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Sprint</h2>
+<ul>
+<li>Come and chat about the standard, and/or contribute to <code>scikit-learn</code> or <code>array-api-extra</code>!</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>With thanks to:</h2>
+<ul>
+<li>all contributors to the projects discussed in this talk</li>
+<li>Ralf Gommers for leadership of the Consortium</li>
+<li>Patrick J. Roddy for this Quarto talk template</li>
+<li>the PyData Paris organisers and volunteers</li>
+<li>everyone for your attention!</li>
+</ul>
+
+
+</section></section>
+
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>A Hitchhiker’s Guide to the Array API Standard Ecosystem - <a href="https://lucascolley.github.io/talks" class="uri">https://lucascolley.github.io/talks</a></p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":false,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true,"hideMissingTitles":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: true,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/lucascolley\.github\.io\/talks");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+                // default icon
+                link.classList.add("external");
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

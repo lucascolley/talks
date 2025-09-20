@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/pydata-paris-25-array-api/index.html",
       "/euroscipy-25-array-api/index.html"
     ]
   }

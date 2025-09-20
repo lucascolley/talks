@@ -2,10 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://lucascolley.github.io/talks/euroscipy-25-array-api/index.html</loc>
-    <lastmod>2025-09-14T16:13:39.698Z</lastmod>
+    <lastmod>2025-09-20T12:18:27.731Z</lastmod>
+  </url>
+  <url>
+    <loc>https://lucascolley.github.io/talks/pydata-paris-25-array-api/index.html</loc>
+    <lastmod>2025-09-20T12:18:27.750Z</lastmod>
   </url>
   <url>
     <loc>https://lucascolley.github.io/talks/index.html</loc>
-    <lastmod>2025-09-14T16:13:39.698Z</lastmod>
+    <lastmod>2025-09-20T12:18:27.731Z</lastmod>
   </url>
 </urlset>
