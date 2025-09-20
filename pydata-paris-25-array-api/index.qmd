@@ -1,0 +1,400 @@
+---
+author: "[Lucas Colley](https://lucascolley.github.io)"
+date: 2025-09-30
+format: revealjs
+subtitle: "[PyData Paris 2025](https://pydata.org/paris2025/)"
+title: "A Hitchhiker's Guide to the Array API Standard Ecosystem"
+slug: pydata-paris-25-array-api
+---
+
+{{< include /_includes/qr-code.qmd >}}
+
+## About Me
+
+::: {layout="[70,30]"}
+
+::: {#first-column}
+
+- Maintainer: SciPy, [Pixi](https://pixi.sh/latest/), array-api-extra
+- Consortium for Python Data API Standards Member
+- Computer Science & Philosophy\
+Master's Student, University of Oxford
+- Just finished working @ [prefix.dev](https://prefix.dev)\
+(European Summer of Code)
+
+:::
+
+![](figures/headshot.png){fig-align="right"}
+
+:::
+
+## Agenda
+
+1. The Idea, Motivation, and Solution
+2. Tour of the Ecosystem
+3. Status and Looking Forwards
+
+# The Idea
+
+## Arrays
+
+- N-dimensional, grid-like data structure
+- Most famously, `numpy.ndarray`
+- "rectangular" shape, data type
+- fast, easy to manipulate
+- used everywhere
+
+## Arrays
+
+![](figures/numpy-usage.png){height=550 fig-align="center"}
+
+## Ecosystem (now)
+
+![Credit: [Aaron Meurer, ‘Python Array API Standard’, SciPy 2023](https://youtu.be/16rB-fosAWw)](figures/array-ecosystem.png){width=100% fig-align="center"}
+
+## Ecosystem (the idea)
+
+![](figures/ecosystem-modified.png){width=100% fig-align="center"}
+
+- we want to remove these barriers between array ecosystems
+
+::: {.notes}
+- some array consumer libs are doing things very specific to one array type
+- but lots are only circumstantially tied to an array type
+- the functionality they implement just consumes "arrays" of some sort
+:::
+
+# Motivation
+
+## Why? — End Users (1/2)
+
+- want to be able to switch array libraries without reinventing their entire stack
+    - real-world example: a reinforcement learning lab shifts their core pipelines from PyTorch to JAX[^1]
+    - they probably had a lot of extra tools/scripts that are not specific to their domain of application\
+    (e.g. I/O, functionality found in SciPy)
+    - it shouldn't be difficult to keep these tools/scripts working
+
+[^1]: [https://chrislu.page/blog/meta-disco/](https://chrislu.page/blog/meta-disco/)
+
+## Why? — End Users (2/2)
+
+- avoid repeated transfers between array libraries or devices in their pipelines
+    - can be slow, and adds undesirable complexity
+- enable experimentation:
+    - try out new hardware
+    - try out functionality specific to an array library
+
+## Why? — Array *consuming* libraries
+
+- provide users with hardware acceleration and interoperability
+- *without* maintenance burden increasing massively
+    - supporting 3 libraries shouldn't be 3x the effort!
+- libraries with useful functionality shouldn't 'die' just because the ecosystem moves on to a new array library
+
+## Why? — Array *providing* libraries
+
+- existing libraries:
+    - interoperability with shiny new consuming libraries
+    - API decisions can be made collaboratively with other array libraries
+- new libraries:
+    - given a concrete API to implement
+    - rewarded with automatic compatibility with consuming libraries
+
+## Why? — Ecosystem
+
+![](figures/ecosystem-duplication.png)
+
+## Why? — Ecosystem
+
+![](figures/ecosystem-unified.png)
+
+- reduce duplicate work and maintainer burden
+
+# Solution
+
+## How?
+
+![](figures/strategy.png){width=60% fig-align="center"}
+
+## The Consortium
+
+::: {layout="[85,15]"}
+
+::: {#first-column}
+
+- 'The Consortium for
+Python Data API Standards'
+- [https://data-apis.org](https://data-apis.org)
+- cross-ecosystem consortium
+- has been working on this for 5 years now
+
+:::
+
+![](figures/data-apis.png){fig-align="right" width=100%}
+
+:::
+
+# Tour of the array API standard ecosystem
+
+## Tour
+
+Libraries under the consortium umbrella:
+
+- `array-api`
+- `array-api-tests`
+- `array-api-compat`
+- `array-api-strict`
+- `array-api-extra`
+- `array-api-typing`
+
+## Tour — [`array-api`](https://data-apis.org/array-api/)
+
+![](figures/array-api-contents.png){height=500 fig-align="center"}
+
+## Tour — [`array-api`](https://data-apis.org/array-api/)
+
+::: {.r-stack}
+
+![](figures/array-api-toc.png){height=500}
+
+![](figures/spec-example.png){.fragment height=500}
+
+:::
+
+## Tour — [`array-api`](https://data-apis.org/array-api/)
+
+- tells array (providing) libraries what to implement
+- tells array consuming libraries the API which they can use
+
+## The Array API Standard
+
+![[Aaron's SciPy 2023 Talk](https://youtu.be/16rB-fosAWw)](figures/array-api-talk.png){height=350}
+
+- past work, design principles, methodology
+
+## Tour — [`array-api-tests`](https://data-apis.org/array-api-tests/)
+
+- tests for compliance with the standard API specification
+- for array (providing) library developers
+- uses `hypothesis` (hear more in the SciPy 2023 talk)
+
+## Tour — [`array-api-compat`](https://data-apis.org/array-api-compat/) (1/2)
+
+- compatibility layer with existing array (providing) libraries
+- for use in array consuming libraries
+1. wrappers for compliant behaviour
+    - some very thin (e.g. NumPy), some quite large (e.g. PyTorch)
+    - exposes namespaces, e.g. `array_api_compat.numpy`
+
+## Tour — [`array-api-compat`](https://data-apis.org/array-api-compat/) (2/2)
+
+2. helper functions
+    - most interesting one: `array_namespace`
+    - get a compatible namespace for the input array
+
+```{.python code-line-numbers="3|6,7,10"}
+# scipy.cluster.vq.whiten
+def whiten(obs, check_finite=None):
+    xp = array_namespace(obs)
+    if check_finite is None:
+        check_finite = not is_lazy_array(obs)
+    obs = _asarray(obs, check_finite=check_finite, xp=xp)
+    std_dev = xp.std(obs, axis=0)
+    zero_std_mask = std_dev == 0
+    std_dev = xpx.at(std_dev, zero_std_mask).set(1.0)
+    if check_finite and xp.any(zero_std_mask):
+        {snip}
+    return obs / std_dev
+```
+
+## Tour — [`array-api-strict`](https://data-apis.org/array-api-strict/) (1/2)
+
+- strict, minimal implementation of the standard
+- for consuming library developers to test their libraries
+- ensure you are not relying on unspecified behaviour
+
+## Tour — [`array-api-strict`](https://data-apis.org/array-api-strict/) (2/2)
+
+```{.python code-line-numbers="2,6|8"}
+# scipy/cluster/tests/test_hierarchy.py
+def test_linkage_cophenet_tdist_Z(self, xp):
+    # Tests cophenet(Z) on tdist data set.
+    expectedM = xp.asarray([268, 295, 255, 255, 295, 295, 268, 268, 295, 295,
+                            295, 138, 219, 295, 295])
+    Z = xp.asarray(hierarchy_test_data.linkage_ytdist_single)
+    M = cophenet(Z)
+    xp_assert_close(M, xp.asarray(expectedM, dtype=xp.float64), atol=1e-10)
+```
+
+- can parametrise existing tests with `xp`
+    - configure `pytest` to include `array_api_strict`\
+    in `xp` when it is installed
+
+## Tour — [`array-api-extra`](https://data-apis.org/array-api-extra/) (1/3)
+
+- for consuming library developers
+- abbreviated to `xpx` in code
+
+1. extra functions built on top of the standard
+    - sharing functions that may be widely useful
+    - implementations in terms of the standard
+    - also, delegation to existing implementations
+
+## Tour — [`array-api-extra`](https://data-apis.org/array-api-extra/) (1/3)
+
+![](figures/xpx-reference.png){width=65% fig-align="center"}
+
+## Tour — [`array-api-extra`](https://data-apis.org/array-api-extra/) (2/3)
+
+2. tools for lazy backends (JAX, Dask) and read-only arrays
+    - `xpx.at` — index update functionality for libraries lacking in-place modifications
+
+```{.python code-line-numbers="3"}
+# scipy.spatial.transform.Rotation.inv
+def inv(quat: Array) -> Array:
+    return xpx.at(quat)[..., :3].multiply(-1, copy=True)
+```
+```{.python code-line-numbers="3,4,5,6,7"}
+# Cython implementation for NumPy
+def inv(double[:, :] quat) -> double[:, :]:
+    cdef np.ndarray[double, ndim=2] q_inv = np.array(quat, copy=True)
+    q_inv[:, 0] *= -1
+    q_inv[:, 1] *= -1
+    q_inv[:, 2] *= -1
+    return q_inv
+```
+
+## Tour — [`array-api-extra`](https://data-apis.org/array-api-extra/) (2/3)
+
+2. tools for lazy backends (JAX, Dask) and read-only arrays
+    - `xpx.at` — index update functionality for libraries lacking in-place modifications
+    - ![](figures/lazy-apply.png)
+
+## Tour — [`array-api-extra`](https://data-apis.org/array-api-extra/) (3/3)
+
+3. testing utilities for consuming libraries (more coming!)
+    - `xpx.testing`
+    - enable jitted JAX and allow Dask materialisation
+    - for use in an `xp` pytest fixture
+
+![](figures/xpx-testing.png)
+
+## Tour — [`array-api-typing`](https://github.com/data-apis/array-api-typing)
+
+- experimental static typing support
+- still very early in development
+- for consuming library authors with typed libraries
+
+# Status
+
+## Status — Array Libraries
+
+- `numpy`, `cupy`, `jax.numpy`:\
+~full compatibility in main namespaces
+- `torch`: ~full compatibility via `array-api-compat`
+- `dask.array`: decent support via `array-api-compat`
+- pretty good support in `ndonnx`, `cubed-dev/cubed`, `pydata/sparse`, `Blosc/python-blosc2`
+- interest from `paddle`, `mlx`
+
+## Status — `scipy` (1/3)
+
+- experimental support via setting the environment variable\
+`SCIPY_ARRAY_API=1`
+- vendoring `array-api-compat` and `array-api-extra`
+- testing against `array-api-strict`, `cupy`, `torch`, `jax.numpy`, `dask.array`
+- CI: GPU job, `float32` PyTorch job
+    - using Pixi for reproducibility
+
+## Status — `scipy` (2/3)
+
+[SciPy array API standard support documentation](https://scipy.github.io/devdocs/dev/api-dev/array_api.html)
+
+- Now with API coverage tables!
+
+::: {.r-stack}
+
+![](figures/support-cpu.png){.fragment height=350}
+
+![](figures/support-gpu.png){.fragment height=350}
+
+![](figures/support-jit.png){.fragment height=350}
+
+:::
+
+## Status — `scipy` (3/3)
+
+![](figures/scipy-languages.png){width=100%}
+
+## Status — `scipy` (3/3)
+
+Approaches for compiled code:
+
+- delegation (`if`-`else` to existing implementations)
+- dispatching (~automatic delegation)
+    - c.f. [scientific-python/spatch](https://scientific-python.github.io/spatch/)
+- translation to Python (`scipy.spatial.transform`)
+    - Existing Cython kernel for NumPy
+    - Python translation for other backends
+
+## Status — `scipy`[^3] (3/3)
+
+![](figures/rotation-benchmark.png){width=60% fig-align="center"}
+
+[^3]: thanks to [Martin Schuck](https://amacati.github.io) for this work and [benchmarks](https://github.com/scipy/scipy/pull/23249#issuecomment-3071232726) !
+
+## Status — `scikit-learn`[^2] (1/3)
+
+- experimental support (also uses `SCIPY_ARRAY_API` env var)
+- vendoring `array-api-compat` and `array-api-extra`
+- 3800+ tests:
+    - libraries: `array-api-strict`, `cupy`, and `torch`
+    - devices: CPU, MPS, CUDA (with GPU CI)
+    - `float32` and `float64` dtypes
+
+[^2]: thanks to [Olivier Grisel](https://github.com/ogrisel) for this update!
+
+## Status — `scikit-learn`[^2] (2/3)
+
+- 11 estimators (1 classifier, 1 regressor, 1 density estimator, 8 transformers)
+- 42 public functions (scoring functions and distances computation)
+- Up to 30x speed-up observed when using a GPU on Google Colab for estimators such as Gaussian Mixture Models or PCA
+
+## Status — `scikit-learn` (3/3)
+
+![[https://scikit-learn.org/dev/modules/array_api.html](https://scikit-learn.org/dev/modules/array_api.html)](figures/sklearn-docs.png){height=500}
+
+## Status — other projects
+
+- `glass-dev/GLASS`
+- `magpylib`
+- `icaros-usc/pyribs`
+- `EleutherAI/polyapprox`
+- `NeilGirdhar/efax`
+
+## Bonus Projects
+
+- `mdhaber/marray`
+    - masked arrays with any array backend (like `numpy.ma`)
+- `quantity-dev/quantity-array`
+    - prototype for units with any array backend
+
+# Looking Forwards
+
+## What's next?
+
+- mainly: more adoption in consuming libraries!
+- upstreaming testing utilities from `scipy` & `scikit-learn`\
+to `array-api-extra`
+- `array-api-typing` development
+
+## Sprint
+
+- Come and chat about the standard, and/or contribute to `scikit-learn` or `array-api-extra`!
+
+## With thanks to:
+
+- all contributors to the projects discussed in this talk
+- Ralf Gommers for leadership of the Consortium
+- Patrick J. Roddy for this Quarto talk template
+- the PyData Paris organisers and volunteers
+- everyone for your attention!
