@@ -17,8 +17,9 @@ slug: pydata-paris-25-array-api
 
 - Maintainer: SciPy, [Pixi](https://pixi.sh/latest/), array-api-extra
 - Consortium for Python Data API Standards Member
-- Computer Science & Philosophy Undergraduate, University of Oxford
-- Working @ [prefix.dev](https://prefix.dev)\
+- Computer Science & Philosophy\
+Master's Student, University of Oxford
+- Just finished working @ [prefix.dev](https://prefix.dev)\
 (European Summer of Code)
 
 :::
@@ -292,7 +293,7 @@ def inv(double[:, :] quat) -> double[:, :]:
 ~full compatibility in main namespaces
 - `torch`: ~full compatibility via `array-api-compat`
 - `dask.array`: decent support via `array-api-compat`
-- pretty good support in `ndonnx`, `cubed-dev/cubed`, `pydata/sparse`
+- pretty good support in `ndonnx`, `cubed-dev/cubed`, `pydata/sparse`, `Blosc/python-blosc2`
 - interest from `paddle`, `mlx`
 
 ## Status — `scipy` (1/3)
@@ -330,7 +331,7 @@ Approaches for compiled code:
 
 - delegation (`if`-`else` to existing implementations)
 - dispatching (~automatic delegation)
-    - [discussion right after this!](https://euroscipy.org/talks/DN7SMP/)
+    - c.f. [scientific-python/spatch](https://scientific-python.github.io/spatch/)
 - translation to Python (`scipy.spatial.transform`)
     - Existing Cython kernel for NumPy
     - Python translation for other backends
@@ -372,8 +373,9 @@ Approaches for compiled code:
 
 ## Bonus Projects
 
-- `marray` — come and see my poster!
-- `quantity-array`
+- `mdhaber/marray`
+    - masked arrays with any array backend (like `numpy.ma`)
+- `quantity-dev/quantity-array`
     - prototype for units with any array backend
 
 # Looking Forwards
@@ -387,12 +389,12 @@ to `array-api-extra`
 
 ## Sprint
 
-- Come and chat about the standard, and/or contribute to `array-api-extra` (or `scipy`)!
+- Come and chat about the standard, and/or contribute to `scikit-learn` or `array-api-extra`!
 
 ## With thanks to:
 
 - all contributors to the projects discussed in this talk
 - Ralf Gommers for leadership of the Consortium
 - Patrick J. Roddy for this Quarto talk template
-- the EuroSciPy organisers and volunteers
+- the PyData Paris organisers and volunteers
 - everyone for your attention!
