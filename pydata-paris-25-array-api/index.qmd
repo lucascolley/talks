@@ -46,7 +46,7 @@ Master's Student, University of Oxford
 
 ## Arrays
 
-![](figures/numpy-usage.png){height=550 fig-align="center"}
+![](figures/np-data-science.png){height=550 fig-align="center"}
 
 ## Ecosystem (now)
 
@@ -293,7 +293,7 @@ def inv(double[:, :] quat) -> double[:, :]:
 ~full compatibility in main namespaces
 - `torch`: ~full compatibility via `array-api-compat`
 - `dask.array`: decent support via `array-api-compat`
-- pretty good support in `ndonnx`, `cubed-dev/cubed`, `pydata/sparse`, `Blosc/python-blosc2`
+- decent support in `ndonnx`, `cubed-dev/cubed`, `pydata/sparse`, `Blosc/python-blosc2`
 - interest from `paddle`, `mlx`
 
 ## Status — `scipy` (1/3)
