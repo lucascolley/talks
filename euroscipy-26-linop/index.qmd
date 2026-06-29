@@ -1,0 +1,51 @@
+---
+author: "[Lucas Colley](https://lucascolley.github.io)"
+date: 2026-07-20
+format: 
+  revealjs:
+    theme: [default, my-theme.scss]
+subtitle: "[EuroSciPy 2026](https://euroscipy.org)"
+title: "`LinearOperator`: stories from advancing an 18 year old data structure in SciPy"
+slug: euroscipy-26-linop
+---
+
+{{< include /_includes/qr-code.qmd >}}
+
+## About Me
+
+::: {layout="[70,30]"}
+
+::: {#first-column}
+
+- Maintainer: [SciPy](https://scipy.org), [Pixi](https://pixi.sh/latest/)
+- Member of the [Consortium for Python Data API Standards](https://data-apis.org)
+- Just finished at the University of Oxford, studying the MCompPhil (Computer Science & Philosophy)
+
+:::
+
+![](figures/headshot.png){fig-align="right"}
+
+:::
+
+## Agenda
+
+...
+
+# ...
+
+## ...
+
+...
+
+# ...
+
+## ...
+
+...
+
+## With thanks to:
+
+- all reviewers involved in the PRs discussed in this talk!
+- Patrick J. Roddy for this Quarto talk template
+- the EuroPython 2026 organisers and volunteers
+- everyone for your attention!
