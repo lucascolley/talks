@@ -1,0 +1,26 @@
+---
+author: "[Lucas Colley](https://lucascolley.github.io)"
+date: 2026-07-13
+format: revealjs
+subtitle: "[EuroPython 2026 Packaging Summit](https://hackmd.io/@jezdez/europython2026-packaging-summit)"
+title: "Instrumented CPython builds with Pixi"
+slug: europython-26-instrumented
+---
+## About Me
+
+::: {layout="[70,30]"}
+
+::: {#first-column}
+
+- Maintainer: SciPy, [Pixi](https://pixi.sh/latest/), data-apis.org
+- MCompPhil (Computer Science & Philosophy), University of Oxford
+
+:::
+
+![](figures/headshot.png){fig-align="right"}
+
+:::
+
+## Agenda
+
+...
