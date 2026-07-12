@@ -64,6 +64,11 @@ built with the sanitizers, not just the top-level library.
 - these packages can then be consumed as build/run dependencies of other such packages,
 and can be used in Pixi development workspaces to run tests.
 
+## UX
+
+- For SciPy, this enables a single `pixi run test-asan` invocation to trigger all of the following:
+    - ...
+
 ## What is maintained where?
 
 - 
