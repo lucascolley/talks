@@ -6,14 +6,18 @@ subtitle: "[EuroPython 2026 Packaging Summit](https://hackmd.io/@jezdez/europyth
 title: "Instrumented CPython builds with Pixi"
 slug: europython-26-instrumented
 ---
+# WORK IN PROGRESS
+
 ## About Me
 
 ::: {layout="[70,30]"}
 
 ::: {#first-column}
 
-- Maintainer: SciPy, [Pixi](https://pixi.sh/latest/), data-apis.org
-- MCompPhil (Computer Science & Philosophy), University of Oxford
+- Maintainer: [SciPy](https://scipy.org), [Pixi](https://pixi.sh/latest/)
+- Member of the [Consortium for Python Data API Standards](https://data-apis.org)
+- Just finished at the University of Oxford
+    - MCompPhil (Computer Science & Philosophy)
 
 :::
 
@@ -21,6 +25,60 @@ slug: europython-26-instrumented
 
 :::
 
-## Agenda
+## Motivation
+
+- Python libraries with compiled extension modules (like SciPy and PyArrow) want to
+test against compiler sanitizers
+    - e.g. [AddressSanitizer (ASan)](https://clang.llvm.org/docs/AddressSanitizer.html), ThreadSanitizer (TSan), UndefinedBehaviorSanitizer (UBSan)
+    - this can help catch bugs, security vulnerabilities, and performance issues
+- However, for full effect, the whole stack of dependencies used at the C-level should be
+built with the sanitizers, not just the top-level library.
+
+## Problem
+
+- How can a library like SciPy easily:
+    - build each of its dependenices (CPython, NumPy, OpenBLAS) with each sanitizer?
+    - build itself with each sanitizer against these dependencies and run tests?
+- How can this be done in a way which is easy for developers to adopt and understand?
+- How can this scale well to other libraries and sanitizers?
+
+## ...
+
+- explain drawbacks of having official releases for each instrumented build
+    - release workload (for very small / dev-facing audience)
+    - not customisable (no room to e.g. tweak `ASAN_OPTIONS`)
+    - tied to released versions, does not help with development work which
+      spans multiple repos
+- Instead, we want to be able to build these variants on demand, reproducibly.
+      
+## Pixi
 
 ...
+- `pixi` is to `conda` as `uv` is to `pip`
+    - handles non-Python dependencies (like compilers and CPython)
+- Pixi _also_ handles building non-Python packages from source
+
+## The solution with Pixi
+
+- define Pixi packages for each instrumented variant of each compiled dependency
+- these packages can then be consumed as build/run dependencies of other such packages,
+and can be used in Pixi development workspaces to run tests.
+
+## What is maintained where?
+
+- 
+
+## Status — CPython
+
+- ...
+
+## Status — adoption
+
+- ...
+
+## Discussion
+
+- are people happy with this approach?
+- what are the challenges left to tackle?
+- what is needed to move the CPython/NumPy/SciPy PRs forward?
+- what is needed to enable adoption in PyArrow and other libraries?
