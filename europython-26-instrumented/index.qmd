@@ -6,8 +6,6 @@ subtitle: "[EuroPython 2026 Packaging Summit](https://hackmd.io/@jezdez/europyth
 title: "Instrumented CPython builds with Pixi"
 slug: europython-26-instrumented
 ---
-# WORK IN PROGRESS
-
 ## About Me
 
 ::: {layout="[70,30]"}
@@ -16,8 +14,7 @@ slug: europython-26-instrumented
 
 - Maintainer: [SciPy](https://scipy.org), [Pixi](https://pixi.sh/latest/)
 - Member of the [Consortium for Python Data API Standards](https://data-apis.org)
-- Just finished at the University of Oxford
-    - MCompPhil (Computer Science & Philosophy)
+- Just finished at the University of Oxford, studying the MCompPhil (Computer Science & Philosophy)
 
 :::
 
@@ -32,58 +29,109 @@ test against compiler sanitizers
     - e.g. [AddressSanitizer (ASan)](https://clang.llvm.org/docs/AddressSanitizer.html), ThreadSanitizer (TSan), UndefinedBehaviorSanitizer (UBSan)
     - this can help catch bugs, security vulnerabilities, and performance issues
 - However, for full effect, the whole stack of dependencies used at the C-level should be
-built with the sanitizers, not just the top-level library.
+built with the sanitizers, not just the top-level library
 
 ## Problem
 
 - How can a library like SciPy easily:
-    - build each of its dependenices (CPython, NumPy, OpenBLAS) with each sanitizer?
+    - install each of its dependenices (CPython, NumPy, OpenBLAS) with each sanitizer?
     - build itself with each sanitizer against these dependencies and run tests?
 - How can this be done in a way which is easy for developers to adopt and understand?
 - How can this scale well to other libraries and sanitizers?
 
-## ...
+## Just make bigger releases?
 
-- explain drawbacks of having official releases for each instrumented build
-    - release workload (for very small / dev-facing audience)
-    - not customisable (no room to e.g. tweak `ASAN_OPTIONS`)
-    - tied to released versions, does not help with development work which
+- Including these instrumented builds in official releases of each library seems like a bad solution:
+    - high release workload (for very small developer audience)
+    - not customisable (can't tweak compilers/`ASAN_OPTIONS`)
+    - having builds tied to released versions does not help development work which
       spans multiple repos
-- Instead, we want to be able to build these variants on demand, reproducibly.
-      
+- Instead, we want to be able to build these instrumented variants from source, on demand and reproducibly.
+
+# Enter Pixi
+
+![](figures/paxton-as-pixi.svg){width=50% fig-align="center"}
+
 ## Pixi
 
-...
 - `pixi` is to `conda` as `uv` is to `pip`
-    - handles non-Python dependencies (like compilers and CPython)
-- Pixi _also_ handles building non-Python packages from source
+    - fast, workspace-based workflow with lock files
+- Pixi handles both Python packages (uses `uv` under the hood) and conda packages
+    - hence can handle dependencies like compilers and CPython
+- Pixi also handles building (potentially non-Python) conda packages from source,
+and recursive source dependencies.
 
 ## The solution with Pixi
 
-- define Pixi packages for each instrumented variant of each compiled dependency
-- these packages can then be consumed as build/run dependencies of other such packages,
-and can be used in Pixi development workspaces to run tests.
+- Define Pixi packages for each instrumented variant of each compiled dependency
+- These packages can then be consumed as build/run dependencies of other Pixi packages,
+and can be used in a project's Pixi workspace to run tests
 
-## UX
+## UX (1/2)
 
 - For SciPy, this enables a single `pixi run test-asan` invocation to trigger all of the following:
-    - ...
+    - clone `python/cpython` and build an instrumented variant from a specific revision
+    - clone `numpy/numpy` and build an instrumented variant from a specific revision,
+    _which has a build dependency on the `python` package just built_
+    - ... (cont.)
 
-## What is maintained where?
+## UX (2/2)
+- For SciPy, this enables a single `pixi run test-asan` invocation to trigger all of the following:
+    - ... (cont.)
+    - install these dependencies alongside SciPy's other dependencies in a locked environment
+    - build an instrumented variant of the local `scipy` source, including build dependencies on the above packages
+    - run tests against this instrumented `scipy`
 
-- 
+## This one-liner is a _lot_ more accessible and robust than before...
 
-## Status — CPython
+[An open PR to SciPy](https://github.com/scipy/scipy/pull/24064) which documented the process before this work:
 
-- ...
+```rst
+#. Set ``ASAN_OPTIONS=detect_leaks=0:symbolize=1:strict_init_order=true:allocator_may_return_null=1:use_sigaltstack=0``
+#. Compile CPython_ with ``--with-address-sanitizer`` and use it to setup a test environment
+#. Build NumPy_ with the ``setup-args`` config setting set to ``-Db_sanitize=address``
+    * Eg. ``pip install numpy --no-cache-dir --no-binary numpy -Csetup-args="-Db_sanitize=address" -v``
+#. In the project root directory, set the compiler flags as follows:
+    * ``CFLAGS="-fsanitize=address -fno-omit-frame-pointer -fsanitize-ignorelist=$(pwd)/tools/asan-ignore.txt"``
+    * ``CXXFLAGS="-fsanitize=address -fno-omit-frame-pointer -fsanitize-ignorelist=$(pwd)/tools/asan-ignore.txt"``
+#. Build SciPy using ``spin build --clean``
+```
 
-## Status — adoption
+## What is maintained where? (1/2)
 
-- ...
+- [`python/cpython/Tools/pixi-packages`](https://github.com/python/cpython/tree/main/Tools/pixi-packages):
+    - recipe defining how to build each instrumented variant from the `cpython` source
+    - Pixi package definitions which can be pointed to via the `git` URL and revision
+- likewise for `numpy/numpy/pixi-packages` (the same pattern could follow for other dependencies)
 
+## What is maintained where? (2/2)
+
+- a library like SciPy maintains how it uses these packages in its Pixi workspace:
+
+```toml
+[feature.asan.dependencies]
+python.flags = ["asan"]
+python.git = "https://github.com/lucascolley/cpython"
+python.subdirectory = "Tools/pixi-packages"
+python.rev = "8b5b0c29797cf88d78ef014916a5e5a5d51bbf95"
+
+numpy.flags = ["asan"]
+numpy.git = "https://github.com/lucascolley/numpy"
+numpy.subdirectory = "pixi-packages/asan"
+numpy.rev = "6bc853b2fbb3721332de7e5dc44ea9b282bc260a"
+```
+
+## Status
+
+- [SciPy PR](https://github.com/scipy/scipy/pull/24066) demonstrating the full stack working for ASan is under review
+    - depends on [this CPython PR](https://github.com/python/cpython/pull/152385) which needs review
+- PyArrow also started experimenting with these packages in [this PR](https://github.com/apache/arrow/pull/49849)
+for ASan and UBSan
+    
 ## Discussion
 
 - are people happy with this approach?
 - what are the challenges left to tackle?
+- can we speed up the builds/tests?
 - what is needed to move the CPython/NumPy/SciPy PRs forward?
 - what is needed to enable adoption in PyArrow and other libraries?
