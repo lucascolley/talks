@@ -29,15 +29,44 @@ slug: euroscipy-26-linop
 
 ## Agenda
 
+1. Context and Motivation
+2. Process and Technical Details
+3. What did we learn?
+4. Using the enhancements!
+
+# Context and Motivation
+
+## Context
+
 ...
 
-# ...
+## Motivation
+
+...
+
+## Requirements
+
+...
+
+- enable ...
+- without breaking the world!
+
+# Process and Technical Details
 
 ## ...
 
 ...
 
-# ...
+- challenges:
+    - learning intricacies of complex data structure
+
+# What did we learn?
+
+## ...
+
+...
+
+# Using the enhancements!
 
 ## ...
 
@@ -46,6 +75,7 @@ slug: euroscipy-26-linop
 ## With thanks to:
 
 - all reviewers involved in the PRs discussed in this talk!
+    - especially Matt Haberland
 - Patrick J. Roddy for this Quarto talk template
 - the EuroPython 2026 organisers and volunteers
 - everyone for your attention!
