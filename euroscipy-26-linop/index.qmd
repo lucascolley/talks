@@ -30,9 +30,10 @@ slug: euroscipy-26-linop
 ## Agenda
 
 1. Context and Motivation
-2. Process and Technical Details
-3. What did we learn?
-4. Using the enhancements!
+2. What is a `LinearOperator`?
+3. Process and Technical Details
+4. What did we learn?
+5. Using the enhancements!
 
 # Context and Motivation
 
@@ -43,6 +44,10 @@ slug: euroscipy-26-linop
 ## Motivation
 
 ...
+
+# What is a `LinearOperator`?
+
+## ...
 
 ## Requirements
 
