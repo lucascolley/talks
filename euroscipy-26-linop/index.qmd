@@ -31,24 +31,33 @@ slug: euroscipy-26-linop
 
 1. Context and Motivation
 2. What is a `LinearOperator`?
-3. Process and Technical Details
+3. Enhancement Process
 4. What did we learn?
 5. Using the enhancements!
 
 # Context and Motivation
 
-## Context
+## Background
 
-...
+- Project for my master's dissertation at university
+- aim: balance my technical experience in SciPy with academic research into a new area
+- another big aim: produce code that can be merged into SciPy and be useful for people beyond the scope of my research!
 
-- Undertaking a project for my masters dissertation at University
-    - aim: balance my technical experience in SciPy with academic research into a new area
-    - another big aim: produce code that can be merged into SciPy and be useful for people beyond the scope of my research!
-- Rough idea:
-    - Look at adding array API standard support and batching support to https://docs.scipy.org/doc/scipy/reference/sparse.linalg.html
-        - what is array API standard support? Link to talk and provide SciPy context
-        - what is batching? (something also pursued across some dense linear algebra sections of SciPy recently, more detail later)
-- focused in on the iterative solvers
+## Research Area (1/2)
+
+- Rough idea: look at adding array API standard support and batching support to https://docs.scipy.org/doc/scipy/reference/sparse.linalg.html
+
+## Research Area (2/4) — Array API Standard
+
+- what is array API standard support? Link to talk and provide SciPy context
+
+## Research Area (3/4) — Batching
+
+- what is batching? (something also pursued across some dense linear algebra sections of SciPy recently, more detail later)
+
+## Research Area (2/4)
+        
+    - focused in on the iterative solvers
     - briefly present what a sparse linear system is and how the iterative solvers work
 
 ## Motivation
