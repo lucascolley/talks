@@ -41,19 +41,44 @@ slug: euroscipy-26-linop
 
 ...
 
+- Undertaking a project for my masters dissertation at University
+    - aim: balance my technical experience in SciPy with academic research into a new area
+    - another big aim: produce code that can be merged into SciPy and be useful for people beyond the scope of my research!
+- Rough idea:
+    - Look at adding array API standard support and batching support to https://docs.scipy.org/doc/scipy/reference/sparse.linalg.html
+        - what is array API standard support? Link to talk and provide SciPy context
+        - what is batching? (something also pursued across some dense linear algebra sections of SciPy recently, more detail later)
+- focused in on the iterative solvers
+    - briefly present what a sparse linear system is and how the iterative solvers work
+
 ## Motivation
 
 ...
 
+- why is this interesting research? What value might array API standard support / batching bring?
+- motivating the next section: before the _algorithms_ have this support, we need the underlying _data structure_ to have the support
+    - naïvely, thought that this would be just a quick first step!
+
 # What is a `LinearOperator`?
 
-## ...
+## The Linear Operator data structure
+
+...
+
+- in abstract / maths
+
+## `scipy.sparse.linalg.LinearOperator`
+
+...
+
+- 
 
 ## Requirements
 
 ...
 
 - enable ...
+    - so we need: ...
 - without breaking the world!
 
 # Process and Technical Details
@@ -61,6 +86,8 @@ slug: euroscipy-26-linop
 ## ...
 
 ...
+
+- summarise implementation sections of my report
 
 - challenges:
     - learning intricacies of complex data structure
@@ -71,16 +98,32 @@ slug: euroscipy-26-linop
 
 ...
 
+- how can I leave the audience better equipped to make changes to established data structures that are widely used across the world of scientific Python?
+
+- established code can still be bad!
+    - sometimes a small prototype can end up becoming the de facto standard as a historical accident!
+    - when a piece of code has been around for so long, inconsistencies can arise, when changes are made to one part of the interface but not another
+- backwards-compatibility is very important!
+    - but: exactly what respecting backwards-compatibility means can be a judgement call
+        - it required surprisingly careful attention to determine what exactly the implicit contract was between the API and its users
+- testing is crucial!
+    - catching things like breaking pickle-ability and incorrect broadcasting behaviour for edge cases like empty arrays
+
+    
 # Using the enhancements!
 
 ## ...
 
 ...
 
+- skip technical details, but summarise what (little!) is required to use the enhanced data structure in the iterative solvers
+- present the kind of batched ensemble solves that are enabled
+- present some figures showing promising benchmark results for [the CG PR](https://github.com/scipy/scipy/pull/24450)
+
 ## With thanks to:
 
 - all reviewers involved in the PRs discussed in this talk!
-    - especially Matt Haberland
+    - especially [Matt Haberland](https://mdhaber.wixsite.com/home)
 - Patrick J. Roddy for this Quarto talk template
 - the EuroPython 2026 organisers and volunteers
 - everyone for your attention!
