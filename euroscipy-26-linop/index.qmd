@@ -5,7 +5,7 @@ format:
   revealjs:
     theme: [default, my-theme.scss]
 subtitle: "[EuroSciPy 2026](https://euroscipy.org)"
-title: "`LinearOperator`: stories from advancing an 18 year old data structure in SciPy"
+title: "`LinearOperator`: stories from advancing an 18-year-old data structure in SciPy"
 slug: euroscipy-26-linop
 ---
 
