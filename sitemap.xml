@@ -2,18 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://lucascolley.github.io/talks/euroscipy-25-array-api/index.html</loc>
-    <lastmod>2026-07-12T22:41:27.517Z</lastmod>
-  </url>
-  <url>
-    <loc>https://lucascolley.github.io/talks/europython-26-instrumented/index.html</loc>
-    <lastmod>2026-07-12T22:41:27.497Z</lastmod>
+    <lastmod>2026-07-19T17:29:38.508Z</lastmod>
   </url>
   <url>
     <loc>https://lucascolley.github.io/talks/pydata-paris-25-array-api/index.html</loc>
-    <lastmod>2026-07-12T22:41:27.540Z</lastmod>
+    <lastmod>2026-07-19T17:29:38.534Z</lastmod>
+  </url>
+  <url>
+    <loc>https://lucascolley.github.io/talks/euroscipy-26-linop/index.html</loc>
+    <lastmod>2026-07-19T17:29:38.513Z</lastmod>
+  </url>
+  <url>
+    <loc>https://lucascolley.github.io/talks/europython-26-instrumented/index.html</loc>
+    <lastmod>2026-07-19T17:29:38.490Z</lastmod>
   </url>
   <url>
     <loc>https://lucascolley.github.io/talks/index.html</loc>
-    <lastmod>2026-07-12T22:41:27.517Z</lastmod>
+    <lastmod>2026-07-19T17:29:38.513Z</lastmod>
   </url>
 </urlset>

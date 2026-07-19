@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/euroscipy-26-linop/index.html",
       "/europython-26-instrumented/index.html",
       "/pydata-paris-25-array-api/index.html",
       "/euroscipy-25-array-api/index.html"
