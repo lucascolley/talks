@@ -155,7 +155,7 @@ class LinearOperator:
 ```diff
 if self.dtype is None:
 -    v = np.zeros(self.shape[-1], dtype=np.int8)
-+    v = self._xp.zeros(self.shape[-1], dtype=xp.int8)
++    v = self._xp.zeros(self.shape[-1], dtype=self._xp.int8)
 ```
 
 ```diff
@@ -260,17 +260,17 @@ moving towards a clearer API where `matvec` operates on (batches of) row vectors
 - Incremental improvements are not always well thought out
     - Inconsistencies can arise, when changes are made to one part of the interface but not another
 
-## Refactoring can be useful
-
-- Careful refactoring can help a lot!
-- Reducing code duplication and factoring out common functionality can help catch bugs and ensure behaviour is consistent
-
 ## Backwards-compatibility is very important
 
 - Probably, there are a lot more people hoping that existing functionality will keep working
 than are waiting for whatever you are adding!
 - But: exactly _what_ respecting backwards-compatibility means can be a judgement call
     - It required surprisingly careful attention to determine what the implicit contract was between the API and its users
+
+## Refactoring can be useful
+
+- Careful refactoring can help a lot!
+- Reducing code duplication and factoring out common functionality can help catch bugs and ensure behaviour is consistent
 
 ## Testing is crucial (1/2)
 
@@ -291,6 +291,12 @@ than are waiting for whatever you are adding!
 - For users, for yourself, and for future developers
 - Force yourself to _explain_ what the interface is promising users,
 and how that is achieved
+
+## Finally: don't underestimate the 'easy' work
+
+- Deadlines on research put pressure on you to get working prototypes and results
+- Creating solid foundations which can be re-used by others may entail a big time commitment
+    - But if you have the time, go for it!
 
 ## With thanks to:
 
