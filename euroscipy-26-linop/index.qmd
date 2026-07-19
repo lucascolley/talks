@@ -100,7 +100,7 @@ slug: euroscipy-26-linop
 - Transposition, composition, summation, scalar multiplication, and exponentiation to integral powers
 all yield a new Linear Operator
 
-## `LinearOperator` (1/2)
+## `LinearOperator`
 
 - [`scipy.sparse.linalg.LinearOperator`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.LinearOperator.html)
     - Originally contributed 18 years ago!
@@ -109,13 +109,6 @@ can convert dense or sparse arrays to a `LinearOperator`
 - Can also be constructed from a user-supplied `matvec` callable, or via subclassing
 - Has `matvec` and `matmat` multiplication methods
     - Various other methods and attributes
-
-## `LinearOperator` (2/2)
-
-- Operations between `LinearOperator` instances are performed lazily,
-e.g. defining the `matvec` method in terms of the methods of the input operators
-- Some NumPy functions/methods were used for internal data wrangling,
-e.g. `np.hstack` and `obj.reshape`
 
 ## Requirements
 
@@ -183,15 +176,14 @@ def _matmat(self, X):
 
 - Use `...` indexing to allow arbitrary batch dimensions to pass through:
 ```diff
+# a default implementation of matrix-matrix multiplication
+# in terms of matrix-vector multiplication
 def _matmat(X):
 - return np.hstack([self.matvec(col.reshape(-1,1)) for col in X.T])
 + return np.stack(
 +   [self._matvec(X[..., :, i]) for i in range(X.shape[-1])], axis=-1
 + )
 ```
-
-- We can assume that user-provided callables support batched computation,
-_if_ they want it to work through this interface.
 
 ## Challenges: backwards-compatibility
 
