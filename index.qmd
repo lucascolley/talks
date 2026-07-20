@@ -4,7 +4,13 @@ format:
   html:
     page-layout: full
 listing:
-  contents: .
+  contents:
+    - .
+    - path: https://lucascolley.github.io/euroscipy-2026-pixi-talk/
+      title: "Pixi: better developer experience for scientific Python projects"
+      date: 2026-07-21
+      subtitle: "[EuroSciPy 2026](https://euroscipy.org)"
+      author: "[Lucas Colley](https://lucascolley.github.io), [Wolf Vollprecht](https://github.com/wolfv)"
   date-format: "YYYY, MMMM"
   exclude:
     title: Page Not Found
