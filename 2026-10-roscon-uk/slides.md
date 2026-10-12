@@ -54,12 +54,12 @@ tryIt: true
 
 # A modern package manager for robotics
 
-- Easy ROS installation across Linux/Windows/macOS, powered by [RoboStack](https://robostack.github.io/index.html) <img src="/robostack-icon.svg" alt="" style="display: inline; height: 1em; vertical-align: -0.125em" />
-  - replaces `apt`/`brew`/`winget`/`pip`/`conda`/`mamba`, works alongside `cargo`/`npm`
-- Handles multiple distros _on the same machine_ — `lyrical`/`rolling`/`jazzy`/etc.
+- Linux/Windows/macOS support, powered by [RoboStack](https://robostack.github.io/index.html) <img src="/robostack-icon.svg" alt="" style="display: inline; height: 1em; vertical-align: -0.125em" />
+  - replaces `apt`/`brew`/`winget`/`pip`/`conda`/`mamba`
+- Multiple distros _on the same machine_ — `lyrical`/`rolling`/`jazzy`/etc.
 - [`pixi-ros`](https://github.com/ruben-arts/pixi-ros) — `package.xml` bridge, replaces `rosdep`
-- You/colleagues/students can use the same tool for ROS as for Data Science / Web Dev / Rust
-  - Mix your ROS envs with e.g. new `pytorch`/`scipy` builds, or your own non-ROS Python packages
+- Same tool for ROS as for Data Science / Web Dev / Rust
+  - e.g. mix your ROS envs with new `pytorch`/`scipy` builds, or your own packages
 
 <img src="/paxton-python.svg" alt="Paxton charming a rattler snake" class="absolute" style="bottom: 4rem; right: 5rem; height: 9rem" />
 
