@@ -6,9 +6,23 @@
       <span class="keynote-page">{{ $nav.currentPage }}</span>
     </div>
   </footer>
+  <!-- Stays in place across every slide with `tryIt: true`, rather than redrawing per slide -->
+  <Terminal v-if="$nav.currentFrontmatter.tryIt" class="try-it-terminal" title="try it out on your machine!">
+    <TermLine>curl -fsSL https://pixi.sh/install.sh | sh</TermLine>
+    <TermLine>pixi exec -c conda-forge -c robostack-jazzy -s ros2-rviz2 rviz2</TermLine>
+    <!-- <TermLine>pixi run --experimental --script tinyurl.com/pixi-turtlesim</TermLine>  -->
+  </Terminal>
 </template>
 
 <style>
+.try-it-terminal {
+  position: absolute;
+  z-index: 10;
+  bottom: var(--prefix-slide-padding-bottom);
+  left: var(--prefix-slide-padding-inline);
+  width: 33rem;
+}
+
 .keynote-footer {
   position: absolute;
   z-index: 10;
