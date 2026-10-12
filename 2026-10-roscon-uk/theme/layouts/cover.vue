@@ -25,7 +25,14 @@ const imageSrc = computed(() => props.image && assetUrl(props.image))
       <p v-if="speaker" class="cover-speaker">{{ speaker }}</p>
     </div>
     <img v-if="imageSrc" class="cover-image" :src="imageSrc" :alt="imageAlt ?? ''" />
-    <SlidesQr v-else-if="qr" class="cover-slides-qr" :src="qr" :href="qrHref" :label="qrLabel" />
+    <SlidesQr
+      v-if="qr"
+      class="cover-slides-qr"
+      :class="{ 'cover-slides-qr-below-image': imageSrc }"
+      :src="qr"
+      :href="qrHref"
+      :label="qrLabel"
+    />
   </div>
 </template>
 
@@ -93,6 +100,13 @@ const imageSrc = computed(() => props.image && assetUrl(props.image))
     left: 87%;
     width: max-content;
     transform: translateX(-50%);
+  }
+
+  /* With an image at the top of the band, the code drops into the gap between the
+     image (bottom near 12rem for a landscape picture) and the logo (top near 29rem) */
+  .cover-slides-qr-below-image {
+    top: calc(50% + 3.35rem);
+    transform: translate(-50%, -50%);
   }
 }
 </style>

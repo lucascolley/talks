@@ -5,6 +5,9 @@ eyebrow: ROSCon UK 2026
 speaker: Lucas Colley
 image: /paxton-robotics-dog-transparent.svg
 imageAlt: Pixi's mascot Paxton with a robotics dog
+qr: /slides-qr-code.png
+qrLabel: link to the slides
+qrHref: https://lucascolley.github.io/talks/2026-10-roscon-uk/
 highlighter: shiki
 lineNumbers: false
 fonts:
@@ -79,3 +82,12 @@ tryIt: true
   <Bubble href="https://pixi.sh/latest/robotics">https://pixi.sh/latest/robotics</Bubble>
   <Bubble href="mailto:lucas@prefix.dev">lucas@prefix.dev</Bubble>
 </Bubbles>
+
+<SlidesQr
+  small
+  class="absolute"
+  style="right: var(--prefix-slide-padding-inline); bottom: var(--prefix-slide-padding-bottom)"
+  src="/slides-qr-code.png"
+  label="link to the slides"
+  href="https://lucascolley.github.io/talks/2026-10-roscon-uk/"
+/>
