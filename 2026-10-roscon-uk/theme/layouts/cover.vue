@@ -1,13 +1,19 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import Eyebrow from '../components/Eyebrow.vue'
+import { assetUrl } from '../utils/asset'
 
-defineProps<{
+const props = defineProps<{
   eyebrow?: string
+  image?: string
+  imageAlt?: string
   qr?: string
   qrHref?: string
   qrLabel?: string
   speaker?: string
 }>()
+
+const imageSrc = computed(() => props.image && assetUrl(props.image))
 </script>
 
 <template>
@@ -18,7 +24,8 @@ defineProps<{
       <slot />
       <p v-if="speaker" class="cover-speaker">{{ speaker }}</p>
     </div>
-    <SlidesQr v-if="qr" class="cover-slides-qr" :src="qr" :href="qrHref" :label="qrLabel" />
+    <img v-if="imageSrc" class="cover-image" :src="imageSrc" :alt="imageAlt ?? ''" />
+    <SlidesQr v-else-if="qr" class="cover-slides-qr" :src="qr" :href="qrHref" :label="qrLabel" />
   </div>
 </template>
 
@@ -67,6 +74,17 @@ defineProps<{
   .cover-speaker {
     margin: 1.25rem 0 0;
     font-size: var(--prefix-text-md);
+  }
+
+  /* Takes the QR code's place at the top of the band, fitted to its width */
+  .cover-image {
+    position: absolute;
+    top: 2.75rem;
+    left: 87%;
+    width: 13rem;
+    max-height: 18rem;
+    object-fit: contain;
+    transform: translateX(-50%);
   }
 
   .cover-slides-qr {

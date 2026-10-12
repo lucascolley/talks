@@ -160,7 +160,7 @@
 
   a {
     color: var(--prefix-ink);
-    border-bottom: 2px solid var(--prefix-yellow);
+    border-bottom: 3px solid var(--prefix-yellow);
 
     &:hover {
       border-bottom-color: var(--prefix-ink);
@@ -179,6 +179,11 @@
     background: var(--prefix-white);
     border-radius: var(--prefix-radius-xs);
     font-size: 0.875em;
+  }
+
+  /* Linked code would otherwise paint white over all but the corners of the underline */
+  a > code {
+    background: var(--prefix-yellow-soft);
   }
 
   pre {
