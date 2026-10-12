@@ -6,6 +6,11 @@ format:
 listing:
   contents:
     - .
+    - path: https://lucascolley.github.io/talks/2026-10-roscon-uk/
+      title: "Pixi for ROS — Why?"
+      date: 2026-10-23
+      subtitle: "[ROSCon UK 2026](https://roscon.org.uk/2026/)"
+      author: "[Lucas Colley](https://lucascolley.github.io)"
     - path: https://lucascolley.github.io/euroscipy-2026-pixi-talk/
       title: "Pixi: better developer experience for scientific Python projects"
       date: 2026-07-21

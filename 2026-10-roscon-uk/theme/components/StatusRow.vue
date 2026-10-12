@@ -1,0 +1,56 @@
+<!-- One piece of work, badged with how ready it is. -->
+
+<script setup lang="ts">
+defineProps<{
+  state: 'shipped' | 'preview' | 'prototype'
+}>()
+</script>
+
+<template>
+  <div class="status-row">
+    <span class="status-badge" :class="`status-badge-${state}`">{{ state }}</span>
+    <strong><slot /></strong>
+  </div>
+</template>
+
+<style>
+.status-row {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  min-height: 4rem;
+  padding: 1rem;
+  background: var(--prefix-white);
+  border: 1px solid var(--prefix-border);
+  border-radius: var(--prefix-radius-md);
+
+  .slidev-layout & strong {
+    font-size: var(--prefix-text-md);
+  }
+
+  .status-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--prefix-radius-pill);
+    font-size: var(--prefix-text-2xs);
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+
+    &.status-badge-shipped {
+      background: var(--prefix-shipped);
+      color: var(--prefix-shipped-ink);
+    }
+
+    &.status-badge-preview {
+      background: var(--prefix-preview);
+      color: var(--prefix-preview-ink);
+    }
+
+    &.status-badge-prototype {
+      background: var(--prefix-prototype);
+      color: var(--prefix-prototype-ink);
+    }
+  }
+}
+</style>

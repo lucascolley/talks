@@ -1,0 +1,22 @@
+[workspace]
+authors = ["Lucas Colley <lucascolley@proton.me>"]
+channels = ["https://prefix.dev/conda-forge"]
+description = "Talks by Lucas Colley"
+platforms = ["linux-64", "linux-aarch64", "win-64", "osx-arm64"]
+
+[tasks]
+build = { cmd = "pnpm run build", depends-on = ["install"] }
+install = "pnpm install --frozen-lockfile"
+
+[tasks.start]
+args = ["presentation"]
+cmd = "pnpm exec slidev --open {{ presentation }}/slides.md"
+depends-on = ["install"]
+
+[tasks.export]
+args = ["presentation"]
+cmd = "pnpm exec slidev export {{ presentation }}/slides.md"
+depends-on = ["install"]
+
+[dependencies]
+pnpm = "*"
