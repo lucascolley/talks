@@ -6,8 +6,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.19">
 
   <meta name="author" content="Lucas Colley">
   <meta name="dcterms.date" content="2026-07-13">
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -203,7 +206,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-<a href="https://lucascolley.github.io">Lucas Colley</a> 
+<a href="https://lucascolley.github.io">Lucas Colley</a>
 </div>
 </div>
 </div>
@@ -322,14 +325,14 @@
 <section class="slide level2">
 <h2>This one-liner is a <em>lot</em> more accessible and robust than before…</h2>
 <p><a href="https://github.com/scipy/scipy/pull/24064">An open PR to SciPy</a> which documented the process before this work:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource rst number-lines code-with-copy"><code class="sourceCode rest"><span id="cb1-1"><a></a>#. Set <span class="dt">``ASAN_OPTIONS=detect_leaks=0:symbolize=1:strict_init_order=true:allocator_may_return_null=1:use_sigaltstack=0``</span></span>
-<span id="cb1-2"><a></a>#. Compile <span class="ot">CPython_</span> with <span class="dt">``--with-address-sanitizer``</span> and use it to setup a test environment</span>
-<span id="cb1-3"><a></a>#. Build <span class="ot">NumPy_</span> with the <span class="dt">``setup-args`` config setting set to ``-Db_sanitize=address``</span></span>
-<span id="cb1-4"><a></a>    * Eg. <span class="dt">``pip install numpy --no-cache-dir --no-binary numpy -Csetup-args="-Db_sanitize=address" -v``</span></span>
-<span id="cb1-5"><a></a>#. In the project root directory, set the compiler flags as follows:</span>
-<span id="cb1-6"><a></a>    * <span class="dt">``CFLAGS="-fsanitize=address -fno-omit-frame-pointer -fsanitize-ignorelist=$(pwd)/tools/asan-ignore.txt"``</span></span>
-<span id="cb1-7"><a></a>    * <span class="dt">``CXXFLAGS="-fsanitize=address -fno-omit-frame-pointer -fsanitize-ignorelist=$(pwd)/tools/asan-ignore.txt"``</span></span>
-<span id="cb1-8"><a></a>#. Build SciPy using <span class="dt">``spin build --clean``</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource rst number-lines code-with-copy"><code class="sourceCode rest"><span id="cb1-1"><a aria-label="1"></a>#. Set <span class="dt">``ASAN_OPTIONS=detect_leaks=0:symbolize=1:strict_init_order=true:allocator_may_return_null=1:use_sigaltstack=0``</span></span>
+<span id="cb1-2"><a aria-label="2"></a>#. Compile <span class="ot">CPython_</span> with <span class="dt">``--with-address-sanitizer``</span> and use it to setup a test environment</span>
+<span id="cb1-3"><a aria-label="3"></a>#. Build <span class="ot">NumPy_</span> with the <span class="dt">``setup-args`` config setting set to ``-Db_sanitize=address``</span></span>
+<span id="cb1-4"><a aria-label="4"></a>    * Eg. <span class="dt">``pip install numpy --no-cache-dir --no-binary numpy -Csetup-args="-Db_sanitize=address" -v``</span></span>
+<span id="cb1-5"><a aria-label="5"></a>#. In the project root directory, set the compiler flags as follows:</span>
+<span id="cb1-6"><a aria-label="6"></a>    * <span class="dt">``CFLAGS="-fsanitize=address -fno-omit-frame-pointer -fsanitize-ignorelist=$(pwd)/tools/asan-ignore.txt"``</span></span>
+<span id="cb1-7"><a aria-label="7"></a>    * <span class="dt">``CXXFLAGS="-fsanitize=address -fno-omit-frame-pointer -fsanitize-ignorelist=$(pwd)/tools/asan-ignore.txt"``</span></span>
+<span id="cb1-8"><a aria-label="8"></a>#. Build SciPy using <span class="dt">``spin build --clean``</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section class="slide level2">
 <h2>What is maintained where? (1/2)</h2>
@@ -347,16 +350,16 @@
 <ul>
 <li>a library like SciPy maintains how it uses these packages in its Pixi workspace:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb2-1"><a></a><span class="kw">[feature.asan.dependencies]</span></span>
-<span id="cb2-2"><a></a><span class="dt">python.flags</span> <span class="op">=</span> <span class="op">[</span><span class="st">"asan"</span><span class="op">]</span></span>
-<span id="cb2-3"><a></a><span class="dt">python.git</span> <span class="op">=</span> <span class="st">"https://github.com/lucascolley/cpython"</span></span>
-<span id="cb2-4"><a></a><span class="dt">python.subdirectory</span> <span class="op">=</span> <span class="st">"Tools/pixi-packages"</span></span>
-<span id="cb2-5"><a></a><span class="dt">python.rev</span> <span class="op">=</span> <span class="st">"8b5b0c29797cf88d78ef014916a5e5a5d51bbf95"</span></span>
-<span id="cb2-6"><a></a></span>
-<span id="cb2-7"><a></a><span class="dt">numpy.flags</span> <span class="op">=</span> <span class="op">[</span><span class="st">"asan"</span><span class="op">]</span></span>
-<span id="cb2-8"><a></a><span class="dt">numpy.git</span> <span class="op">=</span> <span class="st">"https://github.com/lucascolley/numpy"</span></span>
-<span id="cb2-9"><a></a><span class="dt">numpy.subdirectory</span> <span class="op">=</span> <span class="st">"pixi-packages/asan"</span></span>
-<span id="cb2-10"><a></a><span class="dt">numpy.rev</span> <span class="op">=</span> <span class="st">"6bc853b2fbb3721332de7e5dc44ea9b282bc260a"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource toml number-lines code-with-copy"><code class="sourceCode toml"><span id="cb2-1"><a aria-label="1"></a><span class="kw">[feature.asan.dependencies]</span></span>
+<span id="cb2-2"><a aria-label="2"></a><span class="dt">python.flags</span> <span class="op">=</span> <span class="op">[</span><span class="st">"asan"</span><span class="op">]</span></span>
+<span id="cb2-3"><a aria-label="3"></a><span class="dt">python.git</span> <span class="op">=</span> <span class="st">"https://github.com/lucascolley/cpython"</span></span>
+<span id="cb2-4"><a aria-label="4"></a><span class="dt">python.subdirectory</span> <span class="op">=</span> <span class="st">"Tools/pixi-packages"</span></span>
+<span id="cb2-5"><a aria-label="5"></a><span class="dt">python.rev</span> <span class="op">=</span> <span class="st">"8b5b0c29797cf88d78ef014916a5e5a5d51bbf95"</span></span>
+<span id="cb2-6"><a aria-label="6"></a></span>
+<span id="cb2-7"><a aria-label="7"></a><span class="dt">numpy.flags</span> <span class="op">=</span> <span class="op">[</span><span class="st">"asan"</span><span class="op">]</span></span>
+<span id="cb2-8"><a aria-label="8"></a><span class="dt">numpy.git</span> <span class="op">=</span> <span class="st">"https://github.com/lucascolley/numpy"</span></span>
+<span id="cb2-9"><a aria-label="9"></a><span class="dt">numpy.subdirectory</span> <span class="op">=</span> <span class="st">"pixi-packages/asan"</span></span>
+<span id="cb2-10"><a aria-label="10"></a><span class="dt">numpy.rev</span> <span class="op">=</span> <span class="st">"6bc853b2fbb3721332de7e5dc44ea9b282bc260a"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section class="slide level2">
 <h2>Status</h2>

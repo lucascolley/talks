@@ -6,9 +6,9 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/quarto-contrib/qrcodejs-v1.0.0/qrcode.js"></script><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+  <meta name="generator" content="quarto-1.10.19">
 
   <meta name="author" content="Lucas Colley">
   <meta name="dcterms.date" content="2026-07-20">
@@ -22,10 +22,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -204,7 +207,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-<a href="https://lucascolley.github.io">Lucas Colley</a> 
+<a href="https://lucascolley.github.io">Lucas Colley</a>
 </div>
 </div>
 </div>
@@ -428,28 +431,28 @@
 <li>Stop hardcoding <code>ndim = 2</code></li>
 <li>Refer to the <em>last</em> two dimensions instead of the <em>first</em> two:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource diff number-lines code-with-copy"><code class="sourceCode diff"><span id="cb1-1"><a></a>class _AdjointLinearOperator(LinearOperator):</span>
-<span id="cb1-2"><a></a>    def __init__(self, A):</span>
-<span id="cb1-3"><a></a><span class="st">-        shape = (A.shape[1], A.shape[0])</span></span>
-<span id="cb1-4"><a></a><span class="va">+        shape = (*A.shape[:-2], A.shape[-1], A.shape[-2])</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource diff number-lines code-with-copy"><code class="sourceCode diff"><span id="cb1-1"><a aria-label="1"></a>class _AdjointLinearOperator(LinearOperator):</span>
+<span id="cb1-2"><a aria-label="2"></a>    def __init__(self, A):</span>
+<span id="cb1-3"><a aria-label="3"></a><span class="st">-        shape = (A.shape[1], A.shape[0])</span></span>
+<span id="cb1-4"><a aria-label="4"></a><span class="va">+        shape = (*A.shape[:-2], A.shape[-1], A.shape[-2])</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section class="slide level2">
 <h2><code>xp</code> arrays</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource diff number-lines code-with-copy"><code class="sourceCode diff"><span id="cb2-1"><a></a>class LinearOperator:</span>
-<span id="cb2-2"><a></a>...</span>
-<span id="cb2-3"><a></a><span class="st">-    def __init__(self, dtype, shape):</span></span>
-<span id="cb2-4"><a></a><span class="va">+    def __init__(self, dtype, shape, xp=None):</span></span>
-<span id="cb2-5"><a></a><span class="va">+        xp = np if xp is None else xp</span></span>
-<span id="cb2-6"><a></a><span class="va">+        self._xp = xp</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource diff number-lines code-with-copy"><code class="sourceCode diff"><span id="cb2-1"><a aria-label="1"></a>class LinearOperator:</span>
+<span id="cb2-2"><a aria-label="2"></a>...</span>
+<span id="cb2-3"><a aria-label="3"></a><span class="st">-    def __init__(self, dtype, shape):</span></span>
+<span id="cb2-4"><a aria-label="4"></a><span class="va">+    def __init__(self, dtype, shape, xp=None):</span></span>
+<span id="cb2-5"><a aria-label="5"></a><span class="va">+        xp = np if xp is None else xp</span></span>
+<span id="cb2-6"><a aria-label="6"></a><span class="va">+        self._xp = xp</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>some simple swaps:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource diff number-lines code-with-copy"><code class="sourceCode diff"><span id="cb3-1"><a></a>if self.dtype is None:</span>
-<span id="cb3-2"><a></a><span class="st">-    v = np.zeros(self.shape[-1], dtype=np.int8)</span></span>
-<span id="cb3-3"><a></a><span class="va">+    v = self._xp.zeros(self.shape[-1], dtype=self._xp.int8)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource diff number-lines code-with-copy"><code class="sourceCode diff"><span id="cb4-1"><a></a>def _matmat(self, X):</span>
-<span id="cb4-2"><a></a><span class="st">-    return self.A.dot(X)</span></span>
-<span id="cb4-3"><a></a><span class="va">+    return self.A @ X</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource diff number-lines code-with-copy"><code class="sourceCode diff"><span id="cb3-1"><a aria-label="1"></a>if self.dtype is None:</span>
+<span id="cb3-2"><a aria-label="2"></a><span class="st">-    v = np.zeros(self.shape[-1], dtype=np.int8)</span></span>
+<span id="cb3-3"><a aria-label="3"></a><span class="va">+    v = self._xp.zeros(self.shape[-1], dtype=self._xp.int8)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource diff number-lines code-with-copy"><code class="sourceCode diff"><span id="cb4-1"><a aria-label="1"></a>def _matmat(self, X):</span>
+<span id="cb4-2"><a aria-label="2"></a><span class="st">-    return self.A.dot(X)</span></span>
+<span id="cb4-3"><a aria-label="3"></a><span class="va">+    return self.A @ X</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section class="slide level2">
 <h2>Batched Computation (1/2)</h2>
@@ -469,13 +472,13 @@
 <ul>
 <li>Use <code>...</code> indexing to allow arbitrary batch dimensions to pass through:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource diff number-lines code-with-copy"><code class="sourceCode diff"><span id="cb5-1"><a></a># a default implementation of matrix-matrix multiplication</span>
-<span id="cb5-2"><a></a># in terms of matrix-vector multiplication</span>
-<span id="cb5-3"><a></a>def _matmat(X):</span>
-<span id="cb5-4"><a></a><span class="st">- return np.hstack([self.matvec(col.reshape(-1,1)) for col in X.T])</span></span>
-<span id="cb5-5"><a></a><span class="va">+ return np.stack(</span></span>
-<span id="cb5-6"><a></a><span class="va">+   [self._matvec(X[..., :, i]) for i in range(X.shape[-1])], axis=-1</span></span>
-<span id="cb5-7"><a></a><span class="va">+ )</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource diff number-lines code-with-copy"><code class="sourceCode diff"><span id="cb5-1"><a aria-label="1"></a># a default implementation of matrix-matrix multiplication</span>
+<span id="cb5-2"><a aria-label="2"></a># in terms of matrix-vector multiplication</span>
+<span id="cb5-3"><a aria-label="3"></a>def _matmat(X):</span>
+<span id="cb5-4"><a aria-label="4"></a><span class="st">- return np.hstack([self.matvec(col.reshape(-1,1)) for col in X.T])</span></span>
+<span id="cb5-5"><a aria-label="5"></a><span class="va">+ return np.stack(</span></span>
+<span id="cb5-6"><a aria-label="6"></a><span class="va">+   [self._matvec(X[..., :, i]) for i in range(X.shape[-1])], axis=-1</span></span>
+<span id="cb5-7"><a aria-label="7"></a><span class="va">+ )</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section class="slide level2">
 <h2>Challenges: backwards-compatibility</h2>
@@ -483,13 +486,13 @@
 <li>However: code written against the old implementation must not be broken when upgrading to the new implementation</li>
 <li>This forces us to still iterate through columns here, in case matvec does not support batched computation:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource diff number-lines code-with-copy"><code class="sourceCode diff"><span id="cb6-1"><a></a># a default implementation of matrix-matrix multiplication</span>
-<span id="cb6-2"><a></a># in terms of matrix-vector multiplication</span>
-<span id="cb6-3"><a></a>def _matmat(X):</span>
-<span id="cb6-4"><a></a><span class="st">- return np.hstack([self.matvec(col.reshape(-1,1)) for col in X.T])</span></span>
-<span id="cb6-5"><a></a><span class="va">+ return np.stack(</span></span>
-<span id="cb6-6"><a></a><span class="va">+   [self._matvec(X[..., :, i]) for i in range(X.shape[-1])], axis=-1</span></span>
-<span id="cb6-7"><a></a><span class="va">+ )</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource diff number-lines code-with-copy"><code class="sourceCode diff"><span id="cb6-1"><a aria-label="1"></a># a default implementation of matrix-matrix multiplication</span>
+<span id="cb6-2"><a aria-label="2"></a># in terms of matrix-vector multiplication</span>
+<span id="cb6-3"><a aria-label="3"></a>def _matmat(X):</span>
+<span id="cb6-4"><a aria-label="4"></a><span class="st">- return np.hstack([self.matvec(col.reshape(-1,1)) for col in X.T])</span></span>
+<span id="cb6-5"><a aria-label="5"></a><span class="va">+ return np.stack(</span></span>
+<span id="cb6-6"><a aria-label="6"></a><span class="va">+   [self._matvec(X[..., :, i]) for i in range(X.shape[-1])], axis=-1</span></span>
+<span id="cb6-7"><a aria-label="7"></a><span class="va">+ )</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section class="slide level2">
 <h2>Challenges: pickle-ability (1/2)</h2>
@@ -503,14 +506,14 @@
 <ul>
 <li>Modules (like <code>np</code> or <code>self._xp</code>) cannot be pickled, so we instead tell pickle how to represent the state with an array (<code>self._xp.empty(0)</code>), and recover <code>self._xp</code>:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a></a><span class="kw">def</span> __getstate__(<span class="va">self</span>):</span>
-<span id="cb7-2"><a></a>    state <span class="op">=</span> <span class="va">self</span>.__dict__.copy()</span>
-<span id="cb7-3"><a></a>    state[<span class="st">"_xp"</span>] <span class="op">=</span> state[<span class="st">"_xp"</span>].empty(<span class="dv">0</span>)</span>
-<span id="cb7-4"><a></a>    <span class="cf">return</span> state</span>
-<span id="cb7-5"><a></a></span>
-<span id="cb7-6"><a></a><span class="kw">def</span> __setstate__(<span class="va">self</span>, state):</span>
-<span id="cb7-7"><a></a>    <span class="va">self</span>._xp <span class="op">=</span> array_namespace(state.pop(<span class="st">"_xp"</span>))</span>
-<span id="cb7-8"><a></a>    <span class="va">self</span>.__dict__.update(state)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a aria-label="1"></a><span class="kw">def</span> __getstate__(<span class="va">self</span>):</span>
+<span id="cb7-2"><a aria-label="2"></a>    state <span class="op">=</span> <span class="va">self</span>.__dict__.copy()</span>
+<span id="cb7-3"><a aria-label="3"></a>    state[<span class="st">"_xp"</span>] <span class="op">=</span> state[<span class="st">"_xp"</span>].empty(<span class="dv">0</span>)</span>
+<span id="cb7-4"><a aria-label="4"></a>    <span class="cf">return</span> state</span>
+<span id="cb7-5"><a aria-label="5"></a></span>
+<span id="cb7-6"><a aria-label="6"></a><span class="kw">def</span> __setstate__(<span class="va">self</span>, state):</span>
+<span id="cb7-7"><a aria-label="7"></a>    <span class="va">self</span>._xp <span class="op">=</span> array_namespace(state.pop(<span class="st">"_xp"</span>))</span>
+<span id="cb7-8"><a aria-label="8"></a>    <span class="va">self</span>.__dict__.update(state)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section class="slide level2">
 <h2>Challenges: poor documentation</h2>
