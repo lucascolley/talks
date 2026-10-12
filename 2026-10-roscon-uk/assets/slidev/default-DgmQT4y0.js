@@ -1,1 +1,0 @@
-import{K as e,O as t,Y as n}from"../modules/shiki-DTCD_wPV.js";import{gt as r}from"../index-CVnn3H26.js";var i={},a={class:`slidev-layout default`};function o(r,i){return e(),t(`div`,a,[n(r.$slots,`default`)])}var s=r(i,[[`render`,o]]);export{s as t};
