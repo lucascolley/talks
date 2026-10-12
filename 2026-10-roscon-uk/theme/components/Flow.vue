@@ -1,0 +1,80 @@
+<!-- Its children as a row of boxes joined by arrows. -->
+
+<script setup lang="ts">
+import type { VNode } from 'vue'
+import { Comment, Fragment, Text, computed, useSlots } from 'vue'
+
+const slots = useSlots()
+
+function flatten(nodes: VNode[]): VNode[] {
+  return nodes.flatMap((node) => {
+    if (node.type === Fragment)
+      return flatten((node.children ?? []) as VNode[])
+    if (node.type === Comment)
+      return []
+    if (node.type === Text && !String(node.children).trim())
+      return []
+    return [node]
+  })
+}
+
+const steps = computed(() => flatten(slots.default?.() ?? []))
+const columns = computed(() => steps.value.map(() => '1fr').join(' auto '))
+</script>
+
+<template>
+  <div class="flow" :style="{ gridTemplateColumns: columns }">
+    <template v-for="(step, index) in steps" :key="index">
+      <b v-if="index" aria-hidden="true">→</b>
+      <component :is="step" />
+    </template>
+  </div>
+</template>
+
+<style>
+.flow {
+  display: grid;
+  gap: 0.625rem;
+  align-items: stretch;
+  margin: 0 0 1rem;
+
+  > div {
+    display: flex;
+    min-height: 6rem;
+    padding: 1rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--prefix-white);
+    border: 1px solid var(--prefix-border);
+    border-radius: var(--prefix-radius-md);
+    text-align: center;
+  }
+
+  > .flow-highlight {
+    background: var(--prefix-yellow);
+    border-color: var(--prefix-yellow);
+  }
+
+  /* The arrow between two boxes */
+  > b {
+    align-self: center;
+    color: var(--prefix-muted);
+    font-size: var(--prefix-text-xl);
+    font-weight: 400;
+  }
+
+  .slidev-layout & strong {
+    max-width: 9rem;
+    font-size: var(--prefix-text-base);
+    line-height: 1.25;
+    text-wrap: balance;
+
+    code {
+      padding: 0;
+      background: transparent;
+      font-size: inherit;
+    }
+  }
+}
+</style>

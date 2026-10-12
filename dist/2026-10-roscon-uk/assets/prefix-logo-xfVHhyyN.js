@@ -1,0 +1,1 @@
+var e=`/2026-10-roscon-uk/prefix-logo.svg`;export{e as t};

@@ -1,0 +1,1 @@
+function e(e){return e.startsWith(`/`)?`/2026-10-roscon-uk/${e.slice(1)}`:e}export{e as t};

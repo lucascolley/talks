@@ -1,0 +1,23 @@
+{
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "esno scripts/build.ts"
+  },
+  "dependencies": {
+    "@iconify-json/file-icons": "^1.2.2",
+    "@iconify-json/mdi": "^1.2.3",
+    "@iconify-json/uim": "^1.2.3",
+    "@rive-app/canvas-lite": "^2.44.0",
+    "@slidev/cli": "^53.0.0",
+    "@slidev/theme-default": "^0.25.0",
+    "@slidev/theme-seriph": "^0.25.0",
+    "@types/node": "^26.6.4",
+    "esno": "^4.8.0",
+    "execa": "^10.0.1",
+    "playwright-chromium": "^1.63.0",
+    "typescript": "^7.0.2",
+    "yaml": "^2.9.1"
+  },
+  "name": "talks"
+}
