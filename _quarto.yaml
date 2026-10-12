@@ -1,6 +1,9 @@
 ---
 project:
   type: website
+  # Only Quarto talks; Slidev decks (*/slides.md) are built separately by scripts/build.ts
+  render:
+    - "**/*.qmd"
 
 format:
   html:

@@ -12,3 +12,5 @@ site_libs
 **/*.quarto_ipynb
 
 node_modules
+# slidev
+dist
