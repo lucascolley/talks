@@ -1,0 +1,9 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", "helpers:pinGitHubActionDigests", ":automergeMinor"],
+  "dependencyDashboardTitle": "META: Dependency Dashboard",
+  "commitMessagePrefix": "deps:",
+  "labels": ["dependencies"],
+  "rangeStrategy": "bump",
+  "minimumReleaseAge": "14 days"
+}
