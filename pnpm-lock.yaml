@@ -39,7 +39,7 @@ importers:
         specifier: ^10.1.0
         version: 10.1.0
       playwright-chromium:
-        specifier: ^1.63.0
+        specifier: ^1.64.0
         version: 1.64.0
       typescript:
         specifier: ^7.0.2
