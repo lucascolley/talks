@@ -18,7 +18,7 @@ importers:
         specifier: ^1.2.3
         version: 1.2.3
       '@rive-app/canvas-lite':
-        specifier: ^2.47.1
+        specifier: ^2.48.0
         version: 2.49.0
       '@slidev/cli':
         specifier: ^53.0.0
