@@ -154,6 +154,16 @@
     }
   }
 
+  /* Numbers sit in the same gutter as the bullet squares */
+  ol {
+    padding-left: 1.5rem;
+    list-style: decimal;
+
+    > li::marker {
+      font-variant-numeric: tabular-nums;
+    }
+  }
+
   strong {
     font-weight: 600;
   }

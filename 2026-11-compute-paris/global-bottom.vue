@@ -3,6 +3,7 @@
     <img src="/scipy.svg" alt="SciPy" />
     <div class="keynote-footer-meta">
       <Ref v-if="$nav.currentFrontmatter.link" :to="$nav.currentFrontmatter.link" />
+      <a class="keynote-slides-url" href="https://lucascolley.github.io/talks/2026-11-compute-paris/" target="_blank">https://lucascolley.github.io/talks/2026-11-compute-paris</a>
       <span class="keynote-page">{{ $nav.currentPage }}</span>
     </div>
   </footer>
@@ -51,6 +52,14 @@
     gap: 1.25rem;
     font-size: var(--prefix-text-2xs);
     letter-spacing: var(--prefix-tracking-slight);
+  }
+
+  .keynote-slides-url {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--prefix-yellow);
+    border: none;
+    font-size: var(--prefix-text-sm);
   }
 
   .keynote-page {
