@@ -1,0 +1,1 @@
+var e=`/talks/2026-11-compute-paris/prefix-logo.svg`;export{e as t};

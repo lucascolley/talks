@@ -1,0 +1,1 @@
+var e=`/talks/2026-11-compute-paris/scipy.svg`;export{e as t};
