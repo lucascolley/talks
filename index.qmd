@@ -6,6 +6,11 @@ format:
 listing:
   contents:
     - .
+    - path: https://lucascolley.github.io/talks/2026-11-compute-paris/
+      title: "The road(map) towards SciPy 2.0"
+      date: 2026-11-01
+      subtitle: "Compute! Paris 2026"
+      author: "[Lucas Colley](https://lucascolley.github.io)"
     - path: https://lucascolley.github.io/talks/2026-10-roscon-uk/
       title: "Pixi for ROS — Why?"
       date: 2026-10-23

@@ -118,6 +118,7 @@ label: Part 1
 - some striking then vs. now comparison
   - support for linux-arm64, osx-arm64, and win-arm64 platforms
   - support for free-threaded Python (for more info: [Ralf Gommers' PyData Paris 2025 keynote](https://youtu.be/rHWCygZQgsw?si=TCc8cp3VsQiyN0ao))
+  - how have the docs changed?
 
 ---
 layout: section
@@ -164,7 +165,7 @@ SciPy source lines of code by language, since 1.0
 
 - SciPy 2.0 removes a Fortran compiler as a build requirement
 - Lots of early SciPy adoption was driven by the convenient interfaces it provided to state-of-the-art Fortran libraries like ODEPACK, QUADPACK, FITPACK, MINPACK, ARPACK.
-
+- ...
 
 ---
 
@@ -222,7 +223,7 @@ label: Part 3
 # Future versions
 
 - more array API coverage (incl. JIT)
-- support for emergent platforms: RISC-V, WASM
+- support for emergent platforms: RISC-V, WASM, Android/iOS
 - support for [Python limited API](https://docs.python.org/3/c-api/stable.html#limited-c-api) / [stable ABI](https://github.com/scipy/scipy/issues/23791)?
 
 ---
@@ -261,7 +262,7 @@ SciPy 1.0 -> 2.0 contributors
 
 # With thanks to:
 
-- all SciPy contributors!
+- all SciPy contributors
 - Julian Hofer for this Slidev talk template
 - the Compute! Paris organisers and volunteers
 - <img src="/prefix-logo.svg" alt="" style="display: inline; margin-left: 0.25em; height: 1em; vertical-align: -0.125em" /> for time to work on these slides

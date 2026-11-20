@@ -64,6 +64,8 @@
     color: inherit;
     text-decoration: underline;
     text-decoration-color: var(--prefix-yellow);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
     border: none;
     font-size: var(--prefix-text-sm);
   }
