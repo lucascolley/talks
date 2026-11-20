@@ -193,7 +193,23 @@ label: Part 3
 - a period of about a month from branch point to final release
   - making any fixes for issues discovered with downstream testing of pre-releases
 - we're writing a paper!
-  - ['SciPy 2.0: A Stronger Foundation for Scientific Computing in Python' source](https://github.com/scipy/scipy-articles/tree/main/scipy-2.0) 
+  - ['SciPy 2.0: A Stronger Foundation for Scientific Computing in Python' source](https://github.com/scipy/scipy-articles/tree/main/scipy-2.0)
+
+---
+
+# Future versions
+
+- more array API coverage (incl. JIT)
+- support for emergent platforms: RISC-V, WASM
+- support for [Python limited API](https://docs.python.org/3/c-api/stable.html#limited-c-api) / [stable ABI](https://github.com/scipy/scipy/issues/23791)?
+- 
+
+---
+
+# SciPy 3.0?
+
+- any further breaks we might want to make?
+  - ...
 
 ---
 
