@@ -49,11 +49,21 @@ occasion: Compute! Paris 2026
 <div class="flex gap-10 items-start">
 <div class="flex-1">
 
+
+
+
+
+
+
+
+
+
+
 - Core maintainer of [SciPy](https://scipy.org) <img src="/scipy.svg" alt="" style="display: inline; height: 1em; vertical-align: -0.125em" /> and [Pixi](https://pixi.prefix.dev/latest/) <img src="/paxton-vector-art.svg" alt="" style="display: inline; height: 1em; vertical-align: -0.125em" />
 - Working on SciPy since 2023
-- I graduated from the University of Oxford this year,<br>
+- Graduated from the University of Oxford this year,<br>
 with a Master's in Computer Science & Philosophy
-- I now work as part of the core team at [prefix.dev](https://prefix.dev) <img src="/prefix-logo.svg" alt="" style="display: inline; margin-left: 0.25em; height: 1em; vertical-align: -0.125em" />
+- Now: core team at [prefix.dev](https://prefix.dev) <img src="/prefix-logo.svg" alt="" style="display: inline; margin-left: 0.25em; height: 1em; vertical-align: -0.125em" />
 
 </div>
 
@@ -73,15 +83,31 @@ label: Part 1
 
 ---
 
-# A brief history of SciPy since 1.0
-
-...
+# The SciPy project
 
 - SciPy project summary
+  - what is it about? how widely is it used?
+  - who works on it? how many contributors does it have? (scipy_contributors.png, credit: Evgeni Burovski)
+    - 56 total maintainers (22 now emeritus)
+    - working on SciPy has never been anyone's full-time job — most contributions have happened on evenings/weekends
+
+---
+
+# SciPy 1.0
+
 - https://pypi.org/project/scipy/1.0.0/
   - Nature Methods paper published in 2020: https://www.nature.com/articles/s41592-019-0686-2 (1.0-paper.png)
-- from Evgeni's slides: contributor demographics, funding
+
+---
+
+# SciPy 1.1 -> 1.18
+
 - 18 minor releases; their highlights
+
+---
+
+# Then vs. Now
+
 - some striking then vs. now comparison
   - support for linux-arm64, osx-arm64, and win-arm64 platforms
   - support for free-threaded Python (for more info: [Ralf Gommers' PyData Paris 2025 keynote](https://youtu.be/rHWCygZQgsw?si=TCc8cp3VsQiyN0ao))
@@ -95,15 +121,53 @@ label: Part 2
 
 ---
 
-# Major changes in SciPy 2.0
-
-...
+# Array API standard support
 
 - array API
   - for more info: [My PyData Paris 2025 talk](https://lucascolley.github.io/talks/pydata-paris-25-array-api/)
-- language choices, Fortran compiler
-- (other things from the paper)
-- ecosystem impact: what does this mean for downstream projects?
+
+---
+
+# Sparse matrices -> arrays
+
+...
+
+---
+
+# Language choices
+
+...
+
+---
+
+# ILP64 BLAS/LAPACK support
+
+- Low-level LAPACK providers (MKL, Accelerate, OpenBLAS) come in two ABI flavors: 32-bit integers (LP64) or 64-bit integers (ILP64)
+- LP64 is limited by the integer overflow (N~46000).
+- 2.0 brings complete and robust ILP64 support, where it is safe to mix LP64 and ILP64 libraries in the same env
+- this can be enabled when building from source
+- https://scipy.github.io/devdocs/dev/building/blas_lapack.html
+- credit: Evgeni Burovski
+
+---
+
+# New-style probability distributions
+
+...
+
+---
+
+# (other things from the paper)
+
+...
+
+---
+
+# Ecosystem impact
+
+- what does this mean for downstream projects?
+- what might break / what changes might be needed?
+- what opportunities are created?
 
 ---
 layout: section
@@ -117,6 +181,9 @@ label: Part 3
 # What we didn't cover
 
 ...
+- linear algebra batching support
+- build system and developer experience improvements
+- improved code vendoring practices
 
 ---
 
@@ -146,8 +213,8 @@ label: Part 3
 SciPy 1.0 -> 2.0 contributors 
 
 <div class="flex justify-center gap-8 items-start">
-  <img style="height: 18rem" src="/lfx-contrib-1.png" alt="SciPy top contributors 1–10 since 1.0: mdhaber, rgommers, tylerjereddy, lucascolley, j-bowhay, ev-br, tupui, ilayn, WarrenWeckesser, andyfaff" />
-  <img style="height: 18rem" src="/lfx-contrib-2.png" alt="SciPy top contributors 11–20 since 1.0: steppi, dschmitz89, larsoner, pv, h-vetinari, tirthasheshpatel, AtsushiSakai, peterbell10, lobpcg, dschult" />
+  <img style="height: 17rem" src="/lfx-contrib-1.png" alt="SciPy top contributors 1–10 since 1.0: mdhaber, rgommers, tylerjereddy, lucascolley, j-bowhay, ev-br, tupui, ilayn, WarrenWeckesser, andyfaff" />
+  <img style="height: 17rem" src="/lfx-contrib-2.png" alt="SciPy top contributors 11–20 since 1.0: steppi, dschmitz89, larsoner, pv, h-vetinari, tirthasheshpatel, AtsushiSakai, peterbell10, lobpcg, dschult" />
 </div>
 
 <p class="text-sm text-center mt-4">Data: <a href="https://insights.linuxfoundation.org/project/scipy/contributors?timeRange=custom&amp;start=2017-10-25&amp;end=2026-11-17">https://insights.linuxfoundation.org/project/scipy/contributors?timeRange=custom&amp;start=2017-10-25&amp;end=2026-11-17</a></p>
