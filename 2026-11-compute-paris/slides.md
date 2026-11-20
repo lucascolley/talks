@@ -110,6 +110,8 @@ label: Part 1
 # SciPy 1.1 -> 1.18
 
 - 18 minor releases; their highlights
+  - go through https://scipy.github.io/devdocs/release.html
+  - other bits mentioned in the paper
 
 ---
 
@@ -119,6 +121,7 @@ label: Part 1
   - support for linux-arm64, osx-arm64, and win-arm64 platforms
   - support for free-threaded Python (for more info: [Ralf Gommers' PyData Paris 2025 keynote](https://youtu.be/rHWCygZQgsw?si=TCc8cp3VsQiyN0ao))
   - how have the docs changed?
+    - https://docs.scipy.org/doc/scipy-1.0.0/reference/ vs. https://scipy.github.io/devdocs/index.html
 
 ---
 layout: section
@@ -132,6 +135,9 @@ label: Part 2
 # Array API standard support
 
 - array API
+  - ...
+  - coverage
+  - (xp-bench-plots.png)
   - for more info: [My PyData Paris 2025 talk](https://lucascolley.github.io/talks/pydata-paris-25-array-api/)
 
 ---
@@ -165,7 +171,15 @@ SciPy source lines of code by language, since 1.0
 
 - SciPy 2.0 removes a Fortran compiler as a build requirement
 - Lots of early SciPy adoption was driven by the convenient interfaces it provided to state-of-the-art Fortran libraries like ODEPACK, QUADPACK, FITPACK, MINPACK, ARPACK.
-- ...
+- now all translated into C, some further into C++
+- why?
+  - undermaintained code
+  - build system problems: https://labs.quansight.org/blog/building-scipy-with-flang
+  - Fortran-C interface boilerplate
+- how?
+  - "A herculean effort of line-by-line translation" by Ilhan
+  - started at a time when LLMs were certainly NOT good enough to be trusted blindly
+  - only `scipy.odrpack` has been deprecated and removed, the rest translated
 
 ---
 
@@ -205,8 +219,8 @@ label: Part 3
 
 - linear algebra batching support
 - deprecations across minor versions
-- build system and developer experience improvements
-- improved code vendoring practices
+- build system and developer experience improvements (sci-paxton.png)
+- improved code vendoring practices (https://github.com/scipy/scipy/issues/21232)
 
 ---
 
