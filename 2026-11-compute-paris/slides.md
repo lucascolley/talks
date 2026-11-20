@@ -1,13 +1,6 @@
 ---
 theme: ./theme
 layout: cover
-eyebrow: Compute! Paris 2026
-speaker: Lucas Colley
-image: /scipy.svg
-imageAlt: SciPy logo
-qr: /slides-qr-code.png
-qrLabel: link to the slides
-qrHref: https://lucascolley.github.io/talks/2026-11-compute-paris/
 highlighter: shiki
 lineNumbers: false
 fonts:
@@ -19,6 +12,19 @@ themeConfig:
   primary: "#001d38"
 title: The road(map) towards SciPy 2.0
 occasion: Compute! Paris 2026
+---
+
+# <span class="cover-title-lead">WORK IN PROGRESS</span>
+
+---
+layout: cover
+eyebrow: Compute! Paris 2026
+speaker: Lucas Colley
+image: /scipy.svg
+imageAlt: SciPy logo
+qr: /slides-qr-code.png
+qrLabel: link to the slides
+qrHref: https://lucascolley.github.io/talks/2026-11-compute-paris/
 ---
 
 # <span class="cover-title-lead">The road(map) towards SciPy 2.0</span>
