@@ -87,7 +87,8 @@ label: Part 1
 
 - SciPy project summary
   - what is it about? how widely is it used?
-  - who works on it? how many contributors does it have? (scipy_contributors.png, credit: Evgeni Burovski)
+  - who works on it? how many contributors does it have? (scipy_contributors.png, credit: )
+    - <p class="text-sm mt-4">Credit: Evgeni Burovski</p>
     - 56 total maintainers (22 now emeritus)
     - working on SciPy has never been anyone's full-time job — most contributions have happened on evenings/weekends
 
@@ -136,7 +137,28 @@ label: Part 2
 
 # Language choices
 
-...
+SciPy source lines of code by language, since 1.0
+
+<div class="flex gap-8 items-start">
+  <figure class="m-0 flex-1">
+    <img src="/sloc-scipy.png" alt="Stacked area chart of SciPy source lines of code by language from 1.0 to 2.0, excluding vendored code: grows from about 350k to 650k, mostly Python, with Fortran 77 disappearing by 2.0" />
+    <figcaption class="text-center text-base mt-2">~maintained by SciPy team</figcaption>
+  </figure>
+  <figure class="m-0 flex-1">
+    <img src="/sloc-all.png" alt="Stacked area chart of SciPy source lines of code by language from 1.0 to 2.0, including vendored dependencies: grows from about 0.4M to 1.5M, driven largely by C++" />
+    <figcaption class="text-center text-base mt-2">including vendored dependencies</figcaption>
+  </figure>
+</div>
+
+<p class="text-sm mt-4">Credit: Jake Bowhay</p>
+
+---
+
+# Language choices — Fortran no longer
+
+- SciPy 2.0 removes a Fortran compiler as a build requirement
+- Lots of early SciPy adoption was driven by the convenient interfaces it provided to state-of-the-art Fortran libraries like ODEPACK, QUADPACK, FITPACK, MINPACK, ARPACK.
+
 
 ---
 
@@ -147,17 +169,11 @@ label: Part 2
 - 2.0 brings complete and robust ILP64 support, where it is safe to mix LP64 and ILP64 libraries in the same env
 - this can be enabled when building from source
 - https://scipy.github.io/devdocs/dev/building/blas_lapack.html
-- credit: Evgeni Burovski
+<p class="text-sm mt-4">Credit: Evgeni Burovski</p>
 
 ---
 
 # New-style probability distributions
-
-...
-
----
-
-# (other things from the paper)
 
 ...
 
@@ -180,8 +196,8 @@ label: Part 3
 
 # What we didn't cover
 
-...
 - linear algebra batching support
+- deprecations across minor versions
 - build system and developer experience improvements
 - improved code vendoring practices
 
@@ -202,14 +218,14 @@ label: Part 3
 - more array API coverage (incl. JIT)
 - support for emergent platforms: RISC-V, WASM
 - support for [Python limited API](https://docs.python.org/3/c-api/stable.html#limited-c-api) / [stable ABI](https://github.com/scipy/scipy/issues/23791)?
-- 
 
 ---
 
 # SciPy 3.0?
 
-- any further breaks we might want to make?
-  - ...
+- *SciPy 3.0 might not take so long to come around!*
+- Putting off all major breakages for up to a decade then breaking a lot in one go (like NumPy 2.0) doesn't seem like a great habit
+- Tentatively, we would like to move towards more frequent but smaller major releases that contain significant (*but justified!*) breakages
 
 ---
 
