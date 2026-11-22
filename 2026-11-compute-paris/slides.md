@@ -136,20 +136,22 @@ label: Part 1
 
 # SciPy 1.0
 
-- https://pypi.org/project/scipy/1.0.0/ released in 2017
+- https://pypi.org/project/scipy/1.0.0/ released in 2017 (with Windows wheels!)
 - [*Nature Methods* paper](https://www.nature.com/articles/s41592-019-0686-2) published in 2020
 
 <img src="/1.0-paper.png" alt="Title and author list of the Nature Methods paper 'SciPy 1.0: fundamental algorithms for scientific computing in Python'" class="mx-auto mt-6 rounded-lg" style="height: 14rem" />
 
 ---
 
-# SciPy 1.1 -> 1.18
+# SciPy 1.1 -> 1.18 (at a glance)
 
-- TODO: 18 minor releases; their highlights
-  - go through https://scipy.github.io/devdocs/release.html
-  - other bits mentioned in the paper
-  - Support for linux-arm64, osx-arm64, and win-arm64 platforms
-  - Support for free-threaded Python (for more info: [Ralf Gommers' PyData Paris 2025 keynote](https://youtu.be/rHWCygZQgsw?si=TCc8cp3VsQiyN0ao))
+- Free-threaded Python support (see [Ralf Gommers' PyData Paris 2025 keynote](https://youtu.be/rHWCygZQgsw?si=TCc8cp3VsQiyN0ao))
+- Support for ARM CPU platforms + Apple's Accelerate BLAS/LAPACK
+- New modules: `differentiate`, `fft`, `optimize.cython_optimize`, `optimize.elementwise`, `spatial.transform`, `stats.qmc`, `stats.sampling`
+- [HiGHS](https://highs.dev/) solvers for `optimize.linprog`
+- [`Boost.Math`](https://www.boost.org/library/latest/math/) library backing `special` and `stats`
+- New docs theme + interactive examples
+- *Many, many* new functions, classes, and methods!
 
 ---
 
@@ -190,9 +192,9 @@ TODO
 
 # 2. Sparse matrices -> arrays
 
-- `scipy.sparse.spmatrix` (used like `numpy.matrix`) is deprecated in 2.0
+- `scipy.sparse.spmatrix` (`numpy.matrix`-esque API) is deprecated in 2.0
 - Replacement: `scipy.sparse.sparray` classes, like `scipy.sparse.csr_array`
-  - used like `numpy.ndarray` instead, close to the array API
+  - `numpy.ndarray`-esque API instead, close to the array API
 - No longer just 2-D
   - 1-D support for COO, CSR, and DOK arrays
   - N-D (up to 64 dimensions) for COO
@@ -223,11 +225,11 @@ SciPy source lines of code by language, since 1.0
 
 - SciPy 2.0 removes a Fortran compiler as a build requirement
 - Early SciPy success was driven by convenient interfaces to state-of-the-art Fortran libraries like ODEPACK, QUADPACK, FITPACK, MINPACK, ARPACK
-- Now all translated into C, some further into C++
+- Now translated into C, some further into C++
 - How?
   - "a herculean effort of line-by-line translation" by Ilhan Polat
   - started at a time when LLMs were certainly NOT good enough to be trusted blindly
-  - only `scipy.odrpack` has been deprecated and removed, the rest translated
+  - only `scipy.odr` has been deprecated and removed, the rest translated
 
 ---
 
@@ -242,9 +244,20 @@ SciPy source lines of code by language, since 1.0
 
 ---
 
+# 3. `scipy.special` -> `xsf`, `Boost.Math`
+
+- `scipy.special` used to be backed by Fortran 77 libraries:
+  - `amos`, `cephes`, `CDFLIB`, `SPECFUN`
+- Translations -> C -> C++ are now developed in the separate [`scipy/xsf`](https://github.com/scipy/xsf) project
+  - parts of `xsf` support conditional compilation for CUDA devices
+- Also, `Boost.Math` now backs many functions instead of the Fortran libraries
+
+---
+
 # 4. New-style probability distributions
 
 - TODO: transition guide
+- old distributions are no longer under active development
 
 ---
 
@@ -295,13 +308,16 @@ label: Part 3
 
 TODO
 - ...
+- also `scipy.sparse.linalg.LinearOperator`, see [my EuroSciPy 2026 talk](https://lucascolley.github.io/talks/euroscipy-26-linop/)
 
 ---
 
 # 3. Deprecations across minor versions
 
 - The ability to make a major release that isn't *hugely* breaking comes from significant work on incremental, smaller deprecations across minor versions
-- TODO: summarise work
+- Our policy for medium-sized breaks:
+  - announce deprecation and emit `DeprecationWarning`s
+  - make the breaking change after 2 minor releases (1 year)
 - See [the deprecation tracker](https://github.com/scipy/scipy/issues/15765)
 
 ---
@@ -331,6 +347,7 @@ TODO
 - More array API coverage (+ experimenting with `jax.jit` & `torch.compile`)
 - Support for emergent platforms: RISC-V, WASM, Android/iOS
 - Support for [Python limited API](https://docs.python.org/3/c-api/stable.html#limited-c-api) / [stable ABI](https://github.com/scipy/scipy/issues/23791)?
+
 
 ---
 
