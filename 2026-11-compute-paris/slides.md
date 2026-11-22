@@ -45,7 +45,7 @@ qrHref: https://lucascolley.github.io/talks/2026-11-compute-paris/
 # Agenda
   
 1. A brief history of SciPy since 1.0
-2. 5 Major changes in SciPy 2.0
+2. 5 major changes in SciPy 2.0
 3. Closing remarks
 
 ---
@@ -171,22 +171,21 @@ layout: section
 label: Part 2
 ---
 
-# 5 Major changes in SciPy 2.0
+# 5 major changes in SciPy 2.0
 
 ---
 
-# (1) Array API standard support
+# 1. Array API Standard support
 
-- array API
-  - ...
-  - https://discuss.scientific-python.org/t/making-array-types-support-public-scipy-2-0/2355/37
-  - coverage
-  - (xp-bench-plots.png)
-  - for more info: [My PyData Paris 2025 talk](https://lucascolley.github.io/talks/pydata-paris-25-array-api/)
+- ...
+- https://discuss.scientific-python.org/t/making-array-types-support-public-scipy-2-0/2355/37
+- coverage
+- (xp-bench-plots.png)
+- for more info: [My PyData Paris 2025 talk](https://lucascolley.github.io/talks/pydata-paris-25-array-api/)
 
 ---
 
-# (2) Sparse matrices -> arrays
+# 2. Sparse matrices -> arrays
 
 - `scipy.sparse.spmatrix` (used like `numpy.matrix`) deprecated in 2.0
 - Replacement: `scipy.sparse.sparray` classes, like `scipy.sparse.csr_array`
@@ -198,7 +197,7 @@ label: Part 2
 
 ---
 
-# (3) Language choices
+# 3. Language choices
 
 SciPy source lines of code by language, since 1.0
 
@@ -217,7 +216,7 @@ SciPy source lines of code by language, since 1.0
 
 ---
 
-# Fortran 77 no longer (1/2)
+# 3. Fortran 77 no longer (1/2)
 
 - SciPy 2.0 removes a Fortran compiler as a build requirement
 - Early SciPy success was driven by convenient interfaces to state-of-the-art Fortran libraries like ODEPACK, QUADPACK, FITPACK, MINPACK, ARPACK
@@ -229,7 +228,7 @@ SciPy source lines of code by language, since 1.0
 
 ---
 
-# Fortran 77 no longer (2/2)
+# 3. Fortran 77 no longer (2/2)
 
 - Why?
   - Undermaintained code, a shortage of Fortran 77 open source contributors
@@ -240,14 +239,14 @@ SciPy source lines of code by language, since 1.0
 
 ---
 
-# (4) New-style probability distributions
+# 4. New-style probability distributions
 
 ...
 - TODO: transition guide
 
 ---
 
-# (5) `stats.mstats` -> MArray
+# 5. `stats.mstats` -> MArray
 
 - the `scipy.stats.mstats` module is deprecated in 2.0 and slated for removal in 2.4
 - this module replicated some `scipy.stats` for [`numpy.ma` masked arrays](https://numpy.org/doc/stable/reference/maskedarray.generic.html)
