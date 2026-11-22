@@ -136,20 +136,22 @@ label: Part 1
 
 # SciPy 1.0
 
-- https://pypi.org/project/scipy/1.0.0/ released in 2017
+- https://pypi.org/project/scipy/1.0.0/ released in 2017 (with Windows wheels!)
 - [*Nature Methods* paper](https://www.nature.com/articles/s41592-019-0686-2) published in 2020
 
 <img src="/1.0-paper.png" alt="Title and author list of the Nature Methods paper 'SciPy 1.0: fundamental algorithms for scientific computing in Python'" class="mx-auto mt-6 rounded-lg" style="height: 14rem" />
 
 ---
 
-# SciPy 1.1 -> 1.18
+# SciPy 1.1 -> 1.18 (at a glance)
 
-- TODO: 18 minor releases; their highlights
-  - go through https://scipy.github.io/devdocs/release.html
-  - other bits mentioned in the paper
-  - Support for linux-arm64, osx-arm64, and win-arm64 platforms
-  - Support for free-threaded Python (for more info: [Ralf Gommers' PyData Paris 2025 keynote](https://youtu.be/rHWCygZQgsw?si=TCc8cp3VsQiyN0ao))
+- Free-threaded Python support (see [Ralf Gommers' PyData Paris 2025 keynote](https://youtu.be/rHWCygZQgsw?si=TCc8cp3VsQiyN0ao))
+- Support for ARM CPU platforms + Apple's Accelerate BLAS/LAPACK
+- New modules: `differentiate`, `fft`, `optimize.cython_optimize`, `optimize.elementwise`, `spatial.transform`, `stats.qmc`, `stats.sampling`
+- [HiGHS](https://highs.dev/) solvers for `optimize.linprog`
+- [Boost.Math](https://www.boost.org/library/latest/math/) library backing `special` and `stats`
+- New docs theme + interactive examples
+- *Many, many* new functions, classes, and methods!
 
 ---
 
@@ -190,9 +192,9 @@ TODO
 
 # 2. Sparse matrices -> arrays
 
-- `scipy.sparse.spmatrix` (used like `numpy.matrix`) is deprecated in 2.0
+- `scipy.sparse.spmatrix` (`numpy.matrix`-esque API) is deprecated in 2.0
 - Replacement: `scipy.sparse.sparray` classes, like `scipy.sparse.csr_array`
-  - used like `numpy.ndarray` instead, close to the array API
+  - `numpy.ndarray`-esque API instead, close to the array API
 - No longer just 2-D
   - 1-D support for COO, CSR, and DOK arrays
   - N-D (up to 64 dimensions) for COO
@@ -223,11 +225,11 @@ SciPy source lines of code by language, since 1.0
 
 - SciPy 2.0 removes a Fortran compiler as a build requirement
 - Early SciPy success was driven by convenient interfaces to state-of-the-art Fortran libraries like ODEPACK, QUADPACK, FITPACK, MINPACK, ARPACK
-- Now all translated into C, some further into C++
+- Now translated into C, some further into C++
 - How?
   - "a herculean effort of line-by-line translation" by Ilhan Polat
   - started at a time when LLMs were certainly NOT good enough to be trusted blindly
-  - only `scipy.odrpack` has been deprecated and removed, the rest translated
+  - only `scipy.odr` has been deprecated and removed, the rest translated
 
 ---
 
@@ -242,16 +244,83 @@ SciPy source lines of code by language, since 1.0
 
 ---
 
-# 4. New-style probability distributions
+# 3. `scipy.special` -> `xsf`, Boost.Math
 
-- TODO: transition guide
+- Much of `scipy.special` used to be backed by Fortran 77 libraries:
+  - `amos`, `cephes`, `CDFLIB`, `SPECFUN`
+- Translations -> C -> C++ are now developed in the separate [`scipy/xsf`](https://github.com/scipy/xsf) project
+  - parts of `xsf` support conditional compilation for CUDA devices
+- Boost.Math now backs many functions too
+
+---
+
+# 4. New-style probability distributions (1/3)
+
+- Distribution families are now classes which must be instantiated before use
+- Instances represent individual random variables with read-only parameters
+```python
+> mu, sigma = 0, 1
+> X = scipy.stats.Normal(mu=mu, sigma=sigma)
+> X
+Normal(mu=0, sigma=1)
+```
+
+- Old distributions are no longer under active development
+- See [the Random Variable Transition Guide](https://scipy.github.io/devdocs/tutorial/stats/rv_infrastructure.html)
+
+---
+
+# 4. New-style probability distributions (2/3)
+
+- Currently builtin: `Normal`, `Logistic`, `Uniform`, `Binomial`, `VonMises`, `Mixture`
+- `stats.make_distribution`: pass in an old distribution class, get new version
+
+<div class="grid gap-6 items-center" style="grid-template-columns: 3fr 2fr">
+<div class="code-dense">
+
+```python
+> Weibull = scipy.stats.make_distribution(scipy.stats.weibull_min)
+> c = 2.0
+> X = Weibull(c=c)
+> X.plot()
+> plt.show()
+```
+
+</div>
+
+<img src="/weibull.png" alt="Plot of the Weibull probability density function with c = 2, rising from 0 to a peak of about 0.86 near x = 0.7 and decaying towards 0 by x = 2.75" class="mx-auto" style="height: 17rem" />
+
+</div>
+
+---
+
+# 4. New-style probability distributions (3/3)
+
+- The new random variables are shifted and scaled via arithmetic operators:
+
+<div class="grid gap-6 items-center" style="grid-template-columns: 3fr 2fr">
+<div>
+
+```python
+Y = 2*X + 1
+Y.plot()  # note the change in the abscissae
+plt.show()
+```
+
+</div>
+
+<img src="/weibull-shifted.png" alt="Plot of the probability density function of 2*Weibull(c=2) + 1: the same shape as before, now starting at x = 1, peaking at about 0.43 near x = 2.4 and decaying towards 0 by x = 6.5" class="mx-auto" style="height: 16rem" />
+
+</div>
+
+- New methods: `ilogcdf`, `ilogccdf`, `logentropy`, `mode`, `skewness`, `kurtosis`
 
 ---
 
 # 5. `stats.mstats` -> MArray
 
 - The `scipy.stats.mstats` module is deprecated in 2.0
-- This module replicated some of `scipy.stats` for [`numpy.ma` masked arrays](https://numpy.org/doc/stable/reference/maskedarray.generic.html)
+  - This module replicated some of `scipy.stats` for [`numpy.ma` masked arrays](https://numpy.org/doc/stable/reference/maskedarray.generic.html)
 - Now recommended to use [MArray](https://mdhaber.github.io/marray/tutorial.html) with `scipy.stats` functions themselves
   - support achieved via the array API standard
 - See [the tutorial page on working with missing data](https://scipy.github.io/devdocs/tutorial/stats/missing_data.html)
@@ -260,10 +329,12 @@ SciPy source lines of code by language, since 1.0
 
 # Ecosystem impact
 
-TODO
-- what does this mean for downstream projects?
-- what might break / what changes might be needed?
-- what opportunities are created?
+- If you relied on undocumented behaviour for types like PyTorch tensors:<br>expect breakage
+- If you use sparse matrices: migrate to sparse arrays
+- If you use old stats distributions: try migrating to new distributions
+- If you use `mstats`: migrate to `MArray`
+- If you use `cupyx.scipy` or `jax.scipy`: try using `scipy` instead
+- Now is a great time to try an alternative array library to NumPy
 
 ---
 layout: section
@@ -283,25 +354,38 @@ label: Part 3
 # 1. ILP64 BLAS/LAPACK support
 
 - Low-level LAPACK providers (MKL, Accelerate, OpenBLAS) come in two ABI flavors: 32-bit integers (LP64) or 64-bit integers (ILP64)
-- LP64 is limited by the integer overflow (N~46000).
-- 2.0 brings complete and robust ILP64 support, where it is safe to mix LP64 and ILP64 libraries in the same env
+- LP64 is limited by the integer overflow (N ~46000).
+- 2.0 brings complete and robust ILP64 support
+  - safe to mix LP64 and ILP64 libraries in the same env
 - This can be enabled when building from source
-- https://scipy.github.io/devdocs/dev/building/blas_lapack.html
+- See the [BLAS and LAPACK building from source guide](https://scipy.github.io/devdocs/dev/building/blas_lapack.html)
 <p class="text-sm mt-4">Credit: Evgeni Burovski</p>
 
 ---
 
 # 2. Linear algebra batching support
 
-TODO
-- ...
+- Batching: pass in a 'batch' of many inputs, return result for all of them
+- Enables parallelisation in many cases
+
+```python
+> i = np.arange(1, 4).reshape(-1, 1, 1)
+> batch = i * np.eye(3)
+> scipy.linalg.det(batch)
+array([ 1.,  8., 27.])
+```
+
+- Many `scipy.linalg` kernels have now gained native batch support at the C level, replacing Python-level loops
+- See [the Batched Linear Operations tutorial](https://scipy.github.io/devdocs/tutorial/linalg_batch.html) for usage guidance
 
 ---
 
 # 3. Deprecations across minor versions
 
 - The ability to make a major release that isn't *hugely* breaking comes from significant work on incremental, smaller deprecations across minor versions
-- TODO: summarise work
+- Our policy for medium-sized breaks:
+  - announce deprecation and emit `DeprecationWarning`s
+  - make the breaking change after 2 minor releases (1 year)
 - See [the deprecation tracker](https://github.com/scipy/scipy/issues/15765)
 
 ---
@@ -309,11 +393,30 @@ TODO
 # 4. Build system / developer experience
 
 - Build system moved from `setuptools` to `meson`
-- Improved code vendoring practices ([tracker](https://github.com/scipy/scipy/issues/21232))
+- Improved code vendoring practices (see [the vendored code tracker](https://github.com/scipy/scipy/issues/21232))
 - A Pixi workspace serves the needs of development across many environments
-- TODO: show a `pixi task list` excerpt
 
-<img src="/sci-paxton.png" alt="Paxton, the Pixi mascot, holding two bubbling lab flasks" class="absolute" style="right: var(--prefix-slide-padding-inline); bottom: var(--prefix-slide-padding-bottom); height: 13rem" />
+<div class="flex justify-between items-center gap-8">
+<div style="width: fit-content">
+
+```console
+scipy on 🎋 main is 📦 v2.0.0.dev0 via 🐍 via 🧚 v0.84.2
+❯ pixi task list # just a small excerpt!
+Task                          Description
+build                         Build SciPy (default settings)
+docs                          Build the documentation
+ipython                       Launch IPython
+lint                          Run main lint checks
+test                          Test SciPy (default settings)
+test-freethreading            Test SciPy (freethreaded Python)
+test-torch-cuda               Test with PyTorch on CUDA
+```
+
+</div>
+
+<img src="/sci-paxton.png" alt="Paxton, the Pixi mascot, holding two bubbling lab flasks" class="shrink-0" style="height: 13rem" />
+
+</div>
 
 ---
 
@@ -332,13 +435,14 @@ TODO
 - Support for emergent platforms: RISC-V, WASM, Android/iOS
 - Support for [Python limited API](https://docs.python.org/3/c-api/stable.html#limited-c-api) / [stable ABI](https://github.com/scipy/scipy/issues/23791)?
 
+
 ---
 
 # SciPy 3.0?
 
 - *SciPy 3.0 might not take so long to come around!*
-- Putting off all major breakages for up to a decade then breaking a lot in one go (like NumPy 2.0) doesn't seem like a great habit
-- Some of us would like to move towards more frequent but smaller major releases that contain significant (*but justified!*) breakages
+- Putting off all major breakages for up to a decade, then breaking ~a lot in one go (like NumPy 2.0), doesn't seem like a great habit
+- We may want to move towards more frequent but smaller major releases that contain significant (*but justified!*) breakages
 
 ---
 
