@@ -177,8 +177,11 @@ label: Part 2
 
 # 1. Array API Standard support
 
-- ...
-- https://discuss.scientific-python.org/t/making-array-types-support-public-scipy-2-0/2355/37
+TODO
+- key points from my talk
+- key points from Evgeni's slides
+- key points from https://discuss.scientific-python.org/t/making-array-types-support-public-scipy-2-0/2355/37
+  - including 'why 2.0 now?'
 - coverage
 - (xp-bench-plots.png)
 - for more info: [My PyData Paris 2025 talk](https://lucascolley.github.io/talks/pydata-paris-25-array-api/)
@@ -187,7 +190,7 @@ label: Part 2
 
 # 2. Sparse matrices -> arrays
 
-- `scipy.sparse.spmatrix` (used like `numpy.matrix`) deprecated in 2.0
+- `scipy.sparse.spmatrix` (used like `numpy.matrix`) is deprecated in 2.0
 - Replacement: `scipy.sparse.sparray` classes, like `scipy.sparse.csr_array`
   - used like `numpy.ndarray` instead, close to the array API
 - No longer just 2-D
@@ -241,22 +244,23 @@ SciPy source lines of code by language, since 1.0
 
 # 4. New-style probability distributions
 
-...
 - TODO: transition guide
 
 ---
 
 # 5. `stats.mstats` -> MArray
 
-- the `scipy.stats.mstats` module is deprecated in 2.0 and slated for removal in 2.4
-- this module replicated some `scipy.stats` for [`numpy.ma` masked arrays](https://numpy.org/doc/stable/reference/maskedarray.generic.html)
-- now recommended to use [MArray](https://mdhaber.github.io/marray/tutorial.html), which is supported in `scipy.stats` functions themselves via the array API
-- see [the latest guidance on working with missing data](https://scipy.github.io/devdocs/tutorial/stats/missing_data.html)
+- The `scipy.stats.mstats` module is deprecated in 2.0
+- This module replicated some of `scipy.stats` for [`numpy.ma` masked arrays](https://numpy.org/doc/stable/reference/maskedarray.generic.html)
+- Now recommended to use [MArray](https://mdhaber.github.io/marray/tutorial.html) with `scipy.stats` functions themselves
+  - support achieved via the array API standard
+- See [the tutorial page on working with missing data](https://scipy.github.io/devdocs/tutorial/stats/missing_data.html)
 
 ---
 
 # Ecosystem impact
 
+TODO
 - what does this mean for downstream projects?
 - what might break / what changes might be needed?
 - what opportunities are created?
@@ -272,39 +276,42 @@ label: Part 3
 
 # What we didn't cover
 
-- Some quick honourable mentions...
+- Four quick honourable mentions...
 
 ---
 
-# ILP64 BLAS/LAPACK support
+# 1. ILP64 BLAS/LAPACK support
 
 - Low-level LAPACK providers (MKL, Accelerate, OpenBLAS) come in two ABI flavors: 32-bit integers (LP64) or 64-bit integers (ILP64)
 - LP64 is limited by the integer overflow (N~46000).
 - 2.0 brings complete and robust ILP64 support, where it is safe to mix LP64 and ILP64 libraries in the same env
-- this can be enabled when building from source
+- This can be enabled when building from source
 - https://scipy.github.io/devdocs/dev/building/blas_lapack.html
 <p class="text-sm mt-4">Credit: Evgeni Burovski</p>
 
 ---
 
-# Linear algebra batching support
+# 2. Linear algebra batching support
 
-...
+TODO
+- ...
 
 ---
 
-# Deprecations across minor versions
+# 3. Deprecations across minor versions
 
 - The ability to make a major release that isn't *hugely* breaking comes from significant work on incremental, smaller deprecations across minor versions
-- ... [tracker](https://github.com/scipy/scipy/issues/15765)
+- TODO: summarise work
+- See [the deprecation tracker](https://github.com/scipy/scipy/issues/15765)
 
 ---
 
-# Build system / developer experience
+# 4. Build system / developer experience
 
 - Build system moved from `setuptools` to `meson`
 - Improved code vendoring practices ([tracker](https://github.com/scipy/scipy/issues/21232))
 - A Pixi workspace serves the needs of development across many environments
+- TODO: show a `pixi task list` excerpt
 
 <img src="/sci-paxton.png" alt="Paxton, the Pixi mascot, holding two bubbling lab flasks" class="absolute" style="right: var(--prefix-slide-padding-inline); bottom: var(--prefix-slide-padding-bottom); height: 13rem" />
 
@@ -321,7 +328,7 @@ label: Part 3
 
 # For future versions
 
-- More array API coverage (including JIT)
+- More array API coverage (+ experimenting with `jax.jit` & `torch.compile`)
 - Support for emergent platforms: RISC-V, WASM, Android/iOS
 - Support for [Python limited API](https://docs.python.org/3/c-api/stable.html#limited-c-api) / [stable ABI](https://github.com/scipy/scipy/issues/23791)?
 
@@ -331,7 +338,7 @@ label: Part 3
 
 - *SciPy 3.0 might not take so long to come around!*
 - Putting off all major breakages for up to a decade then breaking a lot in one go (like NumPy 2.0) doesn't seem like a great habit
-- Tentatively, we would like to move towards more frequent but smaller major releases that contain significant (*but justified!*) breakages
+- Some of us would like to move towards more frequent but smaller major releases that contain significant (*but justified!*) breakages
 
 ---
 
