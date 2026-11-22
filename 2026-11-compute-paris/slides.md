@@ -354,19 +354,28 @@ label: Part 3
 # 1. ILP64 BLAS/LAPACK support
 
 - Low-level LAPACK providers (MKL, Accelerate, OpenBLAS) come in two ABI flavors: 32-bit integers (LP64) or 64-bit integers (ILP64)
-- LP64 is limited by the integer overflow (N~46000).
-- 2.0 brings complete and robust ILP64 support, where it is safe to mix LP64 and ILP64 libraries in the same env
+- LP64 is limited by the integer overflow (N ~46000).
+- 2.0 brings complete and robust ILP64 support
+  - safe to mix LP64 and ILP64 libraries in the same env
 - This can be enabled when building from source
-- https://scipy.github.io/devdocs/dev/building/blas_lapack.html
+- See the [BLAS and LAPACK building from source guide](https://scipy.github.io/devdocs/dev/building/blas_lapack.html)
 <p class="text-sm mt-4">Credit: Evgeni Burovski</p>
 
 ---
 
 # 2. Linear algebra batching support
 
-TODO
+- Batching: pass in a 'batch' of many inputs, return result for all of them
+- Enables parallelisation in many cases
+
+```python
+> i = np.arange(1, 4).reshape(-1, 1, 1)
+> batch = i * np.eye(3)
+> scipy.linalg.det(batch)
+array([ 1.,  8., 27.])
+```
+
 - Many `scipy.linalg` kernels have now gained native batch support at the C level, replacing Python-level loops
-- `scipy.sparse.linalg.LinearOperator` also (see [my EuroSciPy 2026 talk](https://lucascolley.github.io/talks/euroscipy-26-linop/))
 - See [the Batched Linear Operations tutorial](https://scipy.github.io/devdocs/tutorial/linalg_batch.html) for usage guidance
 
 ---
@@ -384,7 +393,7 @@ TODO
 # 4. Build system / developer experience
 
 - Build system moved from `setuptools` to `meson`
-- Improved code vendoring practices (see the [vendored code tracker](https://github.com/scipy/scipy/issues/21232))
+- Improved code vendoring practices (see [the vendored code tracker](https://github.com/scipy/scipy/issues/21232))
 - A Pixi workspace serves the needs of development across many environments
 
 <div class="flex justify-between items-center gap-8">
