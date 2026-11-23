@@ -143,7 +143,6 @@ label: Part 1
 - Support for ARM CPU platforms + Apple's Accelerate BLAS/LAPACK
 - New modules: `differentiate`, `fft`, `optimize.cython_optimize`, `optimize.elementwise`, `spatial.transform`, `stats.qmc`, `stats.sampling`
 - [HiGHS](https://highs.dev/) solvers for `optimize.linprog`
-- [Boost.Math](https://www.boost.org/library/latest/math/) library backing `special` and `stats`
 - New docs theme + interactive examples
 - *Many, many* new functions, classes, and methods!
 
@@ -173,7 +172,6 @@ label: Part 2
 
 # 1. Array API Standard support (1/4) 
 
-- Much of SciPy now supports any array type that implements the Python array API standard, where previously only NumPy arrays were supported
 - TLDR: you can pass `torch`, `cupy`, `jax` arrays (and more) to `scipy` itself
 - This opens the door to:
   - GPU support (and other devices)
@@ -188,10 +186,8 @@ label: Part 2
 
 - Star of the show for 2.0 — the largest feature we have shipped since 1.0
 - Could be very breaking for undocumented/untested inputs:
-  - `numpy.matrix`, Pandas DataFrames, PyTorch tensors
+  - `numpy.matrix`, Pandas DataFrames, other array libraries
   - things may have 'accidentally' worked a certain way in the past
-  - now we aim for either deliberate support or explicit rejection
-- Until now, has been hidden behind experimental mode (`SCIPY_ARRAY_API=1`)
 - Allows downstream libraries like `scikit-learn` to follow
 
 ---
@@ -269,7 +265,7 @@ SciPy source lines of code by language, since 1.0
   - Build system problems
     - ['Why SciPy builds for Python 3.12 on Windows are a minor miracle'](https://labs.quansight.org/blog/building-scipy-with-flang) blog post
   - Fortran-C interface boilerplate
-- Converting to modernised Fortran was an alternative option, <br>but was judged to be a riskier path given uncertainty regarding maintainer expertise and compiler toolchains
+- Converting to modern Fortran was considered a riskier path
 
 ---
 
@@ -342,8 +338,6 @@ plt.show()
 
 </div>
 
-- New methods: `ilogcdf`, `ilogccdf`, `logentropy`, `mode`, `skewness`, `kurtosis`
-
 ---
 
 # 5. `stats.mstats` -> MArray
@@ -351,15 +345,14 @@ plt.show()
 - The `scipy.stats.mstats` module is deprecated in 2.0
   - This module replicated some of `scipy.stats` for [`numpy.ma` masked arrays](https://numpy.org/doc/stable/reference/maskedarray.generic.html)
 - Now recommended to use [MArray](https://mdhaber.github.io/marray/tutorial.html) with `scipy.stats` functions themselves
-  - support achieved via the array API standard
+  - adds mask support to any array API standard namespace
 - See [the tutorial page on working with missing data](https://scipy.github.io/devdocs/tutorial/stats/missing_data.html)
 
 ---
 
 # Ecosystem impact
 
-- If you use `numpy.matrix`: migrate to `numpy.ndarray`
-- If you relied on undocumented behaviour for types like PyTorch tensors:<br>expect breakage
+- If you rely on undocumented input types: migrate to arrays
 - If you use sparse matrices: migrate to sparse arrays
 - If you use old stats distributions: try migrating to new distributions
 - If you use `mstats`: migrate to `MArray`
