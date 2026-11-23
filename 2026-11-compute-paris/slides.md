@@ -202,7 +202,7 @@ label: Part 2
 
 <img src="/xp-bench-plots-row.png" alt="Three side-by-side log-log plots of speed-up versus NumPy against NumPy execution time for scipy.stats.skew, scipy.signal.welch and scipy.spatial.transform.Rotation.mean, comparing PyTorch CPU/GPU, JAX CPU/GPU with JIT and CuPy: GPU backends reach roughly 100x to 10,000x speed-ups at large input sizes" class="w-full mt-2" />
 
-<p class="text-sm mt-4">Credit: Jake Bowhay, Matt Haberland, Florian Bourgey, Tyler Reddy</p>
+<p class="text-sm mt-4">Credit: Jake Bowhay, Matt Haberland, Florian Bourgey, Martin Schuck, Tyler Reddy</p>
 
 ---
 
