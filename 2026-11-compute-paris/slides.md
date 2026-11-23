@@ -12,12 +12,6 @@ themeConfig:
   primary: "#001d38"
 title: The road(map) towards SciPy 2.0
 occasion: Compute! Paris 2026
----
-
-# <span class="cover-title-lead">WORK IN PROGRESS</span>
-
----
-layout: cover
 eyebrow: Compute! Paris 2026
 speaker: Lucas Colley
 image: /scipy.svg
@@ -177,16 +171,51 @@ label: Part 2
 
 ---
 
-# 1. Array API Standard support
+# 1. Array API Standard support (1/4) 
 
-TODO
-- key points from my talk
-- key points from Evgeni's slides
-- key points from https://discuss.scientific-python.org/t/making-array-types-support-public-scipy-2-0/2355/37
-  - including 'why 2.0 now?'
-- coverage
-- (xp-bench-plots.png)
-- for more info: [My PyData Paris 2025 talk](https://lucascolley.github.io/talks/pydata-paris-25-array-api/)
+- Much of SciPy now supports any array type that implements the Python array API standard, where previously only NumPy arrays were supported
+- TLDR: you can pass `torch`, `cupy`, `jax` arrays (and more) to `scipy` itself
+- This opens the door to:
+  - GPU support (and other devices)
+  - Just-In-Time compilation techniques
+  - interoperability with libraries for other array types
+
+- For a detailed introduction: see [my PyData Paris 2025 talk](https://www.youtube.com/watch?v=LBVzkCSmjsQ)
+
+---
+
+# 1. Array API Standard support (2/4)
+
+- Star of the show for 2.0 — the largest feature we have shipped since 1.0
+- Could be very breaking for undocumented/untested inputs:
+  - `numpy.matrix`, Pandas DataFrames, PyTorch tensors
+  - things may have 'accidentally' worked a certain way in the past
+  - now we aim for either deliberate support or explicit rejection
+- Until now, has been hidden behind experimental mode (`SCIPY_ARRAY_API=1`)
+- Allows downstream libraries like `scikit-learn` to follow
+
+---
+
+# 1. Array API Standard support (3/4)
+
+- Unlocks previously unachievable performance:
+
+<img src="/xp-bench-plots-row.png" alt="Three side-by-side log-log plots of speed-up versus NumPy against NumPy execution time for scipy.stats.skew, scipy.signal.welch and scipy.spatial.transform.Rotation.mean, comparing PyTorch CPU/GPU, JAX CPU/GPU with JIT and CuPy: GPU backends reach roughly 100x to 10,000x speed-ups at large input sizes" class="w-full mt-2" />
+
+<p class="text-sm mt-4">Credit: Jake Bowhay, Matt Haberland, Florian Bourgey, Tyler Reddy</p>
+
+---
+
+# 1. Array API Standard support (4/4)
+
+- Not 100% coverage yet
+  - Python code -> often easy-ish to convert
+  - Compiled code -> may need to go via NumPy, <br>or delegate to known implementations
+
+- Browse the [coverage tables](https://scipy.github.io/devdocs/reference/array_api.html) to see the <br>API surface supported for CPU/GPU/JIT <br>per library
+  - let us know what you are missing!
+
+<img src="/coverage.png" alt="Table of SciPy array API support on CPU per module for torch, jax and dask: e.g. cluster.vq, constants and ndimage at 100%, integrate around 21 to 37%, linalg around 3%" class="absolute rounded-lg" style="right: var(--prefix-slide-padding-inline); bottom: var(--prefix-slide-padding-bottom); height: 18rem" />
 
 ---
 
@@ -250,7 +279,7 @@ SciPy source lines of code by language, since 1.0
   - `amos`, `cephes`, `CDFLIB`, `SPECFUN`
 - Translations -> C -> C++ are now developed in the separate [`scipy/xsf`](https://github.com/scipy/xsf) project
   - parts of `xsf` support conditional compilation for CUDA devices
-- Boost.Math now backs many functions too
+- Boost.Math (C++ library) now backs many functions too
 
 ---
 
@@ -329,6 +358,7 @@ plt.show()
 
 # Ecosystem impact
 
+- If you use `numpy.matrix`: migrate to `numpy.ndarray`
 - If you relied on undocumented behaviour for types like PyTorch tensors:<br>expect breakage
 - If you use sparse matrices: migrate to sparse arrays
 - If you use old stats distributions: try migrating to new distributions
